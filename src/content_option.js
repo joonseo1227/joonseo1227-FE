@@ -80,7 +80,7 @@ const services = [
 const dataportfolio = [
     {
         img: new URL('./assets/images/ChallengeOne.jpg', import.meta.url).href,
-        description: "목표 성취 플랫폼",
+        description: "Challenge One",
         link: "https://github.com/joonseo1227/challengeone",
     },
     {
@@ -95,7 +95,7 @@ const dataportfolio = [
     },
     {
         img: new URL('./assets/images/MetaGachon.jpg', import.meta.url).href,
-        description: "가천대학교 AI·소프트웨어학부 통합 예약 시스템",
+        description: "Meta Gachon",
         link: "",
     },
     {
@@ -110,7 +110,7 @@ const dataportfolio = [
     },
     {
         img: new URL('./assets/images/FilmChoice.jpg', import.meta.url).href,
-        description: "영화 정보 웹사이트",
+        description: "FilmChoice",
         link: "https://github.com/joonseo1227/filmchoice",
     },
 ];

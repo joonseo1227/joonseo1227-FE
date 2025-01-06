@@ -25,10 +25,9 @@ export const Portfolio = () => {
                         return (
                             <div key={i} className="po_item">
                                 <img src={data.img} alt=""/>
-                                {/* description과 link가 모두 없을 때 content 렌더링 안 함 */}
                                 {(data.description || data.link) && (
                                     <div className="content">
-                                        {data.description && <p>{data.description}</p>}
+                                        {data.description && <p className="mb-0">{data.description}</p>}
                                         {data.link && <a href={data.link}>View project</a>}
                                     </div>
                                 )}
