@@ -1,5 +1,3 @@
-import imgSrc from '../public/images/IMG_6434.jpg';
-
 const logotext = "joonseo1227";
 
 const meta = {
@@ -15,7 +13,7 @@ const introdata = {
         third: "작은 디테일로<br/>큰 가치를 만듭니다.",
     },
     description: "디자인과 기술의 조화를 추구하는 프론트엔드 개발자입니다.\nUI/UX를 기반으로 사용자 중심의 경험을 창조합니다.",
-    your_img_url: imgSrc,
+    your_img_url: "/images/IMG_6434.jpg",
 };
 
 const dataabout = {
@@ -81,7 +79,7 @@ const services = [
 
 const dataportfolio = [
     {
-        img: "../public/images/ChallengeOne.jpg",
+        img: "/images/ChallengeOne.jpg",
         description: "목표 성취 플랫폼",
         link: "https://github.com/joonseo1227/challengeone",
     },
@@ -96,7 +94,7 @@ const dataportfolio = [
         link: "",
     },
     {
-        img: "../public/images/MetaGachon.jpg",
+        img: "/images/MetaGachon.jpg",
         description: "가천대학교 AI·소프트웨어학부 통합 예약 시스템",
         link: "",
     },
@@ -111,7 +109,7 @@ const dataportfolio = [
         link: "",
     },
     {
-        img: "../public/images/FilmChoice.jpg",
+        img: "/images/FilmChoice.jpg",
         description: "영화 정보 웹사이트",
         link: "https://github.com/joonseo1227/filmchoice",
     },
