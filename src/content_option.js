@@ -13,7 +13,7 @@ const introdata = {
         third: "작은 디테일로<br/>큰 가치를 만듭니다.",
     },
     description: "디자인과 기술의 조화를 추구하는 프론트엔드 개발자입니다.\nUI/UX를 기반으로 사용자 중심의 경험을 창조합니다.",
-    your_img_url: "/images/IMG_6434.jpg",
+    your_img_url: new URL('./assets/images/IMG_6434.jpg', import.meta.url).href,
 };
 
 const dataabout = {
@@ -79,7 +79,7 @@ const services = [
 
 const dataportfolio = [
     {
-        img: "/images/ChallengeOne.jpg",
+        img: new URL('./assets/images/ChallengeOne.jpg', import.meta.url).href,
         description: "목표 성취 플랫폼",
         link: "https://github.com/joonseo1227/challengeone",
     },
@@ -94,7 +94,7 @@ const dataportfolio = [
         link: "",
     },
     {
-        img: "/images/MetaGachon.jpg",
+        img: new URL('./assets/images/MetaGachon.jpg', import.meta.url).href,
         description: "가천대학교 AI·소프트웨어학부 통합 예약 시스템",
         link: "",
     },
@@ -109,7 +109,7 @@ const dataportfolio = [
         link: "",
     },
     {
-        img: "/images/FilmChoice.jpg",
+        img: new URL('./assets/images/FilmChoice.jpg', import.meta.url).href,
         description: "영화 정보 웹사이트",
         link: "https://github.com/joonseo1227/filmchoice",
     },
