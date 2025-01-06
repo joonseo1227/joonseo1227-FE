@@ -58,7 +58,6 @@
 
 /* .po_item .content a: 오버레이 안의 링크 스타일 */
 .po_item .content a {
-    background: var(--bg-color); /* 배경색 설정 */
     color: var(--text-color);
     border: solid 1px var(--text-color); /* 테두리 설정 */
     margin-top: 16px;
