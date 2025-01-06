@@ -1,0 +1,119 @@
+@font-face {
+    font-family: "NanumSquareNeo";
+    font-style: normal;
+    font-weight: 300;
+    src: url(./assets/fonts/NanumSquareNeoTTF-aLt.woff2) format("woff2");
+}
+
+@font-face {
+    font-family: "NanumSquareNeo";
+    font-style: normal;
+    font-weight: 400;
+    src: url(./assets/fonts/NanumSquareNeoTTF-bRg.woff2) format("woff2");
+}
+
+@font-face {
+    font-family: "NanumSquareNeo";
+    font-style: normal;
+    font-weight: 500;
+    src: url(./assets/fonts/NanumSquareNeoTTF-cBd.woff2) format("woff2");
+}
+
+@font-face {
+    font-family: "NanumSquareNeo";
+    font-style: normal;
+    font-weight: 600;
+    src: url(./assets/fonts/NanumSquareNeoTTF-dEb.woff2) format("woff2");
+}
+
+@font-face {
+    font-family: "NanumSquareNeo";
+    font-style: normal;
+    font-weight: 700;
+    src: url(./assets/fonts/NanumSquareNeoTTF-eHv.woff2) format("woff2");
+}
+
+:root {
+    --bg-color: #0c0c0c;
+    --primary-color: #0d0d0d;
+    --secondary-color: #fff;
+    --text-color: #fff;
+    --text-color-2: #fff;
+    --text-color-3: #486966;
+    --overlay-color: rgb(12 12 12 / 63%);
+}
+
+[data-theme="light"] {
+    --bg-color: #ffffff;
+    --primary-color: #ffffff;
+    --secondary-color: #000;
+    --text-color: #000;
+    --text-color-2: #000;
+    --text-color-3: #889C9B;
+    --overlay-color: rgb(255 255 255 / 70%);
+}
+
+html,
+body {
+    height: auto;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: visible;
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
+    font-family: 'NanumSquareNeo', system-ui;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    padding-top: 60px;
+    border-left: 10px solid var(--primary-color);
+    border-right: 10px solid var(--primary-color);
+}
+
+ul {
+    list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "NanumSquareNeo", system-ui;
+}
+
+a,
+a:hover {
+    color: var(--text-color);
+}
+
+p {
+    word-break: auto-phrase;
+    hyphens: auto;
+    white-space: pre-wrap;
+}
+
+.ovhidden {
+    overflow: hidden;
+}
+
+.text_2,
+.text_2:hover {
+    color: var(--text-color-2);
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.color_pr {
+    color: var(--primary-color) !important;
+}
+
+.color_sec {
+    color: var(--secondary-color);
+}
