@@ -1,80 +1,86 @@
-.po_items_ho {
-    column-width: 15em;
-    -moz-column-width: 15em;
-    -webkit-column-width: 15em;
-    column-gap: 4rem;
-    -moz-column-gap: 4rem;
-    -webkit-column-gap: 4rem;
+/* .po_items_ho: 여러 아이템을 열(column)로 배치하기 위한 컨테이너 */
+.po_items {
+    column-width: 15em; /* 열의 기본 너비를 설정 */
+    -moz-column-width: 15em; /* Firefox 전용 열 너비 */
+    -webkit-column-width: 15em; /* Webkit 기반 브라우저 전용 열 너비 */
+    column-gap: 4rem; /* 열 사이의 간격 설정 */
+    -moz-column-gap: 4rem; /* Firefox 전용 열 간격 */
+    -webkit-column-gap: 4rem; /* Webkit 기반 브라우저 전용 열 간격 */
 }
 
+/* .po_item: 개별 아이템의 스타일 */
 .po_item {
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-    margin: 0.5rem auto;
-    position: relative;
-    background: var(--secondary-color);
-    padding: 6px;
-    border: 1px solid var(--secondary-color);
-    transition: 0.3s ease;
-    font-size: 0;
-    min-height: 300px;
+    display: inline-block; /* inline-block으로 열 안에서 블록 요소처럼 배치 */
+    width: 100%; /* 열 너비에 맞게 아이템 크기를 맞춤 */
+    text-align: center; /* 텍스트를 중앙 정렬 */
+    margin: 0.5rem auto; /* 위아래로 0.5rem 간격을 두고 중앙 정렬 */
+    position: relative; /* 자식 요소 위치 설정에 사용 */
+    background: var(--secondary-color); /* 배경색을 CSS 변수로 설정 */
+    padding: 6px; /* 내부 여백 추가 */
+    border: 1px solid var(--secondary-color); /* 테두리 색을 배경색과 동일하게 설정 */
+    transition: 0.3s ease; /* 호버 시 전환 효과 */
+    font-size: 0; /* 내부 요소의 기본 텍스트 숨김 */
 }
 
+/* .po_item img: 아이템 내 이미지 스타일 */
 .po_item img {
-    max-width: 100%;
+    max-width: 100%; /* 이미지가 부모 요소를 넘지 않도록 설정 */
 }
 
+/* .po_item .content: 호버 시 나타나는 오버레이 영역 */
 .po_item .content {
-    position: absolute;
-    height: 0;
-    width: 0;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: var(--overlay-color);
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    transition: 0.3s ease-in-out;
-    opacity: 0;
-    border: 1px solid black;
+    position: absolute; /* 부모 요소를 기준으로 위치 설정 */
+    top: 50%; /* 부모 요소의 수직 중앙에 위치 */
+    left: 50%; /* 부모 요소의 수평 중앙에 위치 */
+    transform: translate(-50%, -50%); /* 중앙 정렬 */
+    background: var(--overlay-color); /* 배경색 설정 */
+    z-index: 1; /* 다른 요소 위에 나타나도록 설정 */
+    display: flex; /* 내부 요소를 플렉스 박스로 배치 */
+    justify-content: center; /* 플렉스 아이템을 수평 중앙 정렬 */
+    flex-direction: column; /* 플렉스 아이템을 세로로 정렬 */
+    align-items: center; /* 플렉스 아이템을 수직 중앙 정렬 */
+    height: 100%; /* 부모 요소 전체 높이 차지 (호버 시) */
+    width: 100%; /* 부모 요소 전체 너비 차지 (호버 시) */
+    transition: 0.3s ease-in-out; /* 전환 효과 */
+    opacity: 0; /* 초기 상태에서 투명하게 설정 */
+    border: 1px solid black; /* 테두리 설정 */
 }
 
+/* 추가 transition 설정 */
 .po_item .content {
-    opacity: 0;
-    transition-delay: 1s;
-    transition: 0.3s ease;
-    font-size: 20px;
+    opacity: 0; /* 초기 상태에서 여전히 투명 */
+    transition-delay: 1s; /* 전환 효과를 1초 지연 */
+    transition: 0.3s ease; /* 전환 효과 속도 */
+    font-size: 20px; /* 텍스트 크기 설정 */
+    backdrop-filter: blur(8px); /* 배경 블러 효과 추가 */
+    -webkit-backdrop-filter: blur(8px); /* Webkit 브라우저용 */
 }
 
+/* .po_item:hover: 아이템에 마우스를 올렸을 때의 효과 */
 .po_item:hover {
-    box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.25); /* 그림자 추가 */
 }
 
+/* .po_item:hover .content: 오버레이 영역이 호버 시 보이는 효과 */
 .po_item:hover .content {
-    height: calc(100% - 30px);
-    width: calc(100% - 30px);
-    opacity: 1;
+    height: calc(100% - 30px); /* 부모 요소의 높이에서 30px 제외 */
+    width: calc(100% - 30px); /* 부모 요소의 너비에서 30px 제외 */
+    opacity: 1; /* 투명도를 1로 설정 (보이도록) */
 }
 
+/* 오버레이가 보일 때의 추가 설정 */
 .po_item:hover .content {
-    opacity: 1;
-    color: var(--secondary-color);
+    opacity: 1; /* 오버레이 보이기 */
+    color: var(--secondary-color); /* 텍스트 색상 변경 */
 }
 
+/* .po_item .content a: 오버레이 안의 링크 스타일 */
 .po_item .content a {
-    background: var(--bg-color);
-    border: solid 1px var(--text-color);
-    padding: 4px 8px;
-    text-align: center;
-    font-size: 1rem;
-}
-
-.po_item .content a:hover {
+    background: var(--bg-color); /* 배경색 설정 */
+    color: var(--text-color);
+    border: solid 1px var(--text-color); /* 테두리 설정 */
+    padding: 4px 8px; /* 내부 여백 설정 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    font-size: 1rem; /* 텍스트 크기 */
     text-decoration: none;
 }

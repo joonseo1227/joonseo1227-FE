@@ -21,7 +21,6 @@ export const Home = () => {
                     <div className="text order-2 order-lg-1 h-100 d-lg-flex justify-content-center">
                         <div className="align-self-center ">
                             <div className="intro mx-auto">
-                                {/*<h2 className="mb-1x text-start">{introdata.title}</h2>*/}
                                 <h1 className="fluidz-48 mb-1x text-start">
                                     <Typewriter
                                         options={{

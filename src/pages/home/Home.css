@@ -7,10 +7,6 @@ section {
     transition: all .5s ease-in;
 }
 
-.who_am_I {
-    font-family: Cinzel;
-}
-
 .has-first-color {
     color: var(--primary-color);
 }
