@@ -1,4 +1,4 @@
-import imgSrc from '../public/images/IMG_6434.JPG';
+import imgSrc from '../public/images/IMG_6434.jpg';
 
 const logotext = "joonseo1227";
 
