@@ -15,9 +15,8 @@
     text-align: center; /* 텍스트를 중앙 정렬 */
     margin: 0.5rem auto; /* 위아래로 0.5rem 간격을 두고 중앙 정렬 */
     position: relative; /* 자식 요소 위치 설정에 사용 */
-    background: var(--secondary-color); /* 배경색을 CSS 변수로 설정 */
+    background: var(--text-color); /* 배경색을 CSS 변수로 설정 */
     padding: 6px; /* 내부 여백 추가 */
-    border: 1px solid var(--secondary-color); /* 테두리 색을 배경색과 동일하게 설정 */
     transition: 0.3s ease; /* 호버 시 전환 효과 */
     font-size: 0; /* 내부 요소의 기본 텍스트 숨김 */
 }
@@ -53,7 +52,7 @@
     height: calc(100% - 12px);
     width: calc(100% - 12px);
     opacity: 1; /* 투명도를 1로 설정 (보이도록) */
-    color: var(--secondary-color); /* 텍스트 색상 변경 */
+    color: var(--text-color); /* 텍스트 색상 변경 */
 }
 
 /* .po_item .content a: 오버레이 안의 링크 스타일 */
@@ -65,4 +64,8 @@
     text-align: center; /* 텍스트 중앙 정렬 */
     font-size: 1rem; /* 텍스트 크기 */
     text-decoration: none;
+}
+
+.po_item .content a:hover {
+    text-decoration: underline;
 }

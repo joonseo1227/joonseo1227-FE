@@ -81,7 +81,6 @@ export const ContactUs = () => {
                 <Row className="sec_sp">
                     <Col lg="12">
                         <Alert
-                            //show={formData.show}
                             variant={formData.variant}
                             className={`rounded-0 co_alert ${
                                 formData.show ? "d-block" : "d-none"
@@ -93,7 +92,7 @@ export const ContactUs = () => {
                         </Alert>
                     </Col>
                     <Col lg="5" className="mb-5">
-                        <h3 className="color_sec py-4">Get in touch</h3>
+                        <h3 className="py-4">Get in touch</h3>
                         <address>
                             <strong>Email:</strong>{" "}
                             <a href={`mailto:${contactConfig.YOUR_EMAIL}`}>
