@@ -84,12 +84,7 @@ const dataportfolio = [
         link: "https://github.com/joonseo1227/challengeone",
     },
     {
-        img: "https://picsum.photos/400/500/?grayscale",
-        description: "",
-        link: "",
-    },
-    {
-        img: "https://picsum.photos/400/200/?grayscale",
+        img: new URL('../public/thumbnail.jpg', import.meta.url).href,
         description: "",
         link: "",
     },
@@ -99,12 +94,7 @@ const dataportfolio = [
         link: "",
     },
     {
-        img: "https://picsum.photos/400/400/?grayscale",
-        description: "",
-        link: "",
-    },
-    {
-        img: "https://picsum.photos/400/600/?grayscale",
+        img: new URL('../public/thumbnail.jpg', import.meta.url).href,
         description: "",
         link: "",
     },
@@ -112,6 +102,11 @@ const dataportfolio = [
         img: new URL('./assets/images/FilmChoice.jpg', import.meta.url).href,
         description: "FilmChoice",
         link: "https://github.com/joonseo1227/filmchoice",
+    },
+    {
+        img: new URL('../public/thumbnail.jpg', import.meta.url).href,
+        description: "",
+        link: "",
     },
 ];
 

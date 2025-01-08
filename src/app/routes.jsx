@@ -1,10 +1,10 @@
 import { Route, Routes} from "react-router-dom";
 import withRouter from "../hooks/withRouter"
-import { Home } from "../pages/home/Home.jsx";
-import { Portfolio } from "../pages/portfolio/Portfolio.jsx";
-import { ContactUs } from "../pages/contact/Contact.jsx";
-import { About } from "../pages/about/About.jsx";
-import { Socialicons } from "../components/socialicons/Socialicons.jsx";
+import { Home } from "../pages/Home/Home.jsx";
+import { Portfolio } from "../pages/Portfolio/Portfolio.jsx";
+import { ContactUs } from "../pages/Contact/Contact.jsx";
+import { About } from "../pages/About/About.jsx";
+import { SocialIcons } from "../components/SocialIcons/SocialIcons.jsx";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 const AnimatedRoutes = withRouter(({ location }) => (
@@ -33,7 +33,7 @@ function AppRoutes() {
     return (
         <div className="s_c">
             <AnimatedRoutes />
-            <Socialicons />
+            <SocialIcons />
         </div>
     );
 }

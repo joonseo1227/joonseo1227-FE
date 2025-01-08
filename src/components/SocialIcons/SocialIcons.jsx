@@ -1,4 +1,4 @@
-import "./Socialicons.css";
+import "./SocialIcons.css";
 
 import {
     FaGithub,
@@ -27,7 +27,7 @@ const ICON_MAPPING = {
     youtube: FaYoutube
 };
 
-export const Socialicons = () => {
+export const SocialIcons = () => {
     return (
         <div className="stick_follow_icon">
             <ul>
