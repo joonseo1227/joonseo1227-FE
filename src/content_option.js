@@ -84,9 +84,9 @@ const dataportfolio = [
         link: "https://github.com/joonseo1227/challengeone",
     },
     {
-        img: new URL('../public/thumbnail.jpg', import.meta.url).href,
-        description: "",
-        link: "",
+        img: new URL('./assets/images/AutonomousDrivingGarbageCollector.jpg', import.meta.url).href,
+        description: "Autonomous Driving Garbage Collector",
+        link: "https://github.com/joonseo1227/robo_can",
     },
     {
         img: new URL('./assets/images/MetaGachon.jpg', import.meta.url).href,
