@@ -1,0 +1,82 @@
+.blogPage {
+    width: 100%;
+    max-width: 1200px;
+    padding: 16px;
+    margin: 0 auto;
+}
+
+.postList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    padding: 0;
+    list-style: none;
+}
+
+.postTile {
+    border: 1px solid var(--text-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+    background: var(--bg-color);
+}
+
+.postTile:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.postLink {
+    text-decoration: none;
+    color: var(--text-color);
+    display: block;
+    height: 100%;
+}
+
+.postThumbnail {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.postInfo {
+    padding: 16px;
+}
+
+.postInfo p {
+    color: var(--sub-color-3);
+}
+
+.categoryFilter {
+    margin: 20px 0 30px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.categoryBtn {
+    padding: 8px 16px;
+    border: 1px solid var(--text-color);
+    background: none;
+    color: var(--text-color);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.categoryBtn:hover {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+}
+
+.categoryBtn.active {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+}
+
+.noPosts {
+    text-align: center;
+    padding: 40px;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}

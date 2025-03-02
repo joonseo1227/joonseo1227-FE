@@ -1,0 +1,114 @@
+.aboutPage {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.titleText {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* 섹션 간격 조정 */
+.section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 80px;
+    gap: 20px;
+}
+
+.leftColumn {
+    flex: 0 0 40%;
+    min-width: 250px;
+}
+
+.rightColumn {
+    flex: 0 0 60%;
+    min-width: 300px;
+}
+
+
+/* 제목 스타일 */
+.subtitleText {
+    font-size: 48px;
+    font-weight: 500;
+    margin-top: 0;
+}
+
+/* 소개글 스타일 */
+.aboutMeText {
+    font-size: 20px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* 테이블 스타일 */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table td,
+.table th {
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    border-bottom: solid 1px var(--text-color);
+}
+
+.table td,
+.table th {
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    border-bottom: solid 1px var(--sub-color-6);
+    padding: 12px 16px;
+    text-align: left;
+}
+
+
+.table tr:last-child td,
+.table tr:last-child th {
+    border-bottom: none;
+}
+
+/* 스킬 섹션 스타일 */
+.skillsText {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 15px 0 20px;
+    font-family: 'NanumSquareNeo', system-ui;
+}
+
+
+/* 서비스 섹션 스타일 */
+.service {
+    margin-bottom: 32px;
+}
+
+.serviceTitle {
+    margin-top: 0;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: 'NanumSquareNeo', system-ui;
+    margin-bottom: 8px;
+}
+
+.serviceDesc {
+    margin-bottom: 32px;
+}
+
+@media (max-width: 800px) {
+    .section {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .leftColumn,
+    .rightColumn {
+        flex: 1 1 100%;
+        min-width: 100%;
+        padding-right: 0;
+    }
+}
