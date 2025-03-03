@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import Header from "@/components/Header";
 import {SocialIcons} from "@/components/SocialIcons";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 export const metadata = {
     title: "joonseo1227",
@@ -26,6 +27,7 @@ export default function RootLayout({children}) {
         <html lang="ko">
         <body>
         <Header/>
+        <GoogleAnalytics ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}/>
         {children}
         <SocialIcons/>
         </body>
