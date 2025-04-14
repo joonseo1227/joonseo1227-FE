@@ -66,7 +66,7 @@ export default function PortfolioProjectPage({params}) {
                 <div>
                     <p className={styles.jobText}>{project.job}</p>
                     <p className={styles.periodText}>
-                        {new Date(project.start_date).toLocaleDateString()} -
+                        {new Date(project.start_date).toLocaleDateString()} -&nbsp;
                         {project.end_date ? new Date(project.end_date).toLocaleDateString() : '진행중'}
                     </p>
                     <p className={styles.techText}>{project.tech}</p>
