@@ -2,7 +2,7 @@ import styles from '@/styles/pages/AboutPage.module.css';
 
 const about = {
     title: "About my self",
-    aboutme: "디자인과 기술의 조화를 추구하는 프론트엔드 개발자입니다. UI/UX를 기반으로 사용자 중심의 경험을 창조합니다.",
+    aboutme: "사용자 중심의 경험 설계를 지향하는 프론트엔드 개발자 정준서입니다. 실제 서비스에서 요구되는 안정성, 확장성, 성능 최적화까지 고려한 개발을 지향하며, UI의 섬세함과 기능 구현의 완성도를 함께 추구합니다. ‘왜 이 인터페이스여야 하는가’를 끊임없이 고민하고, 협업을 통해 더 나은 제품을 만드는 것에 열정을 가지고 있습니다.",
 };
 
 const worktimeline = [

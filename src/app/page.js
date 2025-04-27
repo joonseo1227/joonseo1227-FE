@@ -7,9 +7,8 @@ export default function HomePage() {
             <div className={styles.leftSection}>
                 <div className={styles.content}>
                     <h1 className={styles.title}>
-                        안녕하세요. 프론트엔드 개발자 정준서입니다.
+                        사용자 중심의 경험을 설계하는 프론트엔드 개발자 정준서입니다.
                     </h1>
-                    <p>작은 디테일로 큰 가치를 만드는 프론트엔드 개발자입니다. UI/UX를 기반으로 사용자 중심의 경험을 창조합니다.</p>
                     <div className={styles.buttons}>
                         <Link href="/portfolio" className={styles.button}>
                             My Portfolio
