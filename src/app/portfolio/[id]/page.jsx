@@ -17,102 +17,154 @@ export default function PortfolioProjectPage({params}) {
     const [activeImageIndex, setActiveImageIndex] = useState(0);
     const [showNavigationOnMobile, setShowNavigationOnMobile] = useState(false);
 
-    // Touch swipe functionality
-    const galleryRef = useRef(null);
+    // Refs for the image slider
     const sliderRef = useRef(null);
-    const [touchStart, setTouchStart] = useState(null);
-    const [touchEnd, setTouchEnd] = useState(null);
-    const [isDragging, setIsDragging] = useState(false);
-    const [dragOffset, setDragOffset] = useState(0);
 
-    // Handle touch events for swipe functionality
+    // Swipe state management
+    const [swipeState, setSwipeState] = useState({
+        isSwiping: false,
+        startX: 0,
+        currentX: 0,
+        startTime: 0
+    });
+
+    // Animation state
+    const [isAnimating, setIsAnimating] = useState(false);
+
+    // Get the total number of images
+    const imageCount = project?.project_images?.length || 0;
+
+    // Function to go to a specific image index with animation
+    const goToImage = (index) => {
+        if (isAnimating || !sliderRef.current || imageCount <= 1) return;
+
+        // Ensure the index is within bounds
+        const targetIndex = (index + imageCount) % imageCount;
+
+        // Set animating state to prevent multiple transitions
+        setIsAnimating(true);
+
+        // Apply the transition
+        sliderRef.current.style.transition = 'transform 0.3s ease';
+        sliderRef.current.style.transform = `translateX(-${targetIndex * 100}%)`;
+
+        // Update the state after animation completes
+        setTimeout(() => {
+            setActiveImageIndex(targetIndex);
+            setIsAnimating(false);
+            setShowNavigationOnMobile(true);
+        }, 300);
+    };
+
+    // Go to next image
+    const goToNext = () => {
+        goToImage(activeImageIndex + 1);
+    };
+
+    // Go to previous image
+    const goToPrevious = () => {
+        goToImage(activeImageIndex - 1);
+    };
+
+    // Handle touch start
     const handleTouchStart = (e) => {
-        if (!project?.project_images || project.project_images.length <= 1) return;
+        if (imageCount <= 1 || isAnimating) return;
 
-        setIsDragging(true);
-        setTouchStart(e.touches[0].clientX);
-        setTouchEnd(e.touches[0].clientX);
+        // Prevent default to avoid page scrolling
+        e.preventDefault();
 
-        // Remove transition during dragging for immediate response
+        // Capture the start position and time
+        setSwipeState({
+            isSwiping: true,
+            startX: e.touches[0].clientX,
+            currentX: e.touches[0].clientX,
+            startTime: Date.now()
+        });
+
+        // Remove transition for immediate response
         if (sliderRef.current) {
             sliderRef.current.style.transition = 'none';
         }
     };
 
+    // Handle touch move
     const handleTouchMove = (e) => {
-        if (!isDragging || !touchStart) return;
+        if (!swipeState.isSwiping || imageCount <= 1) return;
 
-        const currentTouch = e.touches[0].clientX;
-        setTouchEnd(currentTouch);
+        // Prevent default to stop scrolling while swiping
+        e.preventDefault();
 
-        // Calculate how far we've dragged
-        const currentOffset = currentTouch - touchStart;
-        setDragOffset(currentOffset);
+        const currentX = e.touches[0].clientX;
+        const deltaX = currentX - swipeState.startX;
 
-        // Use requestAnimationFrame for smoother animations
-        requestAnimationFrame(() => {
-            // Apply the transform to move the slider with the finger
-            if (sliderRef.current) {
-                const translateX = -activeImageIndex * 100 + (currentOffset / sliderRef.current.offsetWidth * 100);
-                sliderRef.current.style.transform = `translateX(${translateX}%)`;
-            }
-        });
-    };
+        // Update the current position
+        setSwipeState(prev => ({
+            ...prev,
+            currentX
+        }));
 
-    const handleTouchEnd = () => {
-        if (!isDragging || !touchStart || !touchEnd) return;
-        if (!project?.project_images || project.project_images.length <= 1) return;
+        // Calculate the percentage to move based on container width
+        const containerWidth = sliderRef.current?.offsetWidth || 1;
+        let percentMove = (deltaX / containerWidth) * 100;
 
-        // Restore the transition for smooth animation after release
-        if (sliderRef.current) {
-            sliderRef.current.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)';
+        // Add resistance at the edges
+        if ((activeImageIndex === 0 && deltaX > 0) || 
+            (activeImageIndex === imageCount - 1 && deltaX < 0)) {
+            percentMove = percentMove / 3; // More resistance at the edges
         }
 
-        const distance = touchStart - touchEnd;
-        const threshold = 50; // Minimum distance to trigger a swipe
+        // Apply the transform
+        if (sliderRef.current) {
+            const translateX = -activeImageIndex * 100 + percentMove;
+            sliderRef.current.style.transform = `translateX(${translateX}%)`;
+        }
+    };
 
-        if (Math.abs(distance) > threshold) {
-            let nextIndex;
-            if (distance > 0 && project.project_images.length > 1) {
-                // Swipe left - go to next image
-                nextIndex = activeImageIndex === project.project_images.length - 1 ? 0 : activeImageIndex + 1;
-            } else if (distance < 0 && project.project_images.length > 1) {
-                // Swipe right - go to previous image
-                nextIndex = activeImageIndex === 0 ? project.project_images.length - 1 : activeImageIndex - 1;
-            }
+    // Handle touch end
+    const handleTouchEnd = (e) => {
+        if (!swipeState.isSwiping || imageCount <= 1) return;
 
-            // Apply smooth transition to the next image
-            if (sliderRef.current && nextIndex !== undefined) {
-                sliderRef.current.style.transform = `translateX(-${nextIndex * 100}%)`;
+        // Calculate swipe distance and duration
+        const deltaX = swipeState.currentX - swipeState.startX;
+        const swipeDuration = Date.now() - swipeState.startTime;
 
-                // Update the active index after the animation completes
-                setTimeout(() => {
-                    setActiveImageIndex(nextIndex);
-                    setShowNavigationOnMobile(true);
-                }, 500); // Match the transition duration (0.5s)
+        // Restore the transition for smooth animation
+        if (sliderRef.current) {
+            sliderRef.current.style.transition = 'transform 0.3s ease';
+        }
+
+        // Determine if we should change the image
+        const containerWidth = sliderRef.current?.offsetWidth || 1;
+        const percentMoved = Math.abs(deltaX) / containerWidth;
+        const velocity = Math.abs(deltaX) / swipeDuration;
+
+        if (percentMoved > 0.2 || velocity > 0.5) {
+            // Swipe was significant enough to change image
+            if (deltaX < 0) {
+                goToNext();
+            } else {
+                goToPrevious();
             }
         } else {
-            // If the swipe wasn't far enough, snap back to the current image with smooth animation
+            // Swipe wasn't significant, snap back
             if (sliderRef.current) {
                 sliderRef.current.style.transform = `translateX(-${activeImageIndex * 100}%)`;
             }
         }
 
-        // Reset states
-        setIsDragging(false);
-        setDragOffset(0);
-        setTouchStart(null);
-        setTouchEnd(null);
+        // Reset swipe state
+        setSwipeState({
+            isSwiping: false,
+            startX: 0,
+            currentX: 0,
+            startTime: 0
+        });
     };
 
-    // Effect to update slider position when activeImageIndex changes
-    useEffect(() => {
-        if (sliderRef.current && !isDragging && project?.project_images?.length > 1) {
-            sliderRef.current.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)';
-            sliderRef.current.style.transform = `translateX(-${activeImageIndex * 100}%)`;
-        }
-    }, [activeImageIndex, isDragging, project]);
+    // Handle touch cancel - same as touch end
+    const handleTouchCancel = handleTouchEnd;
 
+    // Fetch project data
     useEffect(() => {
         const fetchProject = async () => {
             try {
@@ -150,22 +202,19 @@ export default function PortfolioProjectPage({params}) {
         fetchProject();
     }, [projectId]);
 
-    // Initialize slider position when project data is loaded
+    // Initialize slider position when project data is loaded or active index changes
     useEffect(() => {
-        if (project && sliderRef.current && project.project_images?.length > 0) {
-            // Short delay to ensure the slider is fully rendered
-            setTimeout(() => {
-                sliderRef.current.style.transition = 'none';
-                sliderRef.current.style.transform = `translateX(-${activeImageIndex * 100}%)`;
-                // Re-enable transitions after initial positioning
-                setTimeout(() => {
-                    if (sliderRef.current) {
-                        sliderRef.current.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)';
-                    }
-                }, 50);
-            }, 0);
+        if (project && sliderRef.current && imageCount > 0 && !swipeState.isSwiping && !isAnimating) {
+            sliderRef.current.style.transition = 'none';
+            sliderRef.current.style.transform = `translateX(-${activeImageIndex * 100}%)`;
+
+            // Force a reflow to ensure the transition is removed before re-enabling
+            sliderRef.current.offsetHeight;
+
+            // Re-enable transitions
+            sliderRef.current.style.transition = 'transform 0.3s ease';
         }
-    }, [project, activeImageIndex]);
+    }, [project, activeImageIndex, imageCount, swipeState.isSwiping, isAnimating]);
 
     // Hide navigation controls on mobile after a timeout
     useEffect(() => {
@@ -209,17 +258,16 @@ export default function PortfolioProjectPage({params}) {
                 {/* Image Gallery/Carousel */}
                 <div
                     className={styles.imageGallery}
-                    ref={galleryRef}
                     onTouchStart={handleTouchStart}
                     onTouchMove={handleTouchMove}
                     onTouchEnd={handleTouchEnd}
+                    onTouchCancel={handleTouchCancel}
                 >
                     {project.project_images && project.project_images.length > 0 ? (
                         <>
                             <div
                                 className={styles.imageSlider}
                                 ref={sliderRef}
-                                style={{transform: `translateX(-${activeImageIndex * 100}%)`}}
                             >
                                 {project.project_images.map((image, index) => (
                                     <div
@@ -244,23 +292,7 @@ export default function PortfolioProjectPage({params}) {
                                     className={`${styles.imageNavigation} ${showNavigationOnMobile ? styles.showNavigation : ''}`}>
                                     <button
                                         className={styles.navButton}
-                                        onClick={() => {
-                                            const nextIndex = activeImageIndex === 0
-                                                ? project.project_images.length - 1
-                                                : activeImageIndex - 1;
-
-                                            // Apply smooth transition
-                                            if (sliderRef.current) {
-                                                sliderRef.current.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)';
-                                                sliderRef.current.style.transform = `translateX(-${nextIndex * 100}%)`;
-
-                                                // Update state after animation completes
-                                                setTimeout(() => {
-                                                    setActiveImageIndex(nextIndex);
-                                                    setShowNavigationOnMobile(true);
-                                                }, 500);
-                                            }
-                                        }}
+                                        onClick={goToPrevious}
                                         aria-label="Previous image"
                                     >
                                         <ChevronLeft/>
@@ -270,23 +302,7 @@ export default function PortfolioProjectPage({params}) {
                                     </div>
                                     <button
                                         className={styles.navButton}
-                                        onClick={() => {
-                                            const nextIndex = activeImageIndex === project.project_images.length - 1
-                                                ? 0
-                                                : activeImageIndex + 1;
-
-                                            // Apply smooth transition
-                                            if (sliderRef.current) {
-                                                sliderRef.current.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)';
-                                                sliderRef.current.style.transform = `translateX(-${nextIndex * 100}%)`;
-
-                                                // Update state after animation completes
-                                                setTimeout(() => {
-                                                    setActiveImageIndex(nextIndex);
-                                                    setShowNavigationOnMobile(true);
-                                                }, 500);
-                                            }
-                                        }}
+                                        onClick={goToNext}
                                         aria-label="Next image"
                                     >
                                         <ChevronRight/>
