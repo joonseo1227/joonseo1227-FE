@@ -1,11 +1,12 @@
 "use client";
 
-import {use, useEffect, useState} from "react";
+import {use, useEffect, useState, useRef} from "react";
 import supabase from "/src/lib/supabase.js";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import styles from '@/styles/pages/BlogPostPage.module.css';
+import TableOfContents from '@/components/TableOfContents';
 
 export default function BlogPostPage({params}) {
     const unwrappedParams = use(params);
@@ -14,6 +15,16 @@ export default function BlogPostPage({params}) {
     const [post, setPost] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    // Create refs for heading counters
+    const headingCounterRef = useRef(0);
+
+    // Reset heading counter when post changes
+    useEffect(() => {
+        if (post) {
+            headingCounterRef.current = 0;
+        }
+    }, [post]);
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -83,13 +94,54 @@ export default function BlogPostPage({params}) {
                 </p>
             </div>
 
-            <div className={styles.postContent}>
-                <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    rehypePlugins={[rehypeRaw]}
-                >
-                    {post.content || "내용이 없습니다."}
-                </ReactMarkdown>
+            <div className={styles.blogPostWrapper}>
+                {/* Mobile TOC - shown only on mobile */}
+                <div className={styles.mobileToc}>
+                    <TableOfContents content={post.content} />
+                </div>
+
+                <div className={styles.postContent} data-testid="post-content">
+                    <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        rehypePlugins={[rehypeRaw]}
+                        components={{
+                            h1: ({node, ...props}) => {
+                                const id = `heading-${headingCounterRef.current++}`;
+                                return <h1 id={id} {...props} />;
+                            },
+                            h2: ({node, ...props}) => {
+                                const id = `heading-${headingCounterRef.current++}`;
+                                return <h2 id={id} {...props} />;
+                            },
+                            h3: ({node, ...props}) => {
+                                const id = `heading-${headingCounterRef.current++}`;
+                                return <h3 id={id} {...props} />;
+                            },
+                            h4: ({node, ...props}) => {
+                                const id = `heading-${headingCounterRef.current++}`;
+                                return <h4 id={id} {...props} />;
+                            },
+                            h5: ({node, ...props}) => {
+                                const id = `heading-${headingCounterRef.current++}`;
+                                return <h5 id={id} {...props} />;
+                            },
+                            h6: ({node, ...props}) => {
+                                const id = `heading-${headingCounterRef.current++}`;
+                                return <h6 id={id} {...props} />;
+                            }
+                        }}
+                    >
+                        {post.content || "내용이 없습니다."}
+                    </ReactMarkdown>
+
+                    {/* Add extra padding at the bottom to ensure last heading can be scrolled to top */}
+                    <div className={styles.bottomPadding}></div>
+                </div>
+
+                {/* Desktop TOC - shown only on desktop */}
+                <div className={styles.desktopToc}>
+                    <TableOfContents content={post.content} />
+                </div>
             </div>
         </div>
     );

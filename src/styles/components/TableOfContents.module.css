@@ -1,0 +1,92 @@
+/* Table of Contents Container */
+.tableOfContents {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* TOC Title */
+.tocTitle {
+    font-size: 18px;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+/* TOC List */
+.tocList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* TOC Items */
+.tocItem {
+    margin-bottom: 4px;
+}
+
+.tocItem a {
+    color: var(--sub-color-4);
+    text-decoration: none;
+    display: block;
+    padding: 4px 0;
+    transition: color 0.1s ease;
+}
+
+.tocItem a:hover {
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+/* Heading levels indentation */
+
+.level2 {
+    padding-left: 8px;
+}
+
+.level3 {
+    padding-left: 16px;
+}
+
+.level4 {
+    padding-left: 24px;
+}
+
+.level5 {
+    padding-left: 32px;
+}
+
+.level6 {
+    padding-left: 48px;
+}
+
+/* Active item highlighting */
+.active a {
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+/* Desktop layout */
+@media (min-width: 1201px) {
+    .tableOfContents {
+        position: fixed;
+        top: 100px;
+        right: calc((100% - 800px) / 2 - 250px);
+        width: 220px;
+        max-height: calc(100vh - 200px);
+        overflow-y: auto;
+        padding-right: 20px;
+    }
+}
+
+/* Mobile layout */
+@media (max-width: 1200px) {
+    .tableOfContents {
+        margin-bottom: 32px;
+        padding: 16px;
+        background-color: var(--surface-color);
+        border-radius: 8px;
+    }
+
+    .tocTitle {
+        margin-bottom: 8px;
+    }
+}

@@ -40,12 +40,37 @@
     opacity: 0.8;
 }
 
+/* Blog post wrapper - contains content and TOC */
+.blogPostWrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Post content */
 .postContent {
     font-size: 18px;
     line-height: 1.8;
     color: var(--text-color);
-    max-width: 800px;
-    margin: 0 auto 32px auto;
+    margin-bottom: 32px;
+    width: 100%;
+}
+
+/* Mobile TOC - only visible on mobile */
+.mobileToc {
+    display: none;
+}
+
+/* Desktop TOC - only visible on desktop */
+.desktopToc {
+    display: block;
+}
+
+/* Bottom padding to ensure last heading can be scrolled to top */
+.bottomPadding {
+    height: 30vh; /* Reduced from 70vh to 30vh to prevent excessive padding */
 }
 
 .postContent h1 {
@@ -128,6 +153,27 @@
     text-decoration: underline;
 }
 
+/* Desktop styles */
+@media (min-width: 1201px) {
+    .blogPostWrapper {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .postContent {
+        max-width: 800px;
+    }
+
+    .mobileToc {
+        display: none;
+    }
+
+    .desktopToc {
+        display: block;
+    }
+}
+
+/* Mobile styles */
 @media (max-width: 1200px) {
     .postHeader {
         padding: 16px 62px 16px 16px;
@@ -139,5 +185,14 @@
 
     .postContent {
         padding: 0 16px;
+    }
+
+    .mobileToc {
+        display: block;
+        margin-bottom: 32px;
+    }
+
+    .desktopToc {
+        display: none;
     }
 }
