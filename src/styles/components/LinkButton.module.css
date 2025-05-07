@@ -1,0 +1,31 @@
+.linkButton {
+    text-decoration: none;
+    border: 1px solid var(--text-color);
+    color: var(--text-color);
+    padding: 16px;
+    display: inline-flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.linkButton:hover {
+    opacity: 0.6;
+}
+
+.linkButton:active {
+    opacity: 0.4;
+}
+
+
+.linkIcon {
+    margin-left: 64px;
+}
+
+.linkContent {
+    display: flex;
+    align-items: center;
+}

@@ -80,22 +80,43 @@ export const PortfolioListSkeleton = () => {
 export const PortfolioDetailSkeleton = () => {
     return (
         <div className={styles.skeletonContainer}>
-            {/* Title skeleton */}
-            <SkeletonBox className={styles.detailTitle}/>
+            {/* Project header with title skeleton */}
+            <div className={styles.projectHeader}>
+                <SkeletonBox className={styles.detailTitle}/>
+            </div>
 
             {/* Project info skeleton */}
             <div className={styles.projectInfoContainer}>
-                <SkeletonBox className={styles.projectImage}/>
+                {/* Image gallery skeleton */}
+                <div className={styles.imageGallerySkeleton}>
+                    <SkeletonBox className={styles.projectImage}/>
+                    {/* Image navigation skeleton */}
+                    <div className={styles.imageNavigationSkeleton}>
+                        <SkeletonBox className={styles.navButtonSkeleton}/>
+                        <SkeletonBox className={styles.imageCounterSkeleton}/>
+                        <SkeletonBox className={styles.navButtonSkeleton}/>
+                    </div>
+                </div>
+
                 <div className={styles.projectDetails}>
                     <SkeletonBox className={styles.projectJob}/>
                     <SkeletonBox className={styles.projectPeriod}/>
-                    <SkeletonBox className={styles.projectTech}/>
+
+                    {/* Tech stack container skeleton */}
+                    <div className={styles.techStackContainerSkeleton}>
+                        <SkeletonBox className={styles.techTagSkeleton}/>
+                        <SkeletonBox className={styles.techTagSkeleton}/>
+                        <SkeletonBox className={styles.techTagSkeleton}/>
+                    </div>
                 </div>
             </div>
 
             {/* Description skeleton */}
             <SkeletonBox className={styles.paragraph}/>
             <SkeletonBox className={styles.paragraph}/>
+
+            {/* GitHub link skeleton */}
+            <SkeletonBox className={styles.githubLink}/>
         </div>
     );
 };

@@ -13,16 +13,23 @@
 }
 
 .copyButton {
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    background-color: transparent;
     border: none;
-    padding: 8px;
-    display: flex;
+    color: var(--text-color);
+    padding: 16px;
+    display: inline-flex;
+    text-align: center;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
 }
 
 .copyButton:hover {
-    color: var(--sub-color-3);
+    opacity: 0.6;
+}
+
+.copyButton:active {
+    opacity: 0.4;
 }
