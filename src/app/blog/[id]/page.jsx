@@ -8,12 +8,15 @@ import rehypeRaw from 'rehype-raw';
 import styles from '@/styles/pages/BlogPostPage.module.css';
 import TableOfContents from '@/components/TableOfContents';
 import SkeletonLoader from '@/components/SkeletonLoader';
+import PostNavigation from '@/components/PostNavigation';
 
 export default function BlogPostPage({params}) {
     const unwrappedParams = use(params);
     const postId = unwrappedParams?.id;
 
     const [post, setPost] = useState(null);
+    const [prevPost, setPrevPost] = useState(null);
+    const [nextPost, setNextPost] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -30,7 +33,8 @@ export default function BlogPostPage({params}) {
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const {data, error} = await supabase
+                // Fetch the current post
+                const {data: currentPost, error: currentPostError} = await supabase
                     .from('posts')
                     .select(`
                         *,
@@ -43,13 +47,39 @@ export default function BlogPostPage({params}) {
                     .eq('id', postId)
                     .single();
 
-                if (error) {
-                    console.error('Supabase 에러:', error);
-                    setError(error.message);
+                if (currentPostError) {
+                    console.error('Supabase 에러:', currentPostError);
+                    setError(currentPostError.message);
                     return;
                 }
 
-                setPost(data);
+                setPost(currentPost);
+
+                // Fetch the previous post (older post - created before the current post)
+                const {data: prevPostData, error: prevPostError} = await supabase
+                    .from('posts')
+                    .select('id, title, thumbnail_url, created_at')
+                    .lt('created_at', currentPost.created_at)
+                    .order('created_at', {ascending: false})
+                    .limit(1)
+                    .single();
+
+                if (!prevPostError) {
+                    setPrevPost(prevPostData);
+                }
+
+                // Fetch the next post (newer post - created after the current post)
+                const {data: nextPostData, error: nextPostError} = await supabase
+                    .from('posts')
+                    .select('id, title, thumbnail_url, created_at')
+                    .gt('created_at', currentPost.created_at)
+                    .order('created_at', {ascending: true})
+                    .limit(1)
+                    .single();
+
+                if (!nextPostError) {
+                    setNextPost(nextPostData);
+                }
             } catch (err) {
                 console.error('예외 발생:', err);
                 setError(err.message);
@@ -64,7 +94,7 @@ export default function BlogPostPage({params}) {
     if (isLoading) {
         return (
             <div className={styles.container}>
-                <SkeletonLoader page="blogDetail" />
+                <SkeletonLoader page="blogDetail"/>
             </div>
         );
     }
@@ -144,6 +174,9 @@ export default function BlogPostPage({params}) {
                     <TableOfContents content={post.content}/>
                 </div>
             </div>
+
+            {/* Post navigation - previous and next posts */}
+            <PostNavigation prevPost={prevPost} nextPost={nextPost}/>
         </div>
     );
 }

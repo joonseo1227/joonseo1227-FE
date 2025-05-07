@@ -44,7 +44,7 @@ export default function PortfolioProjectPage({params}) {
     if (isLoading) {
         return (
             <div className={styles.portfolioProjectPage}>
-                <SkeletonLoader page="portfolioDetail" />
+                <SkeletonLoader page="portfolioDetail"/>
             </div>
         );
     }

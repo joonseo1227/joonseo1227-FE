@@ -105,7 +105,7 @@ export default function BlogPage() {
             </div>
 
             {loading ? (
-                <SkeletonLoader page="blogList" />
+                <SkeletonLoader page="blogList"/>
             ) : error ? (
                 <p className={styles.errorMessage}>{error}</p>
             ) : posts.length === 0 ? (
