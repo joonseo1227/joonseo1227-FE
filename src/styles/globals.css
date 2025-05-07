@@ -98,6 +98,37 @@ p {
     white-space: pre-wrap;
 }
 
+/* Custom form validation styling */
+input:focus, textarea:focus {
+    outline: none;
+}
+
+/* Override default browser validation message */
+input:invalid, textarea:invalid {
+    box-shadow: none;
+}
+
+/* Custom validation message styling */
+input:user-invalid, textarea:user-invalid {
+    border-color: #e74c3c !important;
+}
+
+/* Hide default browser validation popup */
+::-webkit-validation-bubble-message {
+    display: none;
+}
+
+input::-webkit-validation-bubble-icon,
+input::-webkit-validation-bubble-arrow {
+    display: none;
+}
+
+/* For Firefox */
+input:required:invalid:not(:focus)::before,
+textarea:required:invalid:not(:focus)::before {
+    display: none;
+}
+
 .titleText {
     margin-top: 10vh;
     margin-bottom: 64px;

@@ -9,6 +9,7 @@ import styles from '@/styles/pages/BlogPostPage.module.css';
 import TableOfContents from '@/components/TableOfContents';
 import SkeletonLoader from '@/components/SkeletonLoader';
 import PostNavigation from '@/components/PostNavigation';
+import Comments from '@/components/Comments';
 
 export default function BlogPostPage({params}) {
     const unwrappedParams = use(params);
@@ -165,8 +166,6 @@ export default function BlogPostPage({params}) {
                         {post.content || "내용이 없습니다."}
                     </ReactMarkdown>
 
-                    {/* Add extra padding at the bottom to ensure last heading can be scrolled to top */}
-                    <div className={styles.bottomPadding}></div>
                 </div>
 
                 {/* Desktop TOC - shown only on desktop */}
@@ -177,6 +176,12 @@ export default function BlogPostPage({params}) {
 
             {/* Post navigation - previous and next posts */}
             <PostNavigation prevPost={prevPost} nextPost={nextPost}/>
+
+            {/* Comments section */}
+            <Comments postId={postId}/>
+
+            <div className={styles.bottomPadding}></div>
+
         </div>
     );
 }

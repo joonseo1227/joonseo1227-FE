@@ -56,16 +56,19 @@
     color: var(--text-color);
     margin-bottom: 32px;
     width: 100%;
+    padding: 0 16px;
 }
 
 /* Mobile TOC - only visible on mobile */
 .mobileToc {
     display: none;
+    padding: 0 16px;
 }
 
 /* Desktop TOC - only visible on desktop */
 .desktopToc {
     display: block;
+    padding: 0 16px;
 }
 
 /* Bottom padding to ensure last heading can be scrolled to top */
@@ -181,10 +184,6 @@
 
     .titleText {
         font-size: 32px;
-    }
-
-    .postContent {
-        padding: 0 16px;
     }
 
     .mobileToc {
