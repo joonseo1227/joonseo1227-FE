@@ -1,6 +1,6 @@
 "use client";
 
-import {use, useEffect, useState, useRef} from "react";
+import {use, useEffect, useRef, useState} from "react";
 import supabase from "/src/lib/supabase.js";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -97,7 +97,7 @@ export default function BlogPostPage({params}) {
             <div className={styles.blogPostWrapper}>
                 {/* Mobile TOC - shown only on mobile */}
                 <div className={styles.mobileToc}>
-                    <TableOfContents content={post.content} />
+                    <TableOfContents content={post.content}/>
                 </div>
 
                 <div className={styles.postContent} data-testid="post-content">
@@ -140,7 +140,7 @@ export default function BlogPostPage({params}) {
 
                 {/* Desktop TOC - shown only on desktop */}
                 <div className={styles.desktopToc}>
-                    <TableOfContents content={post.content} />
+                    <TableOfContents content={post.content}/>
                 </div>
             </div>
         </div>
