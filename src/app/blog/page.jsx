@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import supabase from "/src/lib/supabase.js";
 import styles from '@/styles/pages/BlogPage.module.css';
 import Link from "next/link";
+import SkeletonLoader from '@/components/SkeletonLoader';
 
 export default function BlogPage() {
     const [posts, setPosts] = useState([]);
@@ -104,7 +105,7 @@ export default function BlogPage() {
             </div>
 
             {loading ? (
-                <p>로딩 중...</p>
+                <SkeletonLoader page="blogList" />
             ) : error ? (
                 <p className={styles.errorMessage}>{error}</p>
             ) : posts.length === 0 ? (

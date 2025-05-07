@@ -4,6 +4,7 @@ import styles from "@/styles/pages/PortfolioProjectPage.module.css";
 import {use, useEffect, useState} from "react";
 import supabase from "/src/lib/supabase.js";
 import {LogoGithub} from "@carbon/icons-react";
+import SkeletonLoader from '@/components/SkeletonLoader';
 
 export default function PortfolioProjectPage({params}) {
     const unwrappedParams = use(params);
@@ -43,7 +44,7 @@ export default function PortfolioProjectPage({params}) {
     if (isLoading) {
         return (
             <div className={styles.portfolioProjectPage}>
-                <p>로딩 중...</p>
+                <SkeletonLoader page="portfolioDetail" />
             </div>
         );
     }

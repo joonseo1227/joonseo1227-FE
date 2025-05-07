@@ -7,6 +7,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import styles from '@/styles/pages/BlogPostPage.module.css';
 import TableOfContents from '@/components/TableOfContents';
+import SkeletonLoader from '@/components/SkeletonLoader';
 
 export default function BlogPostPage({params}) {
     const unwrappedParams = use(params);
@@ -63,7 +64,7 @@ export default function BlogPostPage({params}) {
     if (isLoading) {
         return (
             <div className={styles.container}>
-                <p>로딩 중...</p>
+                <SkeletonLoader page="blogDetail" />
             </div>
         );
     }

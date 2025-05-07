@@ -4,6 +4,7 @@ import styles from '@/styles/pages/PortfolioPage.module.css';
 import {useEffect, useState} from "react";
 import supabase from "/src/lib/supabase.js";
 import Link from "next/link";
+import SkeletonLoader from '@/components/SkeletonLoader';
 
 export default function PortfolioPage() {
     const [projects, setProjects] = useState([]);
@@ -47,7 +48,7 @@ export default function PortfolioPage() {
             <h1 className="titleText">Portfolio</h1>
 
             {loading ? (
-                <p>로딩 중...</p>
+                <SkeletonLoader page="portfolioList" />
             ) : error ? (
                 <p className={styles.errorMessage}>{error}</p>
             ) : projects.length === 0 ? (
