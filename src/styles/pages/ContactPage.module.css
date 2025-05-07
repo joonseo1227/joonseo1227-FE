@@ -4,3 +4,25 @@
     padding: 16px;
     margin: 0 auto;
 }
+
+.emailContainer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.copyButton {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: none;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.copyButton:hover {
+    color: var(--sub-color-3);
+}
