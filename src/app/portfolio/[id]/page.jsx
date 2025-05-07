@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "@/styles/pages/PortfolioProjectPage.module.css";
-import {use, useEffect, useState, useRef} from "react";
+import {use, useEffect, useRef, useState} from "react";
 import supabase from "/src/lib/supabase.js";
 import {ChevronLeft, ChevronRight, LogoGithub} from "@carbon/icons-react";
 import SkeletonLoader from '@/components/SkeletonLoader';
@@ -207,7 +207,7 @@ export default function PortfolioProjectPage({params}) {
 
             <div className={styles.projectInfo}>
                 {/* Image Gallery/Carousel */}
-                <div 
+                <div
                     className={styles.imageGallery}
                     ref={galleryRef}
                     onTouchStart={handleTouchStart}
@@ -216,10 +216,10 @@ export default function PortfolioProjectPage({params}) {
                 >
                     {project.project_images && project.project_images.length > 0 ? (
                         <>
-                            <div 
-                                className={styles.imageSlider} 
+                            <div
+                                className={styles.imageSlider}
                                 ref={sliderRef}
-                                style={{ transform: `translateX(-${activeImageIndex * 100}%)` }}
+                                style={{transform: `translateX(-${activeImageIndex * 100}%)`}}
                             >
                                 {project.project_images.map((image, index) => (
                                     <div
@@ -240,12 +240,13 @@ export default function PortfolioProjectPage({params}) {
 
                             {/* Navigation buttons - only show if there are multiple images */}
                             {project.project_images.length > 1 && (
-                                <div className={`${styles.imageNavigation} ${showNavigationOnMobile ? styles.showNavigation : ''}`}>
+                                <div
+                                    className={`${styles.imageNavigation} ${showNavigationOnMobile ? styles.showNavigation : ''}`}>
                                     <button
                                         className={styles.navButton}
                                         onClick={() => {
-                                            const nextIndex = activeImageIndex === 0 
-                                                ? project.project_images.length - 1 
+                                            const nextIndex = activeImageIndex === 0
+                                                ? project.project_images.length - 1
                                                 : activeImageIndex - 1;
 
                                             // Apply smooth transition
@@ -270,8 +271,8 @@ export default function PortfolioProjectPage({params}) {
                                     <button
                                         className={styles.navButton}
                                         onClick={() => {
-                                            const nextIndex = activeImageIndex === project.project_images.length - 1 
-                                                ? 0 
+                                            const nextIndex = activeImageIndex === project.project_images.length - 1
+                                                ? 0
                                                 : activeImageIndex + 1;
 
                                             // Apply smooth transition
