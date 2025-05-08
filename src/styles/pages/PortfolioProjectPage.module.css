@@ -99,8 +99,8 @@
 .imageNavigation {
     position: absolute;
     bottom: 16px;
-    left: 0;
-    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -108,13 +108,16 @@
     z-index: 10;
     opacity: 0;
     transition: opacity 0.3s ease;
+    backdrop-filter: blur(8px);
+    background-color: var(--overlay-color-2);
+    color: white;
+    height: 40px;
 }
 
 .navButton {
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: transparent;
     color: white;
     border: none;
-    border-radius: 50%;
     width: 40px;
     height: 40px;
     display: flex;
@@ -124,15 +127,13 @@
 }
 
 .navButton:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
 }
 
 .imageCounter {
-    background-color: rgba(0, 0, 0, 0.6);
     color: white;
-    padding: 4px 12px;
-    border-radius: 16px;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 /* Show navigation on hover for desktop */

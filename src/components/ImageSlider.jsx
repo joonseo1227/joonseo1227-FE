@@ -220,23 +220,27 @@ export default function ImageSlider({images, defaultImage}) {
                     {images.length > 1 && (
                         <div
                             className={`${styles.imageNavigation} ${showNavigationOnMobile ? styles.showNavigation : ''}`}>
+
                             <button
                                 className={styles.navButton}
                                 onClick={goToPrevious}
                                 aria-label="Previous image"
                             >
-                                <ChevronLeft/>
+                                <ChevronLeft size={24}/>
                             </button>
+
                             <div className={styles.imageCounter}>
                                 {activeImageIndex + 1} / {images.length}
                             </div>
+
                             <button
                                 className={styles.navButton}
                                 onClick={goToNext}
                                 aria-label="Next image"
                             >
-                                <ChevronRight/>
+                                <ChevronRight size={24}/>
                             </button>
+
                         </div>
                     )}
                 </>
