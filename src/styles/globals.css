@@ -136,8 +136,19 @@ textarea:required:invalid:not(:focus)::before {
     overflow: visible;
 }
 
+/* Media query for mobile devices */
+@media (max-width: 767px) {
+    .titleText {
+        font-size: 42px;
+        margin-bottom: 32px;
+        overflow: visible;
+        white-space: normal;
+        word-break: break-word;
+        width: 100%;
+    }
+}
+
 .subtitleText {
     margin-bottom: 32px;
     font-size: 32px;
 }
-

@@ -7,6 +7,8 @@
 
 .projectHeader {
     position: relative;
+    width: 100%;
+    overflow: visible;
 }
 
 .projectInfo {
