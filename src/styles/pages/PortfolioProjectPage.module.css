@@ -190,10 +190,6 @@
     display: inline-block;
 }
 
-.techTag:hover {
-    background-color: var(--sub-color-6);
-}
-
 .descriptionText {
     font-size: 18px;
     line-height: 1.8;
