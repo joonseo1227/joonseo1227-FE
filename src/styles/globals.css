@@ -43,6 +43,7 @@
     --sub-color-4: #8d8d8d;
     --sub-color-5: #6f6f6f;
     --sub-color-6: #525252;
+    --error-color: #da1e28;
     --overlay-color: rgb(0 0 0 / 60%);
     --overlay-color-2: rgb(38 38 38 / 60%);
     --font-nanumsquareneo: 'NanumSquareNeo', sans-serif;
@@ -58,6 +59,7 @@
     --sub-color-4: #6f6f6f;
     --sub-color-5: #6f6f6f;
     --sub-color-6: #8d8d8d;
+    --error-color: #fa4d56;
     --overlay-color: rgb(255 255 255 / 60%);
 }
 
