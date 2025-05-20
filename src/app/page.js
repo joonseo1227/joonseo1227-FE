@@ -32,6 +32,10 @@ export default function HomePage() {
     });
     const [error, setError] = useState(null);
 
+    // Refs for project and blog post images (for transition animation)
+    const imgRefs = useRef({});
+    const blogImgRefs = useRef({});
+
     // Detect iOS devices
     useEffect(() => {
         const userAgent = window.navigator.userAgent.toLowerCase();
@@ -197,24 +201,53 @@ export default function HomePage() {
                     ) : projects.length === 0 ? (
                         <p className={styles.noContent}>No projects available</p>
                     ) : (
-                        projects.map((project, index) => (
-                            <Link href={`/portfolio/${project.id}`} key={project.id}>
-                                <div
-                                    className={`${styles.workCard} ${visibleSections.works ? styles.visible : ''}`}
-                                    style={{animationDelay: `${0.1 + index * 0.1}s`}}
+                        projects.map((project, index) => {
+                            const handleProjectClick = (e) => {
+                                e.preventDefault();
+
+                                if (project.img_url && imgRefs.current[project.id] && window.startProjectTransition) {
+                                    const rect = imgRefs.current[project.id].getBoundingClientRect();
+                                    window.startProjectTransition(
+                                        project.id,
+                                        project.img_url,
+                                        {
+                                            top: rect.top,
+                                            left: rect.left,
+                                            width: rect.width,
+                                            height: rect.height
+                                        },
+                                        'portfolio' // Explicitly specify 'portfolio' as the route
+                                    );
+                                } else {
+                                    // Fallback to normal navigation if animation can't be triggered
+                                    window.location.href = `/portfolio/${project.id}`;
+                                }
+                            };
+
+                            return (
+                                <Link
+                                    href={`/portfolio/${project.id}`}
+                                    key={project.id}
+                                    onClick={handleProjectClick}
                                 >
-                                    <img
-                                        src={project.img_url}
-                                        alt={project.title}
-                                        className={styles.workCardImage}
-                                    />
-                                    <div className={styles.workCardInfo}>
-                                        <h3 className={styles.workCardTitle}>{project.title}</h3>
-                                        <p className={styles.workCardDescription}>{project.summary}</p>
+                                    <div
+                                        className={`${styles.workCard} ${visibleSections.works ? styles.visible : ''}`}
+                                        style={{animationDelay: `${0.1 + index * 0.1}s`}}
+                                    >
+                                        <img
+                                            ref={el => imgRefs.current[project.id] = el}
+                                            src={project.img_url}
+                                            alt={project.title}
+                                            className={styles.workCardImage}
+                                        />
+                                        <div className={styles.workCardInfo}>
+                                            <h3 className={styles.workCardTitle}>{project.title}</h3>
+                                            <p className={styles.workCardDescription}>{project.summary}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </Link>
-                        ))
+                                </Link>
+                            );
+                        })
                     )}
                 </div>
             </section>
@@ -237,33 +270,62 @@ export default function HomePage() {
                     ) : blogPosts.length === 0 ? (
                         <p className={styles.noContent}>블로그 포스트가 없습니다.</p>
                     ) : (
-                        blogPosts.map((post, index) => (
-                            <Link href={`/blog/${post.id}`} key={post.id}>
-                                <div
-                                    className={`${styles.blogCard} ${visibleSections.blog ? styles.visible : ''}`}
-                                    style={{animationDelay: `${0.1 + index * 0.1}s`}}
+                        blogPosts.map((post, index) => {
+                            const handleBlogClick = (e) => {
+                                e.preventDefault();
+
+                                if (post.thumbnail_url && blogImgRefs.current[post.id] && window.startProjectTransition) {
+                                    const rect = blogImgRefs.current[post.id].getBoundingClientRect();
+                                    window.startProjectTransition(
+                                        post.id,
+                                        post.thumbnail_url,
+                                        {
+                                            top: rect.top,
+                                            left: rect.left,
+                                            width: rect.width,
+                                            height: rect.height
+                                        },
+                                        'blog' // Specify 'blog' as the route
+                                    );
+                                } else {
+                                    // Fallback to normal navigation if animation can't be triggered
+                                    window.location.href = `/blog/${post.id}`;
+                                }
+                            };
+
+                            return (
+                                <Link
+                                    href={`/blog/${post.id}`}
+                                    key={post.id}
+                                    onClick={handleBlogClick}
                                 >
-                                    <div className={styles.blogCardContent}>
-                                        <div className={styles.blogCardMeta}>
-                                            <span className={styles.blogCardDate}>
-                                                {new Date(post.created_at).toLocaleDateString('ko-KR')}
-                                            </span>
+                                    <div
+                                        className={`${styles.blogCard} ${visibleSections.blog ? styles.visible : ''}`}
+                                        style={{animationDelay: `${0.1 + index * 0.1}s`}}
+                                    >
+                                        <div className={styles.blogCardContent}>
+                                            <div className={styles.blogCardMeta}>
+                                                <span className={styles.blogCardDate}>
+                                                    {new Date(post.created_at).toLocaleDateString('ko-KR')}
+                                                </span>
+                                            </div>
+                                            <h3 className={styles.blogCardTitle}>{post.title}</h3>
+                                            <p className={styles.blogCardExcerpt}>{post.summary}</p>
                                         </div>
-                                        <h3 className={styles.blogCardTitle}>{post.title}</h3>
-                                        <p className={styles.blogCardExcerpt}>{post.summary}</p>
+                                        {post.thumbnail_url && (
+                                            <div className={styles.blogCardThumbnail}>
+                                                <img
+                                                    ref={el => blogImgRefs.current[post.id] = el}
+                                                    src={post.thumbnail_url}
+                                                    alt={post.title}
+                                                    className={styles.blogCardImage}
+                                                />
+                                            </div>
+                                        )}
                                     </div>
-                                    {post.thumbnail_url && (
-                                        <div className={styles.blogCardThumbnail}>
-                                            <img
-                                                src={post.thumbnail_url}
-                                                alt={post.title}
-                                                className={styles.blogCardImage}
-                                            />
-                                        </div>
-                                    )}
-                                </div>
-                            </Link>
-                        ))
+                                </Link>
+                            );
+                        })
                     )}
                 </div>
             </section>
