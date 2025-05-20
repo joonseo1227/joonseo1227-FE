@@ -47,7 +47,8 @@
     --overlay-color: rgb(0 0 0 / 70%);
     --overlay-color-2: rgb(38 38 38 / 70%);
     --font-nanumsquareneo: 'NanumSquareNeo', sans-serif;
-    --header-height: 56px; /* Estimated header height, adjust if needed */
+    --header-height: 52px;
+    --header-expanded-height: 400px;
 }
 
 [data-theme="light"] {
@@ -62,7 +63,8 @@
     --sub-color-6: #8d8d8d;
     --error-color: #fa4d56;
     --overlay-color: rgb(255 255 255 / 70%);
-    --header-height: 56px; /* Maintain consistent header height in light theme */
+    --header-height: 52px;
+    --header-expanded-height: 400px;
 }
 
 * {

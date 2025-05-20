@@ -67,54 +67,70 @@
     display: none;
 }
 
-@media (max-width: 800px) {
-    .headerWrapper {
-        padding: 0;
-    }
+.mobileThemeToggle {
+    display: none;
+}
 
+/* Mobile styles */
+@media (max-width: 800px) {
     .menuButton {
         display: flex;
-        z-index: 1001;
     }
 
-    .header {
-        flex-wrap: wrap;
-    }
-
-    .logoSection {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .nav {
-        width: 100%;
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
-        max-height: 0;
+    .headerWrapper {
+        padding-left: 0;
+        transition: height 0.3s ease-in-out;
         overflow: hidden;
-        opacity: 0;
-        transition: 0.3s ease;
-        padding: 0;
-        z-index: 100;
-        order: 3;
-    }
-
-    .navOpen {
-        max-height: 324px;
-        opacity: 1;
-        padding: 20px 16px 24px 16px;
     }
 
     .headerWrapper.menuOpened {
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 10%);
+        height: var(--header-expanded-height, 100vh);
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .logoSection {
+        width: 100%;
+        justify-content: space-between;
+        padding-right: 0;
+        gap: 8px;
+        height: var(--header-height);
+    }
+
+    .themeToggleSection {
+        display: none;
+    }
+
+    .mobileThemeToggle {
+        display: flex;
+        margin-left: auto;
+    }
+
+    .nav {
+        flex-direction: column;
+        width: 100%;
+        padding: 1rem 0;
+        gap: 1.5rem;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        max-height: 0;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, max-height 0.3s ease-in-out;
+    }
+
+    .navOpen {
+        opacity: 1;
+        visibility: visible;
+        max-height: 1000px; /* Large enough to contain all menu items */
     }
 
     .nav .link {
+        font-size: 32px;
         width: 100%;
         text-align: center;
-        font-size: 32px;
         padding: 10px 0;
         display: block;
     }

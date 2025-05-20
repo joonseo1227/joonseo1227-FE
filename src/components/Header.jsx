@@ -59,6 +59,9 @@ export default function Header() {
                         {isMenuOpen ? <CloseLarge size={20}/> : <Menu size={20}/>}
                     </div>
                     <Link href='/' className={styles.link} onClick={handleLinkClick}>joonseo1227</Link>
+                    <div className={styles.mobileThemeToggle}>
+                        <ThemeToggle/>
+                    </div>
                 </div>
                 <nav ref={navRef} className={`${styles.nav} ${isMenuOpen ? styles.navOpen : ''}`}>
                     <Link href='/portfolio' className={styles.link} onClick={handleLinkClick}>Portfolio</Link>
