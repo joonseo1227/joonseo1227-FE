@@ -26,7 +26,7 @@
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
-    padding: 0 120px;
+    padding: 0 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -44,6 +44,32 @@
     animation: fadeInUp 1s ease forwards;
 }
 
+/* Responsive styles for hero section */
+@media (max-width: 1024px) {
+    .heroTitle {
+        font-size: 60px;
+        max-width: 800px;
+    }
+}
+
+@media (max-width: 800px) {
+    .heroContent {
+        padding: 0 24px;
+    }
+
+    .heroTitle {
+        font-size: 48px;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .heroTitle {
+        font-size: 36px;
+        line-height: 1.3;
+    }
+}
+
 .scrollDown {
     position: absolute;
     bottom: 48px;
@@ -55,10 +81,24 @@
     cursor: pointer;
 }
 
+@media (max-width: 800px) {
+    .scrollDown {
+        bottom: 32px;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .scrollDown {
+        bottom: 24px;
+        font-size: 18px;
+    }
+}
+
 /* About Me section */
 .aboutSection {
     width: 100%;
-    padding: 160px 0;
+    padding: 120px 0;
     background-color: var(--surface-color);
 }
 
@@ -66,7 +106,7 @@
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
-    padding: 0 120px;
+    padding: 0 40px;
     align-items: center;
     text-align: center;
 }
@@ -88,9 +128,46 @@
     font-weight: 700;
 }
 
+/* Responsive styles for about section */
+@media (max-width: 1024px) {
+    .aboutSection {
+        padding: 100px 0;
+    }
+
+    .aboutText p {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 800px) {
+    .aboutSection {
+        padding: 80px 0;
+    }
+
+    .aboutContent {
+        padding: 0 24px;
+    }
+
+    .aboutText p {
+        font-size: 24px;
+        margin-bottom: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .aboutSection {
+        padding: 60px 0;
+    }
+
+    .aboutText p {
+        font-size: 20px;
+        line-height: 1.4;
+    }
+}
+
 /* Works section */
 .worksSection {
-    padding: 160px 0;
+    padding: 120px 0;
     width: 100%;
     background-color: var(--bg-color);
 }
@@ -98,8 +175,8 @@
 .sectionHeader {
     max-width: 1200px;
     width: 100%;
-    margin: 0 auto 80px;
-    padding: 0 120px;
+    margin: 0 auto 60px;
+    padding: 0 40px;
 }
 
 .sectionLabel {
@@ -121,10 +198,69 @@
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
-    padding: 0 120px;
+    padding: 0 40px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 80px 40px;
+}
+
+/* Responsive styles for works section */
+@media (max-width: 1024px) {
+    .worksSection {
+        padding: 100px 0;
+    }
+
+    .sectionHeader {
+        margin-bottom: 50px;
+    }
+
+    .sectionTitle {
+        font-size: 40px;
+    }
+
+    .worksGrid {
+        gap: 60px 30px;
+    }
+}
+
+@media (max-width: 800px) {
+    .worksSection {
+        padding: 80px 0;
+    }
+
+    .sectionHeader {
+        margin-bottom: 40px;
+        padding: 0 24px;
+    }
+
+    .sectionTitle {
+        font-size: 36px;
+    }
+
+    .worksGrid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+        padding: 0 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .worksSection {
+        padding: 60px 0;
+    }
+
+    .sectionHeader {
+        margin-bottom: 30px;
+    }
+
+    .sectionTitle {
+        font-size: 32px;
+    }
+
+    .sectionLabel {
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
 }
 
 .workCard {
@@ -182,9 +318,47 @@
     margin: 0;
 }
 
+/* Responsive styles for work cards */
+@media (max-width: 1024px) {
+    .workCardTitle {
+        font-size: 22px;
+        margin: 0 0 10px 0;
+    }
+
+    .workCardImage {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 800px) {
+    .workCardTitle {
+        font-size: 20px;
+    }
+
+    .workCardDescription {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .workCardImage {
+        margin-bottom: 16px;
+    }
+
+    .workCardTitle {
+        font-size: 18px;
+        margin: 0 0 8px 0;
+    }
+
+    .workCardDescription {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+}
+
 /* Blog section - Newsroom style */
 .blogSection {
-    padding: 160px 0;
+    padding: 120px 0;
     width: 100%;
     background-color: var(--bg-color);
     border-top: 1px solid var(--sub-color-6);
@@ -194,7 +368,7 @@
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
-    padding: 0 120px;
+    padding: 0 40px;
     display: flex;
     flex-direction: column;
 }
@@ -259,13 +433,6 @@
     gap: 40px;
 }
 
-@media (max-width: 768px) {
-    .blogCardSkeleton {
-        flex-direction: column-reverse;
-        height: 300px;
-    }
-}
-
 .blogCardMeta {
     margin-bottom: 16px;
 }
@@ -290,6 +457,81 @@
     max-width: 800px;
 }
 
+/* Responsive styles for blog section */
+@media (max-width: 1024px) {
+    .blogSection {
+        padding: 100px 0;
+    }
+
+    .blogCardTitle {
+        font-size: 24px;
+    }
+
+    .blogCardExcerpt {
+        font-size: 16px;
+    }
+
+    .blogCardThumbnail {
+        flex: 0 0 200px;
+    }
+}
+
+@media (max-width: 800px) {
+    .blogSection {
+        padding: 80px 0;
+    }
+
+    .blogList {
+        padding: 0 24px;
+    }
+
+    .blogCard {
+        flex-direction: column-reverse;
+        gap: 24px;
+        padding: 32px 0;
+    }
+
+    .blogCardThumbnail {
+        flex: 0 0 auto;
+        width: 100%;
+        max-height: 200px;
+    }
+
+    .blogCardTitle {
+        font-size: 22px;
+        margin: 0 0 12px 0;
+    }
+
+    .blogCardExcerpt {
+        font-size: 16px;
+    }
+
+    .blogCardSkeleton {
+        flex-direction: column-reverse;
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .blogSection {
+        padding: 60px 0;
+    }
+
+    .blogCard {
+        padding: 24px 0;
+    }
+
+    .blogCardTitle {
+        font-size: 20px;
+        margin: 0 0 10px 0;
+    }
+
+    .blogCardExcerpt {
+        font-size: 15px;
+        line-height: 1.4;
+    }
+}
+
 /* No content message */
 .noContent {
     text-align: center;
@@ -297,6 +539,20 @@
     color: var(--sub-color-3);
     font-size: 18px;
     width: 100%;
+}
+
+@media (max-width: 800px) {
+    .noContent {
+        padding: 30px 0;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .noContent {
+        padding: 20px 0;
+        font-size: 15px;
+    }
 }
 
 /* Animations */
@@ -338,96 +594,5 @@
     }
     100% {
         transform: translateX(100%);
-    }
-}
-
-/* Responsive styles - Desktop optimized */
-@media (max-width: 1440px) {
-    .heroContent,
-    .aboutContent,
-    .sectionHeader,
-    .worksGrid,
-    .blogList {
-        padding: 0 80px;
-    }
-}
-
-@media (max-width: 800px) {
-    .heroTitle {
-        font-size: 56px;
-    }
-
-    .aboutText p {
-        font-size: 20px;
-    }
-
-    .sectionTitle {
-        font-size: 40px;
-    }
-
-    .worksGrid {
-        grid-template-columns: 1fr;
-        gap: 60px;
-    }
-
-    .heroContent,
-    .aboutContent,
-    .sectionHeader,
-    .worksGrid,
-    .blogList {
-        padding: 0 60px;
-    }
-}
-
-@media (max-width: 768px) {
-    .heroTitle {
-        font-size: 42px;
-    }
-
-    .aboutText p {
-        font-size: 18px;
-    }
-
-    .sectionTitle {
-        font-size: 32px;
-    }
-
-    .workCardTitle {
-        font-size: 20px;
-    }
-
-    .blogCardTitle {
-        font-size: 24px;
-    }
-
-    .blogCardExcerpt {
-        font-size: 16px;
-    }
-
-    .heroSection,
-    .aboutSection,
-    .worksSection,
-    .blogSection {
-        padding: 100px 0;
-    }
-
-    .heroContent,
-    .aboutContent,
-    .sectionHeader,
-    .worksGrid,
-    .blogList {
-        padding: 0 40px;
-    }
-
-    .blogCard {
-        flex-direction: column-reverse;
-        gap: 20px;
-    }
-
-    .blogCardThumbnail {
-        flex: 0 0 auto;
-        width: 100%;
-        aspect-ratio: 16/9;
-        position: relative;
     }
 }

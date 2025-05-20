@@ -146,9 +146,9 @@ textarea:required:invalid:not(:focus)::before {
 }
 
 /* Media query for mobile devices */
-@media (max-width: 767px) {
+@media (max-width: 800px) {
     .titleText {
-        font-size: 42px;
+        font-size: 40px;
         margin-bottom: 32px;
         overflow: visible;
         white-space: normal;

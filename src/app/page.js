@@ -12,6 +12,9 @@ export default function HomePage() {
     const blogRef = useRef(null);
     const contactRef = useRef(null);
 
+    // State for iOS detection
+    const [isIOS, setIsIOS] = useState(false);
+
     // State for visibility of sections
     const [visibleSections, setVisibleSections] = useState({
         about: false,
@@ -28,6 +31,13 @@ export default function HomePage() {
         posts: true
     });
     const [error, setError] = useState(null);
+
+    // Detect iOS devices
+    useEffect(() => {
+        const userAgent = window.navigator.userAgent.toLowerCase();
+        const isIOSDevice = /iphone|ipad|ipod/.test(userAgent);
+        setIsIOS(isIOSDevice);
+    }, []);
 
     // Setup intersection observer for animations
     useEffect(() => {
@@ -140,8 +150,18 @@ export default function HomePage() {
             <section className={styles.heroSection}>
                 <div className={styles.heroContent}>
                     <h1 className={styles.heroTitle}>
-                        경험의 디테일을 구현하는<br/>
-                        프론트엔드 개발자
+                        {isIOS ? (
+                            <>
+                                경험의 디테일을<br/>
+                                구현하는<br/>
+                                프론트엔드 개발자
+                            </>
+                        ) : (
+                            <>
+                                경험의 디테일을 구현하는<br/>
+                                프론트엔드 개발자
+                            </>
+                        )}
                     </h1>
                     <div className={styles.scrollDown}>↓</div>
                 </div>
