@@ -59,7 +59,7 @@
 /* Thumbnail skeleton */
 .thumbnail {
     width: 100%;
-    height: 200px;
+    aspect-ratio: 16/9;
 }
 
 /* Content container */
@@ -150,8 +150,7 @@
 /* Project image skeleton */
 .projectImage {
     width: 100%;
-    height: 300px;
-    max-height: 50vh;
+    aspect-ratio: 16/9;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -240,7 +239,7 @@
 
     .projectImage {
         width: 100%;
-        height: 200px;
+        aspect-ratio: 16/9;
     }
 }
 

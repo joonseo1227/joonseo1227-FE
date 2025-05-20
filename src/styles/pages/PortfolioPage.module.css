@@ -34,8 +34,9 @@
 
 .projectThumbnail {
     width: 100%;
-    height: 200px;
+    aspect-ratio: 16/9;
     object-fit: cover;
+    position: relative;
 }
 
 .projectInfo {

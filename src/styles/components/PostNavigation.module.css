@@ -17,7 +17,6 @@
     text-decoration: none;
     color: var(--text-color);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    height: 120px;
 }
 
 .navLink:hover {
@@ -59,6 +58,7 @@
 
 .navThumbnail {
     width: 120px;
+    aspect-ratio: 16/9;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

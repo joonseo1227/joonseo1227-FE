@@ -223,13 +223,24 @@ export default function HomePage() {
                                     className={`${styles.blogCard} ${visibleSections.blog ? styles.visible : ''}`}
                                     style={{animationDelay: `${0.1 + index * 0.1}s`}}
                                 >
-                                    <div className={styles.blogCardMeta}>
-                                        <span className={styles.blogCardDate}>
-                                            {new Date(post.created_at).toLocaleDateString('ko-KR')}
-                                        </span>
+                                    <div className={styles.blogCardContent}>
+                                        <div className={styles.blogCardMeta}>
+                                            <span className={styles.blogCardDate}>
+                                                {new Date(post.created_at).toLocaleDateString('ko-KR')}
+                                            </span>
+                                        </div>
+                                        <h3 className={styles.blogCardTitle}>{post.title}</h3>
+                                        <p className={styles.blogCardExcerpt}>{post.summary}</p>
                                     </div>
-                                    <h3 className={styles.blogCardTitle}>{post.title}</h3>
-                                    <p className={styles.blogCardExcerpt}>{post.summary}</p>
+                                    {post.thumbnail_url && (
+                                        <div className={styles.blogCardThumbnail}>
+                                            <img
+                                                src={post.thumbnail_url}
+                                                alt={post.title}
+                                                className={styles.blogCardImage}
+                                            />
+                                        </div>
+                                    )}
                                 </div>
                             </Link>
                         ))
