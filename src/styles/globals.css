@@ -44,9 +44,10 @@
     --sub-color-5: #6f6f6f;
     --sub-color-6: #525252;
     --error-color: #da1e28;
-    --overlay-color: rgb(0 0 0 / 60%);
-    --overlay-color-2: rgb(38 38 38 / 60%);
+    --overlay-color: rgb(0 0 0 / 70%);
+    --overlay-color-2: rgb(38 38 38 / 70%);
     --font-nanumsquareneo: 'NanumSquareNeo', sans-serif;
+    --header-height: 56px; /* Estimated header height, adjust if needed */
 }
 
 [data-theme="light"] {
@@ -60,7 +61,8 @@
     --sub-color-5: #6f6f6f;
     --sub-color-6: #8d8d8d;
     --error-color: #fa4d56;
-    --overlay-color: rgb(255 255 255 / 60%);
+    --overlay-color: rgb(255 255 255 / 70%);
+    --header-height: 56px; /* Maintain consistent header height in light theme */
 }
 
 * {
@@ -94,6 +96,7 @@ h6 {
 a,
 a:hover {
     color: var(--text-color);
+    text-decoration: none;
 }
 
 p {

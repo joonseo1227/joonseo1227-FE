@@ -66,7 +66,7 @@ const ThemeToggle = () => {
 
     return (
         <div className={styles.navButton} onClick={themetoggle}>
-            {theme === "dark" ? <Asleep size="24"/> : <Sun size="24"/>}
+            {theme === "dark" ? <Asleep size="20"/> : <Sun size="20"/>}
         </div>
     );
 };
