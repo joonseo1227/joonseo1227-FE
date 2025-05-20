@@ -1,4 +1,29 @@
+'use client';
+import React from 'react';
 import styles from '@/styles/pages/AboutPage.module.css';
+import {
+    SiC,
+    SiCss3,
+    SiDart,
+    SiFigma,
+    SiFirebase,
+    SiFlutter,
+    SiGit,
+    SiGithub,
+    SiGithubactions,
+    SiHtml5,
+    SiJavascript,
+    SiNextdotjs,
+    SiNotion,
+    SiPostman,
+    SiPython,
+    SiReact,
+    SiSlack,
+    SiSupabase,
+    SiVercel
+} from 'react-icons/si';
+import {FaJava} from "react-icons/fa";
+import {useInView} from 'react-intersection-observer';
 
 const about = {
     title: "About my self",
@@ -8,7 +33,7 @@ const about = {
 const worktimeline = [
     {
         jobtitle: "AIIA",
-        date: "2024 - NOW",
+        date: "2024 - 2025",
     },
     {
         jobtitle: "가천대학교",
@@ -20,28 +45,44 @@ const worktimeline = [
     },
 ];
 
-const skills = [
+const techStack = {
+    frontend: [
+        {name: "Flutter", icon: SiFlutter},
+        {name: "React", icon: SiReact},
+        {name: "Next.js", icon: SiNextdotjs},
+        {name: "HTML", icon: SiHtml5},
+        {name: "CSS", icon: SiCss3}
+    ],
+    backend: [
+        {name: "Supabase", icon: SiSupabase},
+        {name: "Firebase", icon: SiFirebase}
+    ],
+    language: [
+        {name: "C", icon: SiC},
+        {name: "Python", icon: SiPython},
+        {name: "Dart", icon: SiDart},
+        {name: "Java", icon: FaJava},
+        {name: "JavaScript", icon: SiJavascript}
+    ],
+    cicd: [
+        {name: "Vercel", icon: SiVercel},
+        {name: "GitHub Actions", icon: SiGithubactions}
+    ],
+    tools: [
+        {name: "Git", icon: SiGit},
+        {name: "GitHub", icon: SiGithub},
+        {name: "Figma", icon: SiFigma},
+        {name: "Notion", icon: SiNotion},
+        {name: "Postman", icon: SiPostman},
+        {name: "Slack", icon: SiSlack}
+    ]
+};
+
+const certifications = [
     {
-        name: "Flutter",
-    },
-    {
-        name: "Figma",
-    },
-    {
-        name: "Git",
-    },
-    {
-        name: "C",
-    },
-    {
-        name: "Python",
-    },
-    {
-        name: "React",
-    },
-    {
-        name: "Next.js",
-    },
+        name: "네트워크관리사 2급",
+        organization: "한국정보통신자격협회(ICQA)"
+    }
 ];
 
 const services = [
@@ -60,11 +101,62 @@ const services = [
 ];
 
 export default function AboutPage() {
+    // Common Intersection Observer options
+    const observerOptions = {
+        triggerOnce: true,
+        threshold: 0.1,
+        rootMargin: '-50px 0px -100px 0px', // Trigger earlier for smoother transitions
+    };
+
+    // Title section
+    const [titleRef, titleInView] = useInView({
+        ...observerOptions,
+        threshold: 0.2, // Higher threshold for title to ensure it's more visible
+    });
+
+    // About section
+    const [aboutRef, aboutInView] = useInView({
+        ...observerOptions,
+        delay: 100
+    });
+
+    // Work Timeline section
+    const [timelineRef, timelineInView] = useInView({
+        ...observerOptions,
+        delay: 150
+    });
+
+    // Tech Stack section
+    const [techStackRef, techStackInView] = useInView({
+        ...observerOptions,
+        delay: 200
+    });
+
+    // Services section
+    const [servicesRef, servicesInView] = useInView({
+        ...observerOptions,
+        delay: 250
+    });
+
+    // Certifications section
+    const [certRef, certInView] = useInView({
+        ...observerOptions,
+        delay: 300
+    });
+
     return (
         <div className={styles.aboutPage}>
-            <h1 className="titleText">About</h1>
+            <div
+                ref={titleRef}
+                className={`${styles.titleContainer} ${titleInView ? styles.animate : ''}`}
+            >
+                <h1 className="titleText">About</h1>
+            </div>
 
-            <div className={styles.section}>
+            <div
+                ref={aboutRef}
+                className={`${styles.section} ${aboutInView ? styles.animate : ''}`}
+            >
                 <div className={styles.leftColumn}>
                     <h3 className={styles.subtitleText}>{about.title}</h3>
                 </div>
@@ -73,51 +165,155 @@ export default function AboutPage() {
                 </div>
             </div>
 
-            <div className={styles.section}>
+            <div
+                ref={timelineRef}
+                className={`${styles.section} ${timelineInView ? styles.animate : ''}`}
+            >
                 <div className={styles.leftColumn}>
                     <h3 className={styles.subtitleText}>Work Timeline</h3>
                 </div>
                 <div className={styles.rightColumn}>
-                    <table className={styles.table}>
-                        <tbody>
+                    <div className={styles.timelineContainer}>
                         {worktimeline.map((data, i) => (
-                            <tr key={i}>
-                                <th>{data.jobtitle}</th>
-                                <td>{data.date}</td>
-                            </tr>
+                            <div className={styles.timelineItem} key={i} style={{animationDelay: `${i * 120 + 100}ms`}}>
+                                <h5 className={styles.timelineTitle}>{data.jobtitle}</h5>
+                                <p className={styles.timelineDate}>{data.date}</p>
+                            </div>
                         ))}
-                        </tbody>
-                    </table>
+                    </div>
                 </div>
             </div>
 
-            <div className={styles.section}>
+            <div
+                ref={techStackRef}
+                className={`${styles.section} ${techStackInView ? styles.animate : ''}`}
+            >
                 <div className={styles.leftColumn}>
-                    <h3 className={styles.subtitleText}>Skills</h3>
+                    <h3 className={styles.subtitleText}>Tech Stack</h3>
                 </div>
                 <div className={styles.rightColumn}>
-                    {skills.map((data, i) => (
-                        <div key={i} className={styles.skillContainer}>
-                            <h3 className={styles.skillsText}>{data.name}</h3>
+                    <div className={styles.techStackContainer}>
+                        <div className={styles.techCategory}>
+                            <h4 className={styles.categoryTitle}>Frontend</h4>
+                            <div className={styles.skillsGrid}>
+                                {techStack.frontend.map((data, i) => (
+                                    <div key={i} className={styles.skillContainer}
+                                         style={{animationDelay: `${i * 80 + 100}ms`}}>
+                                        <div className={styles.skillLogo}>
+                                            {data.icon ? <data.icon className={styles.icon}/> :
+                                                <div className={styles.icon}/>}
+                                        </div>
+                                        <h3 className={styles.skillsText}>{data.name}</h3>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                    ))}
+
+                        <div className={styles.techCategory}>
+                            <h4 className={styles.categoryTitle}>Backend/BaaS</h4>
+                            <div className={styles.skillsGrid}>
+                                {techStack.backend.map((data, i) => (
+                                    <div key={i} className={styles.skillContainer}
+                                         style={{animationDelay: `${i * 80 + 150}ms`}}>
+                                        <div className={styles.skillLogo}>
+                                            {data.icon ? <data.icon className={styles.icon}/> :
+                                                <div className={styles.icon}/>}
+                                        </div>
+                                        <h3 className={styles.skillsText}>{data.name}</h3>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className={styles.techCategory}>
+                            <h4 className={styles.categoryTitle}>Language</h4>
+                            <div className={styles.skillsGrid}>
+                                {techStack.language.map((data, i) => (
+                                    <div key={i} className={styles.skillContainer}
+                                         style={{animationDelay: `${i * 80 + 200}ms`}}>
+                                        <div className={styles.skillLogo}>
+                                            {data.icon ? <data.icon className={styles.icon}/> :
+                                                <div className={styles.icon}/>}
+                                        </div>
+                                        <h3 className={styles.skillsText}>{data.name}</h3>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className={styles.techCategory}>
+                            <h4 className={styles.categoryTitle}>CI/CD</h4>
+                            <div className={styles.skillsGrid}>
+                                {techStack.cicd.map((data, i) => (
+                                    <div key={i} className={styles.skillContainer}
+                                         style={{animationDelay: `${i * 80 + 250}ms`}}>
+                                        <div className={styles.skillLogo}>
+                                            {data.icon ? <data.icon className={styles.icon}/> :
+                                                <div className={styles.icon}/>}
+                                        </div>
+                                        <h3 className={styles.skillsText}>{data.name}</h3>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className={styles.techCategory}>
+                            <h4 className={styles.categoryTitle}>Tools</h4>
+                            <div className={styles.skillsGrid}>
+                                {techStack.tools.map((data, i) => (
+                                    <div key={i} className={styles.skillContainer}
+                                         style={{animationDelay: `${i * 80 + 300}ms`}}>
+                                        <div className={styles.skillLogo}>
+                                            {data.icon ? <data.icon className={styles.icon}/> :
+                                                <div className={styles.icon}/>}
+                                        </div>
+                                        <h3 className={styles.skillsText}>{data.name}</h3>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div className={styles.section}>
+            <div
+                ref={servicesRef}
+                className={`${styles.section} ${servicesInView ? styles.animate : ''}`}
+            >
                 <div className={styles.leftColumn}>
                     <h3 className={styles.subtitleText}>Services</h3>
                 </div>
                 <div className={styles.rightColumn}>
-                    {services.map((data, i) => (
-                        <div className={styles.service} key={i}>
-                            <h5 className={styles.serviceTitle}>{data.title}</h5>
-                            <p className={styles.serviceDesc}>{data.description}</p>
-                        </div>
-                    ))}
+                    <div className={styles.servicesContainer}>
+                        {services.map((data, i) => (
+                            <div className={styles.service} key={i} style={{animationDelay: `${i * 120 + 100}ms`}}>
+                                <h5 className={styles.serviceTitle}>{data.title}</h5>
+                                <p className={styles.serviceDesc}>{data.description}</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
 
+            <div
+                ref={certRef}
+                className={`${styles.section} ${certInView ? styles.animate : ''}`}
+            >
+                <div className={styles.leftColumn}>
+                    <h3 className={styles.subtitleText}>Certifications</h3>
+                </div>
+                <div className={styles.rightColumn}>
+                    <div className={styles.certificationsContainer}>
+                        {certifications.map((cert, i) => (
+                            <div className={styles.certification} key={i}
+                                 style={{animationDelay: `${i * 120 + 100}ms`}}>
+                                <h5 className={styles.certificationTitle}>{cert.name}</h5>
+                                <p className={styles.certificationOrg}>{cert.organization}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

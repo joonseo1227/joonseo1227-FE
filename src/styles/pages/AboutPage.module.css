@@ -1,14 +1,111 @@
 .aboutPage {
-    width: 80%;
+    width: 100%;
     max-width: 1200px;
+    padding: 16px;
     margin: 0 auto;
+    animation: fadeIn 0.8s ease-in-out;
 }
 
-.titleText {
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 30px;
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.titleContainer {
+    opacity: 0; /* Start transparent */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.titleContainer.animate {
+    opacity: 1; /* Become visible when animated */
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+.section {
+    opacity: 0; /* Start transparent */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.section.animate {
+    opacity: 1; /* Become visible when animated */
+}
+
+.section .leftColumn {
+    opacity: 0; /* Start transparent */
+}
+
+.section .rightColumn {
+    opacity: 0; /* Start transparent */
+}
+
+.section.animate .leftColumn {
+    animation: fadeInUp 0.7s ease-out forwards;
+}
+
+.section.animate .rightColumn {
+    animation: fadeInUp 0.7s ease-out forwards;
+    animation-delay: 0.1s;
 }
 
 /* 섹션 간격 조정 */
@@ -16,93 +113,261 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 80px;
-    gap: 20px;
+    margin-bottom: 100px;
+    gap: 40px;
+    position: relative;
+}
+
+.section:last-child::after {
+    display: none;
 }
 
 .leftColumn {
-    flex: 0 0 40%;
+    flex: 0 0 35%;
     min-width: 250px;
+    position: sticky;
+    top: 100px;
+    align-self: flex-start;
 }
 
 .rightColumn {
-    flex: 0 0 60%;
+    flex: 0 0 65%;
     min-width: 300px;
 }
-
 
 /* 제목 스타일 */
 .subtitleText {
     font-size: 48px;
     font-weight: 500;
     margin-top: 0;
+    position: relative;
+    display: inline-block;
 }
 
 /* 소개글 스타일 */
 .aboutMeText {
     font-size: 20px;
-    line-height: 1.6;
+    line-height: 1.8;
     margin: 0;
-}
-
-/* 테이블 스타일 */
-.table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.table td,
-.table th {
     color: var(--text-color);
-    background-color: var(--bg-color);
-    border-bottom: solid 1px var(--text-color);
+    letter-spacing: 0.3px;
 }
 
-.table td,
-.table th {
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    border-bottom: solid 1px var(--sub-color-6);
-    padding: 12px 16px;
-    text-align: left;
+/* 타임라인 스타일 */
+.timelineContainer {
+    opacity: 0; /* Start transparent */
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.2s;
 }
 
-
-.table tr:last-child td,
-.table tr:last-child th {
-    border-bottom: none;
+.timelineItem {
+    margin-bottom: 30px;
+    padding: 20px 20px 20px 30px;
+    position: relative;
+    opacity: 0; /* Start transparent */
+    animation: fadeInUp 0.6s ease-out forwards;
+    /* Animation delay is set inline with style={{animationDelay: `${i * 120 + 100}ms`}} */
 }
 
-/* 스킬 섹션 스타일 */
-.skillsText {
-    font-size: 20px;
+.timelineItem::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: var(--sub-color-6);
+}
+
+.timelineTitle {
+    margin-top: 0;
+    font-size: 22px;
     font-weight: 700;
-    margin: 15px 0 20px;
+    font-family: 'NanumSquareNeo', system-ui;
+    margin-bottom: 12px;
+    color: var(--text-color);
+}
+
+.timelineDate {
+    margin-bottom: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+/* 기술 스택 섹션 스타일 */
+.techStackContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+    opacity: 0; /* Start transparent */
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.3s;
+}
+
+.techCategory {
+    margin-bottom: 30px;
+}
+
+.categoryTitle {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 20px 0;
+    color: var(--text-color);
+    position: relative;
+    display: inline-block;
+    padding-bottom: 8px;
+}
+
+.skillsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+.skillContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    position: relative;
+    opacity: 0; /* Start transparent */
+    animation: fadeIn 0.6s ease-out forwards;
+    /* Animation delay is set inline with style={{animationDelay: `${i * 80 + 100}ms`}} */
+}
+
+.skillLogo {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    color: var(--text-color);
+    transition: transform 0.2s ease;
+}
+
+.skillContainer:hover .skillLogo {
+    transform: translateY(-5px);
+}
+
+.icon {
+    width: 45px;
+    height: 45px;
+}
+
+.skillsText {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+    text-align: center;
     font-family: 'NanumSquareNeo', system-ui;
 }
 
 
 /* 서비스 섹션 스타일 */
+.servicesContainer {
+    opacity: 0; /* Start transparent */
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.4s;
+}
+
 .service {
-    margin-bottom: 32px;
+    margin-bottom: 30px;
+    padding: 20px 20px 20px 30px;
+    position: relative;
+    opacity: 0; /* Start transparent */
+    animation: fadeInUp 0.6s ease-out forwards;
+    /* Animation delay is set inline with style={{animationDelay: `${i * 120 + 100}ms`}} */
+}
+
+.service::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: var(--sub-color-6);
 }
 
 .serviceTitle {
     margin-top: 0;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
     font-family: 'NanumSquareNeo', system-ui;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    color: var(--text-color);
 }
 
 .serviceDesc {
-    margin-bottom: 32px;
+    margin-bottom: 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-color);
+    opacity: 0.9;
 }
 
-@media (max-width: 800px) {
+/* 자격증 섹션 스타일 */
+.certificationsContainer {
+    opacity: 0; /* Start transparent */
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.5s;
+}
+
+.certification {
+    margin-bottom: 30px;
+    padding: 20px 20px 20px 30px;
+    position: relative;
+    opacity: 0; /* Start transparent */
+    animation: fadeInUp 0.6s ease-out forwards;
+    /* Animation delay is set inline with style={{animationDelay: `${i * 120 + 100}ms`}} */
+}
+
+.certification::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: var(--sub-color-6);
+}
+
+.certificationTitle {
+    margin-top: 0;
+    font-size: 22px;
+    font-weight: 700;
+    font-family: 'NanumSquareNeo', system-ui;
+    margin-bottom: 12px;
+    color: var(--text-color);
+}
+
+.certificationOrg {
+    margin-bottom: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+@media (max-width: 1200px) {
+    .aboutPage {
+        width: 90%;
+        padding: 30px 0;
+    }
+
     .section {
         flex-direction: column;
         gap: 30px;
+        margin-bottom: 70px;
+    }
+
+    .section::after {
+        bottom: -35px;
     }
 
     .leftColumn,
@@ -110,5 +375,56 @@
         flex: 1 1 100%;
         min-width: 100%;
         padding-right: 0;
+    }
+
+    .leftColumn {
+        position: static;
+    }
+
+    .subtitleText {
+        font-size: 36px;
+    }
+
+    .techStackContainer {
+        gap: 30px;
+    }
+
+    .techCategory {
+        margin-bottom: 15px;
+    }
+
+    .categoryTitle {
+        font-size: 22px;
+        margin-bottom: 15px;
+    }
+
+    .skillsGrid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 16px;
+    }
+
+    .skillContainer {
+        padding: 15px;
+    }
+
+    .skillLogo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .service, .certification, .timelineItem {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+
+    /* Animation adjustments for mobile */
+    .section.animate .leftColumn,
+    .section.animate .rightColumn {
+        animation-name: fadeInUp;
     }
 }
