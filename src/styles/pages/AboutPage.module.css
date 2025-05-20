@@ -161,8 +161,8 @@
 }
 
 .timelineItem {
-    margin-bottom: 30px;
-    padding: 20px 20px 20px 30px;
+    margin-bottom: 32px;
+    padding-left: 16px;
     position: relative;
     opacity: 0; /* Start transparent */
     animation: fadeInUp 0.6s ease-out forwards;
@@ -176,7 +176,7 @@
     left: 0;
     width: 4px;
     height: 100%;
-    background-color: var(--sub-color-6);
+    background-color: var(--sub-color);
 }
 
 .timelineTitle {
@@ -276,8 +276,8 @@
 }
 
 .service {
-    margin-bottom: 30px;
-    padding: 20px 20px 20px 30px;
+    margin-bottom: 32px;
+    padding-left: 16px;
     position: relative;
     opacity: 0; /* Start transparent */
     animation: fadeInUp 0.6s ease-out forwards;
@@ -291,7 +291,7 @@
     left: 0;
     width: 4px;
     height: 100%;
-    background-color: var(--sub-color-6);
+    background-color: var(--sub-color);
 }
 
 .serviceTitle {
@@ -319,8 +319,8 @@
 }
 
 .certification {
-    margin-bottom: 30px;
-    padding: 20px 20px 20px 30px;
+    margin-bottom: 32px;
+    padding-left: 16px;
     position: relative;
     opacity: 0; /* Start transparent */
     animation: fadeInUp 0.6s ease-out forwards;
@@ -334,7 +334,7 @@
     left: 0;
     width: 4px;
     height: 100%;
-    background-color: var(--sub-color-6);
+    background-color: var(--sub-color);
 }
 
 .certificationTitle {
