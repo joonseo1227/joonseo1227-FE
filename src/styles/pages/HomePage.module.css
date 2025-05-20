@@ -1,101 +1,383 @@
+/* Main container */
 .homePage {
+    width: 100%;
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* Hero section */
+.heroSection {
     width: 100%;
     height: 100vh;
-    overflow: hidden;
-}
-
-.leftSection {
-    width: 50%;
+    min-height: 100vh;
     display: flex;
-    align-items: center;
-    padding: 2rem;
-}
-
-.content {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.title {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-.buttons {
-    display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
-}
-
-.button {
-    background-color: var(--text-color);
-    color: var(--bg-color);
-    text-decoration: none;
-    border: none;
-    padding: 16px;
-    display: inline-flex;
-    text-align: center;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    font-size: 16px;
-    line-height: 1;
+    position: relative;
+    overflow: hidden;
+    margin-top: calc(-1 * var(--header-height, 0px));
+    padding-top: var(--header-height, 0px);
 }
 
-.button:hover {
-    background-color: var(--sub-color-2);
-    color: var(--bg-color);
-}
-
-.button:active {
-    background-color: var(--sub-color-3);
-    color: var(--bg-color);
-}
-
-.button:disabled {
-    background-color: var(--sub-color-6);
-    cursor: not-allowed;
-}
-
-.rightSection {
-    width: 50%;
-    height: 100vh;
-}
-
-.rightSection .mainImage {
+.heroContent {
+    max-width: 1200px;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: saturate(0.5);
+    margin: 0 auto;
+    padding: 0 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
-@media (max-width: 800px) {
-    .homePage {
-        flex-direction: column;
-        height: auto;
+.heroTitle {
+    font-size: 72px;
+    line-height: 1.5;
+    font-weight: 600;
+    max-width: 960px;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease forwards;
+}
+
+.scrollDown {
+    position: absolute;
+    bottom: 48px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 1s, bounce 2s ease-in-out infinite 2s;
+    cursor: pointer;
+}
+
+/* About Me section */
+.aboutSection {
+    width: 100%;
+    padding: 160px 0;
+    background-color: var(--surface-color);
+}
+
+.aboutContent {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 120px;
+    align-items: center;
+    text-align: center;
+}
+
+.aboutText {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.aboutText.visible {
+    animation: fadeInUp 1s ease forwards;
+}
+
+.aboutText p {
+    font-size: 32px;
+    line-height: 1.5;
+    margin-bottom: 32px;
+    color: var(--sub-color);
+    font-weight: 700;
+}
+
+/* Works section */
+.worksSection {
+    padding: 160px 0;
+    width: 100%;
+    background-color: var(--bg-color);
+}
+
+.sectionHeader {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto 80px;
+    padding: 0 120px;
+}
+
+.sectionLabel {
+    display: block;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    color: var(--sub-color-3);
+}
+
+.sectionTitle {
+    font-size: 48px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.worksGrid {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 120px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 80px 40px;
+}
+
+.workCard {
+    position: relative;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: transform 0.4s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.workCard.visible {
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.workCard:hover {
+    transform: translateY(-8px);
+}
+
+.workCardImage {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+    margin-bottom: 24px;
+}
+
+.workCard:hover .workCardImage {
+    transform: scale(1.03);
+}
+
+.workCardSkeleton {
+    opacity: 0.3;
+    transform: none;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--surface-color);
+}
+
+.workCardInfo {
+    padding: 0;
+}
+
+.workCardTitle {
+    font-size: 24px;
+    margin: 0 0 12px 0;
+    font-weight: 500;
+}
+
+.workCardDescription {
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--sub-color-2);
+    margin: 0;
+}
+
+/* Blog section - Newsroom style */
+.blogSection {
+    padding: 160px 0;
+    width: 100%;
+    background-color: var(--bg-color);
+    border-top: 1px solid var(--sub-color-6);
+}
+
+.blogList {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 120px;
+    display: flex;
+    flex-direction: column;
+}
+
+.blogCard {
+    padding: 40px 0;
+    opacity: 0;
+    transform: translateY(30px);
+    border-bottom: 1px solid var(--sub-color-6);
+    transition: opacity 0.3s ease;
+}
+
+.blogCard:first-child {
+    border-top: none;
+}
+
+.blogCard.visible {
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.blogCard:hover {
+    opacity: 0.8;
+}
+
+.blogCardSkeleton {
+    opacity: 0.3;
+    transform: none;
+    position: relative;
+    overflow: hidden;
+    height: 160px;
+}
+
+.blogCardMeta {
+    margin-bottom: 16px;
+}
+
+.blogCardDate {
+    font-size: 14px;
+    color: var(--sub-color-3);
+}
+
+.blogCardTitle {
+    font-size: 28px;
+    margin: 0 0 16px 0;
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+.blogCardExcerpt {
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--sub-color-2);
+    margin: 0;
+    max-width: 800px;
+}
+
+/* No content message */
+.noContent {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--sub-color-3);
+    font-size: 18px;
+    width: 100%;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) translateX(-50%);
+    }
+    40% {
+        transform: translateY(-10px) translateX(-50%);
+    }
+    60% {
+        transform: translateY(-5px) translateX(-50%);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Responsive styles - Desktop optimized */
+@media (max-width: 1440px) {
+    .heroContent,
+    .aboutContent,
+    .sectionHeader,
+    .worksGrid,
+    .blogList {
+        padding: 0 80px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .heroTitle {
+        font-size: 56px;
     }
 
-    .leftSection,
-    .rightSection {
-        width: 100%;
+    .aboutText p {
+        font-size: 20px;
     }
 
-    .rightSection {
-        height: 50vh;
-        order: -1; /* 이미지를 위로 올림 */
+    .sectionTitle {
+        font-size: 40px;
     }
 
-    .content {
-        padding: 2rem;
-        text-align: center;
+    .worksGrid {
+        grid-template-columns: 1fr;
+        gap: 60px;
     }
 
-    .buttons {
-        justify-content: center;
+    .heroContent,
+    .aboutContent,
+    .sectionHeader,
+    .worksGrid,
+    .blogList {
+        padding: 0 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .heroTitle {
+        font-size: 42px;
     }
 
-    .title {
-        font-size: 2rem;
+    .aboutText p {
+        font-size: 18px;
     }
+
+    .sectionTitle {
+        font-size: 32px;
+    }
+
+    .workCardTitle {
+        font-size: 20px;
+    }
+
+    .blogCardTitle {
+        font-size: 24px;
+    }
+
+    .blogCardExcerpt {
+        font-size: 16px;
+    }
+
+    .heroSection,
+    .aboutSection,
+    .worksSection,
+    .blogSection {
+        padding: 100px 0;
+    }
+
+    .heroContent,
+    .aboutContent,
+    .sectionHeader,
+    .worksGrid,
+    .blogList {
+        padding: 0 40px;
+    }
+
 }
