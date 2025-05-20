@@ -2,15 +2,18 @@
 .skeletonContainer {
     width: 100%;
     max-width: 1200px;
-    padding: 16px;
     margin: 0 auto;
 }
 
 /* Generic skeleton box with animation */
 .skeletonBox {
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background: linear-gradient(90deg,
+    var(--surface-color),
+    var(--sub-color-6),
+    var(--surface-color));
     background-size: 200% 100%;
     animation: pulse 1.5s ease-in-out infinite;
+    opacity: 0.7;
 }
 
 /* Pulse animation */
@@ -43,6 +46,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 24px;
+    padding: 0;
 }
 
 /* Tile container */
@@ -223,14 +227,6 @@
     margin-top: 16px;
 }
 
-/* Dark mode compatibility */
-@media (prefers-color-scheme: dark) {
-    .skeletonBox {
-        background: linear-gradient(90deg, #222 25%, #2a2a2a 50%, #222 75%);
-        background-size: 200% 100%;
-        opacity: 0.7;
-    }
-}
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {

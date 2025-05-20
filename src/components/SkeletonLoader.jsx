@@ -12,7 +12,7 @@ export const BlogListSkeleton = () => {
         <div className={styles.skeletonContainer}>
             {/* Category buttons skeleton */}
             <div className={styles.categoryContainer}>
-                {[...Array(5)].map((_, i) => (
+                {[...Array(3)].map((_, i) => (
                     <SkeletonBox key={i} className={styles.categoryButton}/>
                 ))}
             </div>

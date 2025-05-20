@@ -45,3 +45,30 @@
 .projectInfo p {
     color: var(--sub-color-3);
 }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.noProjects {
+    text-align: center;
+    padding: 40px;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+.errorMessage {
+    text-align: center;
+    padding: 40px;
+    font-size: 1.1rem;
+    color: var(--error-color, red);
+}

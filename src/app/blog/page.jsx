@@ -35,7 +35,10 @@ export default function BlogPage() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                setLoading(true);
+                // Only set loading to true on initial load, not when changing categories
+                if (posts.length === 0) {
+                    setLoading(true);
+                }
                 let query = supabase
                     .from('posts')
                     .select(`
@@ -85,24 +88,26 @@ export default function BlogPage() {
         <div className={styles.blogPage}>
             <h1 className="titleText">Blog</h1>
 
-            {/* 카테고리 필터 */}
-            <div className={styles.categoryFilter}>
-                <button
-                    className={`${styles.categoryBtn} ${selectedCategory === null ? styles.active : ''}`}
-                    onClick={() => handleCategoryChange(null)}
-                >
-                    전체보기
-                </button>
-                {categories.map((category) => (
+            {/* 카테고리 필터 - 로딩 중이 아닐 때만 표시 */}
+            {!loading && (
+                <div className={styles.categoryFilter}>
                     <button
-                        key={category.id}
-                        className={`${styles.categoryBtn} ${selectedCategory === category.id ? styles.active : ''}`}
-                        onClick={() => handleCategoryChange(category.id)}
+                        className={`${styles.categoryBtn} ${selectedCategory === null ? styles.active : ''}`}
+                        onClick={() => handleCategoryChange(null)}
                     >
-                        {category.name}
+                        전체보기
                     </button>
-                ))}
-            </div>
+                    {categories.map((category) => (
+                        <button
+                            key={category.id}
+                            className={`${styles.categoryBtn} ${selectedCategory === category.id ? styles.active : ''}`}
+                            onClick={() => handleCategoryChange(category.id)}
+                        >
+                            {category.name}
+                        </button>
+                    ))}
+                </div>
+            )}
 
             {loading ? (
                 <SkeletonLoader page="blogList"/>
