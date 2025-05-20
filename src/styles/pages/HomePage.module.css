@@ -352,7 +352,7 @@
     }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 800px) {
     .heroTitle {
         font-size: 56px;
     }
