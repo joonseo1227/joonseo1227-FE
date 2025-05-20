@@ -98,7 +98,8 @@ export const PortfolioDetailSkeleton = () => {
                     </div>
                 </div>
 
-                <div className={styles.projectDetails}>
+                {/* Project details skeleton */}
+                <div className={styles.projectDetailsSkeleton}>
                     <SkeletonBox className={styles.projectJob}/>
                     <SkeletonBox className={styles.projectPeriod}/>
 
@@ -116,7 +117,9 @@ export const PortfolioDetailSkeleton = () => {
             <SkeletonBox className={styles.paragraph}/>
 
             {/* GitHub link skeleton */}
-            <SkeletonBox className={styles.githubLink}/>
+            <div className={styles.buttonContainerSkeleton}>
+                <SkeletonBox className={styles.githubLink}/>
+            </div>
         </div>
     );
 };

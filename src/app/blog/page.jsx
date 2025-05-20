@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import {useEffect, useState, useRef} from "react";
 import supabase from "/src/lib/supabase.js";
 import styles from '@/styles/pages/BlogPage.module.css';
 import Link from "next/link";
@@ -12,6 +12,7 @@ export default function BlogPage() {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const imgRefs = useRef({});
 
     // 카테고리 목록 가져오기
     useEffect(() => {
@@ -117,26 +118,56 @@ export default function BlogPage() {
                 <p className={styles.noPosts}>게시물이 없습니다.</p>
             ) : (
                 <div className={styles.postList}>
-                    {posts.map((post) => (
-                        <Link key={post.id} className={styles.postLink} href={`/blog/${post.id}`}>
-                            <article className={styles.postTile}>
-                                {post.thumbnail_url && (
-                                    <img
-                                        className={styles.postThumbnail}
-                                        src={post.thumbnail_url}
-                                        alt={post.title}
-                                    />
-                                )}
-                                <div className={styles.postInfo}>
-                                    <h2>{post.title}</h2>
-                                    <p>{post.summary}</p>
-                                    <p className="post-date">
-                                        {new Date(post.created_at).toLocaleDateString('ko-KR')}
-                                    </p>
-                                </div>
-                            </article>
-                        </Link>
-                    ))}
+                    {posts.map((post) => {
+                        const handlePostClick = (e) => {
+                            e.preventDefault();
+
+                            if (post.thumbnail_url && imgRefs.current[post.id] && window.startProjectTransition) {
+                                const rect = imgRefs.current[post.id].getBoundingClientRect();
+                                window.startProjectTransition(
+                                    post.id,
+                                    post.thumbnail_url,
+                                    {
+                                        top: rect.top,
+                                        left: rect.left,
+                                        width: rect.width,
+                                        height: rect.height
+                                    },
+                                    'blog'
+                                );
+                            } else {
+                                // Fallback to normal navigation if animation can't be triggered
+                                window.location.href = `/blog/${post.id}`;
+                            }
+                        };
+
+                        return (
+                            <Link 
+                                key={post.id} 
+                                className={styles.postLink} 
+                                href={`/blog/${post.id}`}
+                                onClick={handlePostClick}
+                            >
+                                <article className={styles.postTile}>
+                                    {post.thumbnail_url && (
+                                        <img
+                                            ref={el => imgRefs.current[post.id] = el}
+                                            className={styles.postThumbnail}
+                                            src={post.thumbnail_url}
+                                            alt={post.title}
+                                        />
+                                    )}
+                                    <div className={styles.postInfo}>
+                                        <h2>{post.title}</h2>
+                                        <p>{post.summary}</p>
+                                        <p className="post-date">
+                                            {new Date(post.created_at).toLocaleDateString('ko-KR')}
+                                        </p>
+                                    </div>
+                                </article>
+                            </Link>
+                        );
+                    })}
                 </div>
             )}
         </div>

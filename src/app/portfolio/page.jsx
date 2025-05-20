@@ -1,7 +1,7 @@
 "use client";
 
 import styles from '@/styles/pages/PortfolioPage.module.css';
-import {useEffect, useState} from "react";
+import {useEffect, useState, useRef} from "react";
 import supabase from "/src/lib/supabase.js";
 import Link from "next/link";
 import SkeletonLoader from '@/components/SkeletonLoader';
@@ -10,6 +10,7 @@ export default function PortfolioPage() {
     const [projects, setProjects] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const imgRefs = useRef({});
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -55,23 +56,52 @@ export default function PortfolioPage() {
                 <p className={styles.noProjects}>게시물이 없습니다.</p>
             ) : (
                 <div className={styles.projectList}>
-                    {projects.map((project) => (
-                        <Link key={project.id} className={styles.projectLink} href={`/portfolio/${project.id}`}>
-                            <article className={styles.projectTile}>
-                                {project.img_url && (
-                                    <img
-                                        className={styles.projectThumbnail}
-                                        src={project.img_url}
-                                        alt={project.title}
-                                    />
-                                )}
-                                <div className={styles.projectInfo}>
-                                    <h2>{project.title}</h2>
-                                    <p>{project.summary}</p>
-                                </div>
-                            </article>
-                        </Link>
-                    ))}
+                    {projects.map((project) => {
+                        const handleProjectClick = (e) => {
+                            e.preventDefault();
+
+                            if (project.img_url && imgRefs.current[project.id] && window.startProjectTransition) {
+                                const rect = imgRefs.current[project.id].getBoundingClientRect();
+                                window.startProjectTransition(
+                                    project.id,
+                                    project.img_url,
+                                    {
+                                        top: rect.top,
+                                        left: rect.left,
+                                        width: rect.width,
+                                        height: rect.height
+                                    }
+                                );
+                            } else {
+                                // Fallback to normal navigation if animation can't be triggered
+                                window.location.href = `/portfolio/${project.id}`;
+                            }
+                        };
+
+                        return (
+                            <Link 
+                                key={project.id} 
+                                className={styles.projectLink} 
+                                href={`/portfolio/${project.id}`}
+                                onClick={handleProjectClick}
+                            >
+                                <article className={styles.projectTile}>
+                                    {project.img_url && (
+                                        <img
+                                            ref={el => imgRefs.current[project.id] = el}
+                                            className={styles.projectThumbnail}
+                                            src={project.img_url}
+                                            alt={project.title}
+                                        />
+                                    )}
+                                    <div className={styles.projectInfo}>
+                                        <h2>{project.title}</h2>
+                                        <p>{project.summary}</p>
+                                    </div>
+                                </article>
+                            </Link>
+                        );
+                    })}
                 </div>
             )}
         </div>

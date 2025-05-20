@@ -5,6 +5,7 @@ import TableOfContents from '@/components/TableOfContents';
 import PostNavigation from '@/components/PostNavigation';
 import Comments from '@/components/Comments';
 import MarkdownContent from '@/components/MarkdownContent';
+import BlogPostTransitionWrapper from '@/components/BlogPostTransitionWrapper';
 
 // Generate static paths at build time
 export async function generateStaticParams() {
@@ -57,48 +58,50 @@ export default async function BlogPostPage({params}) {
         .single();
 
     return (
-        <div className={styles.container}>
-            <div
-                className={styles.postHeader}
-                style={{
-                    backgroundImage: post.thumbnail_url ? `url(${post.thumbnail_url})` : 'none'
-                }}
-            >
-                <h1 className={styles.titleText}>{post.title}</h1>
-                <p className={styles.postDate}>
-                    {new Date(post.created_at).toLocaleDateString('ko-KR', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    })}
-                </p>
+        <BlogPostTransitionWrapper>
+            <div className={styles.container}>
+                <div
+                    className={styles.postHeader}
+                    style={{
+                        backgroundImage: post.thumbnail_url ? `url(${post.thumbnail_url})` : 'none'
+                    }}
+                >
+                    <h1 className={styles.titleText}>{post.title}</h1>
+                    <p className={styles.postDate}>
+                        {new Date(post.created_at).toLocaleDateString('ko-KR', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        })}
+                    </p>
+                </div>
+
+                <div className={styles.blogPostWrapper}>
+                    {/* Mobile TOC - shown only on mobile */}
+                    <div className={styles.mobileToc}>
+                        <TableOfContents content={post.content}/>
+                    </div>
+
+                    <div className={styles.postContent} data-testid="post-content">
+                        <MarkdownContent content={post.content}/>
+
+                    </div>
+
+                    {/* Desktop TOC - shown only on desktop */}
+                    <div className={styles.desktopToc}>
+                        <TableOfContents content={post.content}/>
+                    </div>
+                </div>
+
+                {/* Post navigation - previous and next posts */}
+                <PostNavigation prevPost={prevPost} nextPost={nextPost}/>
+
+                {/* Comments section */}
+                <Comments postId={postId}/>
+
+                <div className={styles.bottomPadding}></div>
+
             </div>
-
-            <div className={styles.blogPostWrapper}>
-                {/* Mobile TOC - shown only on mobile */}
-                <div className={styles.mobileToc}>
-                    <TableOfContents content={post.content}/>
-                </div>
-
-                <div className={styles.postContent} data-testid="post-content">
-                    <MarkdownContent content={post.content}/>
-
-                </div>
-
-                {/* Desktop TOC - shown only on desktop */}
-                <div className={styles.desktopToc}>
-                    <TableOfContents content={post.content}/>
-                </div>
-            </div>
-
-            {/* Post navigation - previous and next posts */}
-            <PostNavigation prevPost={prevPost} nextPost={nextPost}/>
-
-            {/* Comments section */}
-            <Comments postId={postId}/>
-
-            <div className={styles.bottomPadding}></div>
-
-        </div>
+        </BlogPostTransitionWrapper>
     );
 }

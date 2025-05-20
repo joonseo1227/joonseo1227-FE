@@ -126,7 +126,6 @@
     position: relative;
     padding: 48px;
     background-color: var(--surface-color);
-    border-radius: 8px;
     margin-bottom: 48px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -136,22 +135,22 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
-    margin: 24px 0 32px 0;
+    margin-bottom: 32px;
 }
 
 /* Image gallery skeleton */
 .imageGallerySkeleton {
     position: relative;
     width: 100%;
-    border-radius: 8px;
     overflow: hidden;
+    margin-bottom: 32px;
 }
 
 /* Project image skeleton */
 .projectImage {
     width: 100%;
     aspect-ratio: 16/9;
-    border-radius: 8px;
+    border-radius: 0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -159,39 +158,43 @@
 .imageNavigationSkeleton {
     position: absolute;
     bottom: 16px;
-    left: 0;
-    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 16px;
     z-index: 10;
+    height: 40px;
+    background-color: var(--overlay-color-2);
+    backdrop-filter: blur(8px);
 }
 
 /* Navigation button skeleton */
 .navButtonSkeleton {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
+    border-radius: 0;
 }
 
 /* Image counter skeleton */
 .imageCounterSkeleton {
     width: 60px;
     height: 24px;
-    border-radius: 16px;
+    border-radius: 0;
 }
 
 /* Project details container */
-.projectDetails {
+.projectDetailsSkeleton {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    width: 100%;
 }
 
 /* Project job skeleton */
 .projectJob {
-    height: 20px;
+    height: 24px;
     margin-bottom: 16px;
     width: 60%;
 }
@@ -215,15 +218,18 @@
 .techTagSkeleton {
     height: 32px;
     width: 80px;
-    border-radius: 4px;
+    padding: 6px 12px;
+}
+
+/* Button container skeleton */
+.buttonContainerSkeleton {
+    margin-bottom: 32px;
 }
 
 /* GitHub link skeleton */
 .githubLink {
     height: 48px;
     width: 200px;
-    border-radius: 4px;
-    margin-top: 16px;
 }
 
 
@@ -246,16 +252,16 @@
 /* Desktop responsiveness */
 @media (min-width: 768px) {
     .projectInfoContainer {
-        flex-direction: row;
+        flex-direction: column;
         align-items: flex-start;
     }
 
-    .projectImage {
-        width: 50%;
+    .imageGallerySkeleton {
+        width: 100%;
     }
 
-    .projectDetails {
-        width: 50%;
-        padding-left: 32px;
+    .projectDetailsSkeleton {
+        width: 100%;
+        padding-left: 0;
     }
 }

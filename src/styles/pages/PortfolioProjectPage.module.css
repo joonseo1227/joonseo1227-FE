@@ -3,12 +3,86 @@
     max-width: 1200px;
     padding: 16px;
     margin: 0 auto;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .projectHeader {
     position: relative;
     width: 100%;
     overflow: visible;
+    opacity: 0; /* Start transparent */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.projectHeader.animate {
+    opacity: 1; /* Become visible when animated */
+    animation: fadeIn 0.8s ease-out forwards;
 }
 
 .projectInfo {
@@ -16,6 +90,13 @@
     flex-direction: column;
     gap: 32px;
     margin-bottom: 32px;
+    opacity: 0; /* Start transparent */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.projectInfo.animate {
+    opacity: 1; /* Become visible when animated */
+    animation: fadeInUp 0.8s ease-out forwards;
 }
 
 /* Image gallery */
@@ -189,6 +270,9 @@
     background-color: var(--surface-color);
     padding: 6px 12px;
     display: inline-block;
+    opacity: 0; /* Start transparent */
+    animation: fadeIn 0.6s ease-out forwards;
+    /* Animation delay is set inline with style={{animationDelay: `${i * 80 + 100}ms`}} */
 }
 
 .descriptionText {
@@ -196,6 +280,24 @@
     line-height: 1.8;
     margin: 0 0 32px 0;
     white-space: pre-wrap;
+    opacity: 0; /* Start transparent */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.descriptionText.animate {
+    opacity: 1; /* Become visible when animated */
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.buttonContainer {
+    opacity: 0; /* Start transparent */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    margin-bottom: 32px;
+}
+
+.buttonContainer.animate {
+    opacity: 1; /* Become visible when animated */
+    animation: fadeInUp 0.8s ease-out forwards;
 }
 
 .icon {
