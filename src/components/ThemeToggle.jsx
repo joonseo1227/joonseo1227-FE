@@ -5,67 +5,62 @@ import {useEffect, useState} from "react";
 import {Asleep, Sun} from '@carbon/icons-react';
 
 const ThemeToggle = () => {
-    const [theme, settheme] = useState("dark");
+    const [theme, setTheme] = useState("dark");
     const [isManuallySet, setIsManuallySet] = useState(false);
 
+    // Initialize theme from localStorage or system preference
     useEffect(() => {
-        // Check if theme is manually set in localStorage
         const savedTheme = localStorage.getItem("theme");
-        const isManualOverride = localStorage.getItem("isManualOverride");
+        const isManualOverride = localStorage.getItem("isManualOverride") === "true";
 
-        if (savedTheme && isManualOverride === "true") {
-            settheme(savedTheme);
+        if (savedTheme && isManualOverride) {
+            setTheme(savedTheme);
             setIsManuallySet(true);
         } else {
-            // Check system preference if no manual override
             const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            settheme(systemPrefersDark ? "dark" : "light");
+            setTheme(systemPrefersDark ? "dark" : "light");
         }
     }, []);
 
-    // Set up listener for system preference changes
+    // Listen for system preference changes when not manually set
     useEffect(() => {
         if (!isManuallySet) {
             const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-            const handleChange = (e) => {
-                settheme(e.matches ? "dark" : "light");
-            };
+            const handleChange = (e) => setTheme(e.matches ? "dark" : "light");
 
             mediaQuery.addEventListener('change', handleChange);
             return () => mediaQuery.removeEventListener('change', handleChange);
         }
     }, [isManuallySet]);
 
-    const themetoggle = () => {
-        // If already manually set and user clicks again on the current system preference,
-        // reset to follow system preference
-        if (isManuallySet) {
-            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const systemTheme = systemPrefersDark ? "dark" : "light";
-            const newTheme = theme === "dark" ? "light" : "dark";
-
-            if (newTheme === systemTheme) {
-                setIsManuallySet(false);
-                localStorage.removeItem('isManualOverride');
-                return;
-            }
-        }
-
-        // Otherwise toggle theme and set as manually overridden
-        settheme(theme === "dark" ? "light" : "dark");
-        setIsManuallySet(true);
-    };
-
+    // Update document and localStorage when theme changes
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
+
         if (isManuallySet) {
             localStorage.setItem('isManualOverride', 'true');
         }
     }, [theme, isManuallySet]);
 
+    const toggleTheme = () => {
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const systemTheme = systemPrefersDark ? "dark" : "light";
+        const newTheme = theme === "dark" ? "light" : "dark";
+
+        // If toggling to match system preference, reset to auto mode
+        if (isManuallySet && newTheme === systemTheme) {
+            setIsManuallySet(false);
+            localStorage.removeItem('isManualOverride');
+        } else {
+            // Otherwise toggle theme and set as manually overridden
+            setTheme(newTheme);
+            setIsManuallySet(true);
+        }
+    };
+
     return (
-        <div className={styles.navButton} onClick={themetoggle}>
+        <div className={styles.navButton} onClick={toggleTheme}>
             {theme === "dark" ? <Asleep size="20"/> : <Sun size="20"/>}
         </div>
     );
