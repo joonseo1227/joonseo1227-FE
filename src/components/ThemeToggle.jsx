@@ -1,6 +1,7 @@
 "use client";
 
-import styles from '@/styles/components/Header.module.css';
+import headerStyles from '@/styles/components/Header.module.css';
+import themeStyles from '@/styles/components/ThemeToggle.module.css';
 import {useEffect, useState} from "react";
 import {Asleep, Sun} from '@carbon/icons-react';
 
@@ -60,8 +61,11 @@ const ThemeToggle = () => {
     };
 
     return (
-        <div className={styles.navButton} onClick={toggleTheme}>
-            {theme === "dark" ? <Asleep size="20"/> : <Sun size="20"/>}
+        <div className={`${headerStyles.navButton} ${themeStyles.themeToggle}`} onClick={toggleTheme}>
+            <div className={themeStyles.iconWrapper}>
+                <Sun className={themeStyles.sunIcon} size="20" />
+                <Asleep className={themeStyles.moonIcon} size="20" />
+            </div>
         </div>
     );
 };

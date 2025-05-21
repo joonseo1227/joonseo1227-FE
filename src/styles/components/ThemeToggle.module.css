@@ -1,0 +1,43 @@
+.themeToggle {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconWrapper {
+  position: relative;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.sunIcon, .moonIcon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.2rem;
+  height: 1.2rem;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* Light theme (sun visible) */
+.sunIcon {
+  transform: rotate(0) scale(1);
+  opacity: 1;
+}
+
+.moonIcon {
+  transform: rotate(90deg) scale(0);
+  opacity: 0;
+}
+
+/* Dark theme (moon visible) */
+[data-theme="dark"] .sunIcon {
+  transform: rotate(-90deg) scale(0);
+  opacity: 0;
+}
+
+[data-theme="dark"] .moonIcon {
+  transform: rotate(0) scale(1);
+  opacity: 1;
+}
