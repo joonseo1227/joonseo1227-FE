@@ -76,6 +76,23 @@
     box-shadow: 0 0 0 2px rgba(244, 244, 244, 0.2);
 }
 
+.contentInput::placeholder {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* For older browsers */
+.contentInput::-webkit-input-placeholder {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.contentInput::-moz-placeholder {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.contentInput:-ms-input-placeholder {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
 /* Custom styling for invalid inputs */
 .contentInput:invalid, .inputError {
     border-color: #e74c3c;
