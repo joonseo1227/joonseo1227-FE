@@ -186,7 +186,9 @@ export default function HomePage() {
             {/* Works Section */}
             <section className={styles.worksSection} data-section="works" ref={worksRef}>
                 <div className={styles.sectionHeader}>
-                    <span className={styles.sectionLabel}>Portfolio</span>
+                    <Link href="/portfolio" className={styles.sectionLabelLink}>
+                        <span className={styles.sectionLabel}>Portfolio <span className={styles.arrowIcon}>→</span></span>
+                    </Link>
                     <h2 className={styles.sectionTitle}>Works</h2>
                 </div>
                 <div className={styles.worksGrid}>
@@ -255,7 +257,9 @@ export default function HomePage() {
             {/* Blog Section - Newsroom Style */}
             <section className={styles.blogSection} data-section="blog" ref={blogRef}>
                 <div className={styles.sectionHeader}>
-                    <span className={styles.sectionLabel}>Blog</span>
+                    <Link href="/blog" className={styles.sectionLabelLink}>
+                        <span className={styles.sectionLabel}>Blog <span className={styles.arrowIcon}>→</span></span>
+                    </Link>
                     <h2 className={styles.sectionTitle}>Insights</h2>
                 </div>
                 <div className={styles.blogList}>

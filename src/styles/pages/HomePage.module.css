@@ -188,6 +188,27 @@
     color: var(--sub-color-3);
 }
 
+.sectionLabelLink {
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    transition: opacity 0.3s ease;
+}
+
+.sectionLabelLink:hover {
+    opacity: 0.7;
+}
+
+.arrowIcon {
+    display: inline-block;
+    margin-left: 4px;
+    transition: transform 0.3s ease;
+}
+
+.sectionLabelLink:hover .arrowIcon {
+    transform: translateX(3px);
+}
+
 .sectionTitle {
     font-size: 48px;
     margin: 0;
@@ -260,6 +281,10 @@
     .sectionLabel {
         font-size: 14px;
         margin-bottom: 12px;
+    }
+
+    .arrowIcon {
+        margin-left: 3px;
     }
 }
 
