@@ -71,7 +71,7 @@
         top: 100px;
         right: calc((100% - 800px) / 2 - 250px);
         width: 220px;
-        max-height: calc(100vh - 200px);
+        max-height: calc(100dvh - 200px);
         overflow-y: auto;
         padding-right: 20px;
     }

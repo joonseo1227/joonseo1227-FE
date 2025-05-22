@@ -84,7 +84,7 @@
     }
 
     .headerWrapper.menuOpened {
-        height: var(--header-expanded-height, 100vh);
+        height: var(--header-expanded-height, 100dvh);
     }
 
     .header {
