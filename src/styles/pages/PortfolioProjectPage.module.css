@@ -3,8 +3,59 @@
     max-width: 1200px;
     padding: 16px;
     margin: 0 auto;
-    animation: fadeIn 0.8s ease-in-out;
+    position: relative;
+    overflow: hidden;
 }
+
+
+.portfolioProjectPage::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(
+            to bottom,
+            var(--bg-color) 15%,
+            rgba(var(--bg-color-rgb), 80%) 30%,
+            transparent
+    );
+    z-index: -1;
+    transform-origin: top center;
+    pointer-events: none;
+}
+
+.blurredBackground {
+    z-index: -2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    filter: blur(200px);
+    animation: blurAppear 1.5s ease-out forwards;
+    transform-origin: top center;
+    mix-blend-mode: hard-light;
+}
+
+[data-theme="light"] .blurredBackground {
+    mix-blend-mode: normal;
+}
+
+@keyframes blurAppear {
+    0% {
+        transform: scale(4) translateY(50vh);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1.5) translateY(0);
+        opacity: 0.5;
+    }
+}
+
 
 @keyframes fadeIn {
     0% {
@@ -77,7 +128,6 @@
     width: 100%;
     overflow: visible;
     opacity: 0; /* Start transparent */
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 .projectHeader.animate {
@@ -91,7 +141,6 @@
     gap: 32px;
     margin-bottom: 32px;
     opacity: 0; /* Start transparent */
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 .projectInfo.animate {
@@ -190,7 +239,7 @@
     opacity: 0;
     transition: opacity 0.3s ease;
     backdrop-filter: blur(8px);
-    background-color: var(--overlay-color-2);
+    background-color: rgba(38 38 38 / 70%);
     color: white;
     height: 40px;
 }
@@ -281,7 +330,6 @@
     margin: 0 0 32px 0;
     white-space: pre-wrap;
     opacity: 0; /* Start transparent */
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 .descriptionText.animate {
@@ -291,7 +339,6 @@
 
 .buttonContainer {
     opacity: 0; /* Start transparent */
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     margin-bottom: 32px;
 }
 

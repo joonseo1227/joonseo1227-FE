@@ -34,7 +34,8 @@
 }
 
 :root {
-    --bg-color: #000000;
+    --bg-color-rgb: 0, 0, 0;
+    --bg-color: rgb(var(--bg-color-rgb));
     --surface-color: #161616;
     --text-color: #f4f4f4;
     --sub-color: #e0e0e0;
@@ -52,7 +53,8 @@
 }
 
 [data-theme="light"] {
-    --bg-color: #ffffff;
+    --bg-color-rgb: 255, 255, 255;
+    --bg-color: rgb(var(--bg-color-rgb));
     --surface-color: #f4f4f4;
     --text-color: #161616;
     --sub-color: #262626;
@@ -63,6 +65,7 @@
     --sub-color-6: #8d8d8d;
     --error-color: #fa4d56;
     --overlay-color: rgb(255 255 255 / 70%);
+    --overlay-color-2: rgb(244 244 244 / 70%);
     --header-height: 52px;
     --header-expanded-height: 400px;
 }

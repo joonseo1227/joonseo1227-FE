@@ -63,8 +63,8 @@ const ThemeToggle = () => {
     return (
         <div className={`${headerStyles.navButton} ${themeStyles.themeToggle}`} onClick={toggleTheme}>
             <div className={themeStyles.iconWrapper}>
-                <Sun className={themeStyles.sunIcon} size="20" />
-                <Asleep className={themeStyles.moonIcon} size="20" />
+                <Sun className={themeStyles.sunIcon} size="20"/>
+                <Asleep className={themeStyles.moonIcon} size="20"/>
             </div>
         </div>
     );

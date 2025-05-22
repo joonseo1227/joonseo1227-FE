@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import React, {useEffect, useState} from 'react';
+import {useRouter} from 'next/navigation';
 import styles from "@/styles/pages/PortfolioProjectPage.module.css";
 import supabase from "/src/lib/supabase.js";
 import {LogoGithub} from "@carbon/icons-react";
 import LinkButton from '@/components/LinkButton';
 import ImageSlider from '@/components/ImageSlider';
-import { useInView } from 'react-intersection-observer';
+import {useInView} from 'react-intersection-observer';
 import SkeletonLoader from '@/components/SkeletonLoader';
 
 export default function PortfolioProjectPage({params}) {
@@ -95,7 +95,7 @@ export default function PortfolioProjectPage({params}) {
     if (loading) {
         return (
             <div className={styles.portfolioProjectPage}>
-                <SkeletonLoader page="portfolioDetail" />
+                <SkeletonLoader page="portfolioDetail"/>
             </div>
         );
     }
@@ -107,14 +107,23 @@ export default function PortfolioProjectPage({params}) {
 
     return (
         <div className={styles.portfolioProjectPage}>
-            <div 
+            {project && (
+                project.img_url && (
+                    <div
+                        key={`bg-main`}
+                        className={styles.blurredBackground}
+                        style={{backgroundImage: `url(${project.img_url})`}}
+                    />
+                )
+            )}
+            <div
                 ref={titleRef}
                 className={`${styles.projectHeader} ${titleInView ? styles.animate : ''}`}
             >
                 <h1 className="titleText">{project.title}</h1>
             </div>
 
-            <div 
+            <div
                 ref={infoRef}
                 className={`${styles.projectInfo} ${infoInView ? styles.animate : ''}`}
             >
@@ -135,8 +144,8 @@ export default function PortfolioProjectPage({params}) {
                     <div className={styles.techStackContainer}>
                         {project.project_techs && project.project_techs.length > 0 ? (
                             project.project_techs.map((tech, i) => (
-                                <span 
-                                    key={tech.id} 
+                                <span
+                                    key={tech.id}
                                     className={styles.techTag}
                                     style={{animationDelay: `${i * 80 + 100}ms`}}
                                 >
@@ -151,7 +160,7 @@ export default function PortfolioProjectPage({params}) {
                 </div>
             </div>
 
-            <p 
+            <p
                 ref={descRef}
                 className={`${styles.descriptionText} ${descInView ? styles.animate : ''}`}
             >
@@ -159,7 +168,7 @@ export default function PortfolioProjectPage({params}) {
             </p>
 
             {project.github_url && (
-                <div 
+                <div
                     ref={buttonRef}
                     className={`${styles.buttonContainer} ${buttonInView ? styles.animate : ''}`}
                 >

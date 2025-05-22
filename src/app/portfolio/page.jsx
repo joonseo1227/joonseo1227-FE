@@ -1,7 +1,7 @@
 "use client";
 
 import styles from '@/styles/pages/PortfolioPage.module.css';
-import {useEffect, useState, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import supabase from "/src/lib/supabase.js";
 import Link from "next/link";
 import SkeletonLoader from '@/components/SkeletonLoader';
@@ -79,9 +79,9 @@ export default function PortfolioPage() {
                         };
 
                         return (
-                            <Link 
-                                key={project.id} 
-                                className={styles.projectLink} 
+                            <Link
+                                key={project.id}
+                                className={styles.projectLink}
                                 href={`/portfolio/${project.id}`}
                                 onClick={handleProjectClick}
                             >

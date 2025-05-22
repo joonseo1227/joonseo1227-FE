@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect, useState, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import supabase from "/src/lib/supabase.js";
 import styles from '@/styles/pages/BlogPage.module.css';
 import Link from "next/link";
@@ -142,9 +142,9 @@ export default function BlogPage() {
                         };
 
                         return (
-                            <Link 
-                                key={post.id} 
-                                className={styles.postLink} 
+                            <Link
+                                key={post.id}
+                                className={styles.postLink}
                                 href={`/blog/${post.id}`}
                                 onClick={handlePostClick}
                             >
