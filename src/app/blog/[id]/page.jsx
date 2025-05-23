@@ -7,6 +7,9 @@ import Comments from '@/components/Comments';
 import MarkdownContent from '@/components/MarkdownContent';
 import BlogPostTransitionWrapper from '@/components/BlogPostTransitionWrapper';
 
+// Revalidate the page every 60 seconds
+export const revalidate = 60;
+
 // Generate static paths at build time
 export async function generateStaticParams() {
     const {data: posts} = await supabase
