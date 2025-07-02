@@ -27,7 +27,8 @@ export default async function sitemap() {
     // Fetch blog posts
     const {data: posts} = await supabase
         .from('posts')
-        .select('id, created_at, updated_at');
+        .select('id, created_at, updated_at')
+        .eq('status', 'published');
 
     const blogUrls = posts?.map(post => ({
         url: `${baseUrl}/blog/${post.id}`,

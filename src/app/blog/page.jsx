@@ -51,6 +51,7 @@ export default function BlogPage() {
                         )
                     )
                 `)
+                    .eq('status', 'published')
                     .order('created_at', {ascending: false});
 
                 if (selectedCategory) {

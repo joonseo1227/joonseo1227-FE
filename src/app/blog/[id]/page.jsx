@@ -14,7 +14,8 @@ export const revalidate = 60;
 export async function generateStaticParams() {
     const {data: posts} = await supabase
         .from('posts')
-        .select('id');
+        .select('id')
+        .eq('is_published', true);
 
     return posts?.map((post) => ({
         id: post.id,
@@ -36,6 +37,7 @@ export default async function BlogPostPage({params}) {
             )
         `)
         .eq('id', postId)
+        .in('status', ['published', 'unlisted'])
         .single();
 
     if (postError || !post) {
@@ -46,6 +48,7 @@ export default async function BlogPostPage({params}) {
     const {data: prevPost} = await supabase
         .from('posts')
         .select('id, title, thumbnail_url, created_at')
+        .eq('status', 'published')
         .lt('created_at', post.created_at)
         .order('created_at', {ascending: false})
         .limit(1)
@@ -55,6 +58,7 @@ export default async function BlogPostPage({params}) {
     const {data: nextPost} = await supabase
         .from('posts')
         .select('id, title, thumbnail_url, created_at')
+        .eq('status', 'published')
         .gt('created_at', post.created_at)
         .order('created_at', {ascending: true})
         .limit(1)

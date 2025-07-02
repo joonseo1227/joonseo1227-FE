@@ -22,6 +22,7 @@ export async function generateMetadata({params}) {
             )
         `)
         .eq("id", postId)
+        .in("status", ["published", "unlisted"])
         .single();
 
     // 게시글이 없거나 에러 발생 시 기본값 반환
