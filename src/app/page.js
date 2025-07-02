@@ -187,7 +187,8 @@ export default function HomePage() {
             <section className={styles.worksSection} data-section="works" ref={worksRef}>
                 <div className={styles.sectionHeader}>
                     <Link href="/portfolio" className={styles.sectionLabelLink}>
-                        <span className={styles.sectionLabel}>Portfolio <span className={styles.arrowIcon}>→</span></span>
+                        <span className={styles.sectionLabel}>Portfolio <span
+                            className={styles.arrowIcon}>→</span></span>
                     </Link>
                     <h2 className={styles.sectionTitle}>Works</h2>
                 </div>
