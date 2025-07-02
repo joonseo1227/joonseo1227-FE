@@ -1,6 +1,6 @@
 import "../styles/globals.css";
 import Header from "@/components/Header";
-import {SocialIcons} from "@/components/SocialIcons";
+import { SocialIcons } from "@/components/SocialIcons";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import ClientWrapper from "@/components/ClientWrapper";
 
@@ -10,30 +10,30 @@ export const metadata = {
         siteName: "joonseo1227",
         title: "joonseo1227",
         description: "정준서의 홈페이지",
-        images: "https://avtqiifssheaiyrcujbi.supabase.co/storage/v1/object/sign/images/thumbnail.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvdGh1bWJuYWlsLmpwZyIsImlhdCI6MTc0MDkyOTc3MywiZXhwIjozMzI0NTM5Mzc3M30.Zg43Io1d1YbvvOZ42m3CQKbwhPT-u62Bz8T_yYsqDus",
+        images: "https://avtqiifssheaiyrcujbi.supabase.co/storage/v1/object/public/images//thumbnail.webp",
     },
     twitter: {
         card: "summary_large_image",
         title: "joonseo1227",
         description: "정준서의 홈페이지",
-        images: "https://avtqiifssheaiyrcujbi.supabase.co/storage/v1/object/sign/images/thumbnail.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvdGh1bWJuYWlsLmpwZyIsImlhdCI6MTc0MDkyOTc3MywiZXhwIjozMzI0NTM5Mzc3M30.Zg43Io1d1YbvvOZ42m3CQKbwhPT-u62Bz8T_yYsqDus",
+        images: "https://avtqiifssheaiyrcujbi.supabase.co/storage/v1/object/public/images//thumbnail.webp",
     },
     icons: {
         shortcut: '/src/app/favicon.ico',
     },
 };
 
-export default function RootLayout({children}) {
+export default function RootLayout({ children }) {
     return (
         <html lang="ko">
-        <body>
-        <Header/>
-        <GoogleAnalytics ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}/>
-        <ClientWrapper>
-            {children}
-        </ClientWrapper>
-        <SocialIcons/>
-        </body>
+            <body>
+                <Header />
+                <GoogleAnalytics ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+                <ClientWrapper>
+                    {children}
+                </ClientWrapper>
+                <SocialIcons />
+            </body>
         </html>
     );
 }
