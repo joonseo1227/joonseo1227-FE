@@ -127,6 +127,7 @@ export default function HomePage() {
                 const {data, error} = await supabase
                     .from('posts')
                     .select('*')
+                    .eq('status', 'published')
                     .order('created_at', {ascending: false})
                     .limit(3);
 
