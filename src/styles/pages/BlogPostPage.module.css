@@ -11,7 +11,6 @@
     word-break: keep-all;
 }
 
-/* 배경 오버레이 효과 */
 .postHeader::before {
     content: "";
     position: absolute;
@@ -23,7 +22,6 @@
     z-index: 1;
 }
 
-/* 헤더 내부 내용은 오버레이 위에 표시 */
 .postHeader > * {
     position: relative;
     z-index: 2;
@@ -40,7 +38,6 @@
     opacity: 0.8;
 }
 
-/* Blog post wrapper - contains content and TOC */
 .blogPostWrapper {
     position: relative;
     display: flex;
@@ -49,40 +46,44 @@
     margin: 0 auto;
 }
 
-/* Post content */
 .postContent {
     font-size: 18px;
-    line-height: 1.8;
+    line-height: 1.7;
     color: var(--text-color);
-    margin-bottom: 32px;
+    margin-bottom: 18px;
     width: 100%;
     padding: 0 16px;
 }
 
-/* Mobile TOC - only visible on mobile */
 .mobileToc {
     display: none;
     padding: 0 16px;
 }
 
-/* Desktop TOC - only visible on desktop */
 .desktopToc {
     display: block;
     padding: 0 16px;
 }
 
-/* Bottom padding to ensure last heading can be scrolled to top */
 .bottomPadding {
-    height: 30vh; /* Reduced from 70vh to 30vh to prevent excessive padding */
+    height: 30vh;
 }
 
 .postContent h1 {
-    margin: 80px 0 0 0;
+    margin: 32px 0 16px;
+    font-size: 28px;
+    font-weight: 600;
 }
 
-.postContent h2,
+.postContent h2 {
+    margin: 40px 0 16px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
 .postContent h3 {
-    margin: 32px 0 0 0;
+    margin: 40px 0 16px;
+    font-weight: 600;
 }
 
 .postContent h1,
@@ -94,7 +95,7 @@
 .postContent p,
 .postContent ol,
 .postContent ul {
-    margin: 24px 0 0 0;
+    margin: 18px 0;
 }
 
 .postContent img {
@@ -120,7 +121,6 @@
     border-radius: 3px;
 }
 
-/* Remove additional styling for code elements inside pre elements */
 .postContent pre code {
     background-color: transparent;
     padding: 0;
@@ -128,28 +128,36 @@
 }
 
 .postContent blockquote {
-    border-left: 4px solid var(--text-color);
-    padding: 16px;
+    border-left: 4px solid var(--sub-color-4);
     color: var(--text-color);
     background-color: var(--surface-color);
     margin: 32px 0 0 0;
+    padding: 16px 24px;
+    font-size: 18px;
 }
 
 .postContent blockquote p {
     margin: 0;
 }
 
+.postContent blockquote ol,
+.postContent blockquote ul {
+    margin: 0;
+    padding-left: 1.5em;
+}
+
 .postContent table {
     border-collapse: collapse;
     width: 100%;
-    background-color: var(--surface-color);
     margin: 32px 0 0 0;
+    font-size: 16px;
 }
 
 .postContent th,
 .postContent td {
+    text-align: start;
     border: 1px solid var(--sub-color-6);
-    padding: 8px;
+    padding: 4px 8px;
 }
 
 .postContent ol {
@@ -210,5 +218,9 @@
 
     .desktopToc {
         display: none;
+    }
+
+    .postContent {
+        font-size: 16px;
     }
 }
