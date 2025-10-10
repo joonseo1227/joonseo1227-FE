@@ -8,7 +8,7 @@
     font-size: 24px;
     margin-bottom: 24px;
     font-weight: 600;
-    color: var(--text-color);
+    color: var(--color-text-primary);
 }
 
 .commentForm {
@@ -23,32 +23,32 @@
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
-    color: var(--text-color);
+    color: var(--color-text-primary);
 }
 
 .nicknameInput {
     width: 100%;
     max-width: 300px;
     padding: 8px 12px;
-    border: 1px solid var(--sub-color-6);
+    border: 1px solid var(--color-base-6);
     font-size: 16px;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
     transition: border-color 0.3s, box-shadow 0.3s;
     outline: none;
 }
 
 .nicknameInput:focus {
-    border-color: var(--text-color);
+    border-color: var(--color-text-primary);
     box-shadow: 0 0 0 2px rgba(244, 244, 244, 0.2);
 }
 
 .nicknameInput:invalid, .inputError {
-    border-color: var(--error-color);
+    border-color: var(--color-error);
 }
 
 .formGroup .errorMessage {
-    color: var(--error-color);
+    color: var(--color-error);
     font-size: 14px;
     margin-top: 4px;
     font-weight: 500;
@@ -57,17 +57,17 @@
 .contentInput {
     width: 100%;
     padding: 12px;
-    border: 1px solid var(--sub-color-6);
+    border: 1px solid var(--color-base-6);
     font-size: 16px;
     resize: vertical;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
     transition: border-color 0.3s, box-shadow 0.3s;
     outline: none;
 }
 
 .contentInput:focus {
-    border-color: var(--text-color);
+    border-color: var(--color-text-primary);
     box-shadow: 0 0 0 2px rgba(244, 244, 244, 0.2);
 }
 
@@ -88,12 +88,12 @@
 }
 
 .contentInput:invalid, .inputError {
-    border-color: var(--error-color);
+    border-color: var(--color-error);
 }
 
 .submitButton {
-    background-color: var(--text-color);
-    color: var(--bg-color);
+    background-color: var(--color-text-primary);
+    color: var(--color-bg);
     text-decoration: none;
     border: none;
     padding: 16px;
@@ -107,17 +107,17 @@
 }
 
 .submitButton:hover {
-    background-color: var(--sub-color-2);
-    color: var(--bg-color);
+    background-color: var(--color-base-2);
+    color: var(--color-bg);
 }
 
 .submitButton:active {
-    background-color: var(--sub-color-3);
-    color: var(--bg-color);
+    background-color: var(--color-base-3);
+    color: var(--color-bg);
 }
 
 .submitButton:disabled {
-    background-color: var(--sub-color-6);
+    background-color: var(--color-base-6);
     cursor: not-allowed;
 }
 
@@ -127,7 +127,7 @@
 
 .commentItem {
     padding: 16px;
-    background-color: var(--surface-color);
+    background-color: var(--color-surface);
     margin-bottom: 16px;
 }
 
@@ -140,28 +140,28 @@
 
 .commentAuthor {
     font-weight: 600;
-    color: var(--text-color);
+    color: var(--color-text-primary);
 }
 
 .commentDate {
     font-size: 14px;
-    color: var(--sub-color-4);
+    color: var(--color-base-4);
 }
 
 .commentContent {
     line-height: 1.6;
-    color: var(--text-color);
+    color: var(--color-text-primary);
     white-space: pre-wrap;
 }
 
 .noComments {
     text-align: center;
-    color: var(--sub-color-4);
+    color: var(--color-base-4);
     padding: 24px 0;
 }
 
 .errorMessage {
-    color: var(--error-color);
+    color: var(--color-error);
 }
 
 @media (max-width: 768px) {

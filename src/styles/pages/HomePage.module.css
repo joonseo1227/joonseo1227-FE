@@ -4,8 +4,8 @@
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
 }
 
 /* Hero section */
@@ -99,7 +99,7 @@
 .aboutSection {
     width: 100%;
     padding: 120px 0;
-    background-color: var(--surface-color);
+    background-color: var(--color-surface);
 }
 
 .aboutContent {
@@ -124,7 +124,7 @@
     font-size: 32px;
     line-height: 1.5;
     margin-bottom: 32px;
-    color: var(--sub-color);
+    color: var(--color-base-1);
     font-weight: 700;
 }
 
@@ -169,7 +169,7 @@
 .worksSection {
     padding: 120px 0;
     width: 100%;
-    background-color: var(--bg-color);
+    background-color: var(--color-bg);
 }
 
 .sectionHeader {
@@ -185,7 +185,7 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 16px;
-    color: var(--sub-color-3);
+    color: var(--color-base-3);
 }
 
 .sectionLabelLink {
@@ -323,7 +323,7 @@
     transform: none;
     position: relative;
     overflow: hidden;
-    background-color: var(--surface-color);
+    background-color: var(--color-surface);
 }
 
 .workCardInfo {
@@ -339,7 +339,7 @@
 .workCardDescription {
     font-size: 16px;
     line-height: 1.5;
-    color: var(--sub-color-2);
+    color: var(--color-base-2);
     margin: 0;
 }
 
@@ -385,8 +385,8 @@
 .blogSection {
     padding: 120px 0;
     width: 100%;
-    background-color: var(--bg-color);
-    border-top: 1px solid var(--sub-color-6);
+    background-color: var(--color-bg);
+    border-top: 1px solid var(--color-base-6);
 }
 
 .blogList {
@@ -402,7 +402,7 @@
     padding: 40px 0;
     opacity: 0;
     transform: translateY(30px);
-    border-bottom: 1px solid var(--sub-color-6);
+    border-bottom: 1px solid var(--color-base-6);
     transition: opacity 0.3s ease;
     display: flex;
     flex-direction: row;
@@ -464,7 +464,7 @@
 
 .blogCardDate {
     font-size: 14px;
-    color: var(--sub-color-3);
+    color: var(--color-base-3);
 }
 
 .blogCardTitle {
@@ -477,7 +477,7 @@
 .blogCardExcerpt {
     font-size: 18px;
     line-height: 1.5;
-    color: var(--sub-color-2);
+    color: var(--color-base-2);
     margin: 0;
     max-width: 800px;
 }
@@ -561,7 +561,7 @@
 .noContent {
     text-align: center;
     padding: 40px 0;
-    color: var(--sub-color-3);
+    color: var(--color-base-3);
     font-size: 18px;
     width: 100%;
 }

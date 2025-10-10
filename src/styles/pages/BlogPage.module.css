@@ -14,10 +14,10 @@
 }
 
 .postTile {
-    border: 1px solid var(--sub-color-6);
+    border: 1px solid var(--color-base-6);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     overflow: hidden;
-    background: var(--bg-color);
+    background: var(--color-bg);
 }
 
 .postTile:hover {
@@ -40,19 +40,19 @@
 
 .postSummary {
     font-size: 14px;
-    color: var(--sub-color-3);
+    color: var(--color-text-secondary);
     margin: 0;
 }
 
 .postDate {
     font-size: 14px;
-    color: var(--sub-color-3);
+    color: var(--color-text-secondary);
     margin: 16px 0 0 0;
 }
 
 .postLink {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--color-text-primary);
     display: block;
     height: 100%;
 }
@@ -77,9 +77,9 @@
 
 .categoryBtn {
     padding: 8px 16px;
-    border: 1px solid var(--text-color);
+    border: 1px solid var(--color-base-1);
     background: none;
-    color: var(--text-color);
+    color: var(--color-base-1);
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -87,20 +87,20 @@
 }
 
 .categoryBtn:hover {
-    background-color: var(--text-color);
-    color: var(--bg-color);
+    background-color: var(--color-base-1);
+    color: var(--color-bg);
 }
 
 .categoryBtn.active {
-    background-color: var(--text-color);
-    color: var(--bg-color);
+    background-color: var(--color-base-1);
+    color: var(--color-bg);
 }
 
 .noPosts {
     text-align: center;
     padding: 40px;
     font-size: 1.1rem;
-    color: var(--text-color);
+    color: var(--color-text-primary);
 }
 
 @keyframes fadeIn {

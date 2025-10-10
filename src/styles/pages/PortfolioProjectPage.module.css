@@ -16,8 +16,8 @@
     height: 100vh;
     background: linear-gradient(
             to bottom,
-            var(--bg-color) 15%,
-            rgba(var(--bg-color-rgb), 80%) 30%,
+            var(--color-bg) 15%,
+            rgba(var(--color-bg-rgb), 80%) 30%,
             transparent
     );
     z-index: -1;
@@ -275,19 +275,19 @@
 .jobText {
     font-size: 24px;
     font-weight: 500;
-    color: var(--text-color);
+    color: var(--color-text-primary);
     margin: 0;
 }
 
 .periodText {
     font-size: 16px;
-    color: var(--sub-color-3);
+    color: var(--color-base-3);
     margin: 0;
 }
 
 .techText {
     font-size: 16px;
-    background-color: var(--surface-color);
+    background-color: var(--color-surface);
     padding: 8px 16px;
     display: inline-block;
     margin: 8px 0 0 0;
@@ -302,7 +302,7 @@
 
 .techTag {
     font-size: 14px;
-    background-color: var(--surface-color);
+    background-color: var(--color-surface);
     padding: 6px 12px;
     display: inline-block;
     opacity: 0;
@@ -333,7 +333,7 @@
 }
 
 .icon {
-    color: var(--text-color);
+    color: var(--color-text-primary);
     margin-right: 8px;
 }
 

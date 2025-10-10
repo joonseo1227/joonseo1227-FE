@@ -20,7 +20,7 @@
 }
 
 .tocItem a {
-    color: var(--sub-color-4);
+    color: var(--color-base-4);
     text-decoration: none;
     display: block;
     padding: 4px 0;
@@ -28,7 +28,7 @@
 }
 
 .tocItem a:hover {
-    color: var(--text-color);
+    color: var(--color-text-primary);
     font-weight: 700;
 }
 
@@ -53,7 +53,7 @@
 }
 
 .active a {
-    color: var(--text-color);
+    color: var(--color-text-primary);
     font-weight: 700;
 }
 
@@ -73,7 +73,7 @@
     .tableOfContents {
         margin-bottom: 32px;
         padding: 16px;
-        background-color: var(--surface-color);
+        background-color: var(--color-surface);
     }
 
     .tocTitle {

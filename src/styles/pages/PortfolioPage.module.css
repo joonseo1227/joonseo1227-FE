@@ -14,10 +14,10 @@
 }
 
 .projectTile {
-    border: 1px solid var(--text-color);
+    border: 1px solid var(--color-text-primary);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     overflow: hidden;
-    background: var(--bg-color);
+    background: var(--color-bg);
 }
 
 .projectTile:hover {
@@ -27,7 +27,7 @@
 
 .projectLink {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--color-text-primary);
     display: block;
     height: 100%;
 }
@@ -44,7 +44,7 @@
 }
 
 .projectInfo p {
-    color: var(--sub-color-3);
+    color: var(--color-base-3);
 }
 
 @keyframes fadeIn {
@@ -64,12 +64,12 @@
     text-align: center;
     padding: 40px;
     font-size: 1.1rem;
-    color: var(--text-color);
+    color: var(--color-text-primary);
 }
 
 .errorMessage {
     text-align: center;
     padding: 40px;
     font-size: 1.1rem;
-    color: var(--error-color, red);
+    color: var(--color-error, red);
 }

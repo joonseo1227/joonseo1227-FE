@@ -8,14 +8,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: var(--bg-color);
+    background-color: var(--color-bg);
 }
 
 .title {
     font-size: 7rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    color: var(--text-color);
+    color: var(--color-text-primary);
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInUp 0.8s ease forwards;
@@ -26,7 +26,7 @@
     font-size: 2.5rem;
     font-weight: 500;
     margin-bottom: 2rem;
-    color: var(--text-color);
+    color: var(--color-text-primary);
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInUp 0.8s ease forwards 0.2s;
@@ -36,7 +36,7 @@
 .message {
     font-size: 1.2rem;
     margin-bottom: 3rem;
-    color: var(--sub-color-2);
+    color: var(--color-base-2);
     max-width: 600px;
     line-height: 1.6;
     opacity: 0;

@@ -1,7 +1,7 @@
 .linkButton {
     text-decoration: none;
-    border: 1px solid var(--text-color);
-    color: var(--text-color);
+    border: 1px solid var(--color-text-primary);
+    color: var(--color-text-primary);
     padding: 16px;
     display: inline-flex;
     text-align: center;

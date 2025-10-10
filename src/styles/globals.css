@@ -36,51 +36,72 @@
 :root {
     --font-nanumsquareneo: 'NanumSquareNeo', sans-serif;
 
-    --bg-color-rgb: 0, 0, 0;
-    --bg-color: rgb(var(--bg-color-rgb));
+    --color-black: #000000;
 
-    --surface-color: #161616;
+    --color-gray-100: #161616;
+    --color-gray-90: #262626;
+    --color-gray-80: #393939;
+    --color-gray-70: #525252;
+    --color-gray-60: #6f6f6f;
+    --color-gray-50: #8d8d8d;
+    --color-gray-40: #a8a8a8;
+    --color-gray-30: #c6c6c6;
+    --color-gray-20: #e0e0e0;
+    --color-gray-10: #f4f4f4;
 
-    --text-color: #f4f4f4;
+    --color-white: #ffffff;
 
-    --sub-color: #e0e0e0;
-    --sub-color-2: #c6c6c6;
-    --sub-color-3: #a8a8a8;
-    --sub-color-4: #8d8d8d;
-    --sub-color-5: #6f6f6f;
-    --sub-color-6: #525252;
+    --color-red-60: #da1e28;
+    --color-red-50: #fa4d56;
 
-    --error-color: #fa4d56;
+    --color-base-1: var(--color-gray-10);
+    --color-base-2: var(--color-gray-20);
+    --color-base-3: var(--color-gray-30);
+    --color-base-4: var(--color-gray-40);
+    --color-base-5: var(--color-gray-50);
+    --color-base-6: var(--color-gray-60);
+    --color-base-7: var(--color-gray-70);
+    --color-base-8: var(--color-gray-80);
+    --color-base-9: var(--color-gray-90);
+    --color-base-10: var(--color-gray-100);
 
-    --overlay-color: rgb(0 0 0 / 70%);
-    --overlay-color-2: rgb(38 38 38 / 70%);
+    --color-bg-rgb: 0, 0, 0;
+    --color-bg: var(--color-black);
+
+    --color-surface: var(--color-base-10);
+
+    --color-text-primary: var(--color-base-1);
+    --color-text-secondary: var(--color-base-3);
+    --color-text-tertiary: var(--color-base-5);
+
+    --color-error: var(--color-red-50);
+
+    --color-overlay-1: rgb(0 0 0 / 70%);
+    --color-overlay-2: rgb(38 38 38 / 70%);
 
     --header-height: 52px;
     --header-expanded-height: 400px;
 }
 
 [data-theme="light"] {
-    --bg-color-rgb: 255, 255, 255;
-    --bg-color: rgb(var(--bg-color-rgb));
+    --color-base-1: var(--color-gray-100);
+    --color-base-2: var(--color-gray-90);
+    --color-base-3: var(--color-gray-80);
+    --color-base-4: var(--color-gray-70);
+    --color-base-5: var(--color-gray-60);
+    --color-base-6: var(--color-gray-50);
+    --color-base-7: var(--color-gray-40);
+    --color-base-8: var(--color-gray-30);
+    --color-base-9: var(--color-gray-20);
+    --color-base-10: var(--color-gray-10);
 
-    --surface-color: #f4f4f4;
+    --color-bg-rgb: 255, 255, 255;
+    --color-bg: var(--color-white);
 
-    --text-color: #161616;
+    --color-error: var(--color-red-60);
 
-    --sub-color: #262626;
-    --sub-color-2: #393939;
-    --sub-color-3: #525252;
-    --sub-color-4: #6f6f6f;
-    --sub-color-5: #6f6f6f;
-    --sub-color-6: #8d8d8d;
-
-    --error-color: #da1e28;
-
-    --overlay-color: rgb(255 255 255 / 70%);
-    --overlay-color-2: rgb(244 244 244 / 70%);
-
-    --header-height: 52px;
-    --header-expanded-height: 400px;
+    --color-overlay-1: rgb(255 255 255 / 70%);
+    --color-overlay-2: rgb(244 244 244 / 70%);
 }
 
 * {
@@ -89,8 +110,8 @@
 
 body {
     margin: 0;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -113,7 +134,7 @@ h6 {
 
 a,
 a:hover {
-    color: var(--text-color);
+    color: var(--color-text-primary);
     text-decoration: none;
 }
 

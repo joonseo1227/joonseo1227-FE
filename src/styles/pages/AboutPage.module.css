@@ -146,7 +146,7 @@
     font-size: 20px;
     line-height: 1.8;
     margin: 0;
-    color: var(--text-color);
+    color: var(--color-text-primary);
     letter-spacing: 0.3px;
 }
 
@@ -171,7 +171,7 @@
     left: 0;
     width: 4px;
     height: 100%;
-    background-color: var(--sub-color);
+    background-color: var(--color-base-1);
 }
 
 .timelineTitle {
@@ -180,14 +180,14 @@
     font-weight: 700;
     font-family: 'NanumSquareNeo', system-ui;
     margin-bottom: 12px;
-    color: var(--text-color);
+    color: var(--color-text-primary);
 }
 
 .timelineDate {
     margin-bottom: 0;
     font-size: 16px;
     font-weight: 500;
-    color: var(--text-color);
+    color: var(--color-text-primary);
     opacity: 0.8;
 }
 
@@ -209,7 +209,7 @@
     font-size: 24px;
     font-weight: 600;
     margin: 0 0 20px 0;
-    color: var(--text-color);
+    color: var(--color-text-primary);
     position: relative;
     display: inline-block;
     padding-bottom: 8px;
@@ -239,7 +239,7 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 10px;
-    color: var(--text-color);
+    color: var(--color-text-primary);
     transition: transform 0.2s ease;
 }
 
@@ -281,7 +281,7 @@
     left: 0;
     width: 4px;
     height: 100%;
-    background-color: var(--sub-color);
+    background-color: var(--color-base-1);
 }
 
 .serviceTitle {
@@ -290,14 +290,14 @@
     font-weight: 700;
     font-family: 'NanumSquareNeo', system-ui;
     margin-bottom: 12px;
-    color: var(--text-color);
+    color: var(--color-text-primary);
 }
 
 .serviceDesc {
     margin-bottom: 0;
     font-size: 16px;
     line-height: 1.6;
-    color: var(--text-color);
+    color: var(--color-text-primary);
     opacity: 0.9;
 }
 
@@ -322,7 +322,7 @@
     left: 0;
     width: 4px;
     height: 100%;
-    background-color: var(--sub-color);
+    background-color: var(--color-base-1);
 }
 
 .certificationTitle {
@@ -331,14 +331,14 @@
     font-weight: 700;
     font-family: 'NanumSquareNeo', system-ui;
     margin-bottom: 12px;
-    color: var(--text-color);
+    color: var(--color-text-primary);
 }
 
 .certificationOrg {
     margin-bottom: 0;
     font-size: 16px;
     font-weight: 500;
-    color: var(--text-color);
+    color: var(--color-text-primary);
     opacity: 0.8;
 }
 

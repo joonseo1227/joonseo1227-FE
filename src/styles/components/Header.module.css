@@ -1,6 +1,6 @@
 .headerWrapper {
     width: 100%;
-    background-color: var(--overlay-color);
+    background-color: var(--color-overlay-1);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -41,17 +41,17 @@
 
 .link {
     text-decoration: none;
-    color: var(--sub-color);
+    color: var(--color-base-1);
     font-weight: 500;
     font-size: 14px;
 }
 
 .link:hover {
-    color: var(--sub-color-6);
+    color: var(--color-base-6);
 }
 
 .navButton {
-    color: var(--sub-color);
+    color: var(--color-base-1);
     cursor: pointer;
     padding: 16px;
     display: flex;
@@ -60,7 +60,7 @@
 }
 
 .navButton:hover {
-    color: var(--sub-color-6);
+    color: var(--color-base-6);
 }
 
 .menuButton {
