@@ -11,7 +11,7 @@ export default function ContactPage() {
         try {
             await navigator.clipboard.writeText(email);
             setCopied(true);
-            setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+            setTimeout(() => setCopied(false), 2000);
         } catch (err) {
             console.error('Failed to copy text: ', err);
         }

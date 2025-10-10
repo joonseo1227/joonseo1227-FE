@@ -10,7 +10,6 @@ export async function generateMetadata({params}) {
         };
     }
 
-    // Supabase에서 게시글 정보 가져오기
     const {data: post, error} = await supabase
         .from("posts")
         .select(`
@@ -25,7 +24,6 @@ export async function generateMetadata({params}) {
         .in("status", ["published", "unlisted"])
         .single();
 
-    // 게시글이 없거나 에러 발생 시 기본값 반환
     if (error || !post) {
         return {
             title: "게시글 없음 | joonseo1227",
@@ -33,10 +31,8 @@ export async function generateMetadata({params}) {
         };
     }
 
-    // 설명 부분 (summary가 없으면 기본값)
-    const description = post.summary ?? "이 게시글에는 내용이 없습니다.";
+    const description = post.summary ?? "";
 
-    // Open Graph 및 Twitter 메타데이터 설정
     const metadata = {
         title: `${post.title} | joonseo1227`,
         description,
@@ -59,7 +55,6 @@ export async function generateMetadata({params}) {
     return metadata;
 }
 
-// 레이아웃 컴포넌트
 export default function BlogPostLayout({children}) {
     return <>{children}</>;
 }

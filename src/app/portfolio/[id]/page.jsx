@@ -17,7 +17,6 @@ export default function PortfolioProjectPage({params}) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Common Intersection Observer options
     const observerOptions = {
         triggerOnce: true,
         threshold: 0.1,

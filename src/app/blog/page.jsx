@@ -14,7 +14,6 @@ export default function BlogPage() {
     const [error, setError] = useState(null);
     const imgRefs = useRef({});
 
-    // 카테고리 목록 가져오기
     useEffect(() => {
         const fetchCategories = async () => {
             try {
@@ -55,7 +54,6 @@ export default function BlogPage() {
                     .order('created_at', {ascending: false});
 
                 if (selectedCategory) {
-                    // 선택된 카테고리의 포스트만 필터링
                     const {data: postIds} = await supabase
                         .from('post_categories')
                         .select('post_id')
@@ -81,7 +79,6 @@ export default function BlogPage() {
         fetchPosts();
     }, [selectedCategory]);
 
-    // 카테고리 변경 핸들러
     const handleCategoryChange = (categoryId) => {
         setSelectedCategory(categoryId);
     };
@@ -90,7 +87,6 @@ export default function BlogPage() {
         <div className={styles.blogPage}>
             <h1 className="titleText">Blog</h1>
 
-            {/* 카테고리 필터 - 로딩 중이 아닐 때만 표시 */}
             {!loading && (
                 <div className={styles.categoryFilter}>
                     <button
@@ -137,7 +133,6 @@ export default function BlogPage() {
                                     'blog'
                                 );
                             } else {
-                                // Fallback to normal navigation if animation can't be triggered
                                 window.location.href = `/blog/${post.id}`;
                             }
                         };

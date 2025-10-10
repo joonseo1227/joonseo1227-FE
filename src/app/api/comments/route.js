@@ -1,7 +1,6 @@
 import {NextResponse} from 'next/server';
 import supabase from '@/lib/supabase';
 
-// GET handler to fetch comments for a specific post
 export async function GET(request) {
     const {searchParams} = new URL(request.url);
     const postId = searchParams.get('postId');
@@ -28,7 +27,6 @@ export async function GET(request) {
     }
 }
 
-// POST handler to add a new comment
 export async function POST(request) {
     try {
         const {postId, nickname, content} = await request.json();

@@ -18,12 +18,10 @@ export default function Header() {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    // 메뉴 항목 클릭 시 메뉴를 닫는 함수
     const handleLinkClick = () => {
         setIsMenuOpen(false);
     };
 
-    // Handle click outside to close menu
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (isMenuOpen &&
@@ -35,7 +33,6 @@ export default function Header() {
             }
         };
 
-        // Lock/unlock body scroll when menu is open/closed
         if (isMenuOpen) {
             document.body.style.overflow = 'hidden';
         } else {
@@ -45,7 +42,7 @@ export default function Header() {
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
-            document.body.style.overflow = ''; // Ensure scroll is enabled when component unmounts
+            document.body.style.overflow = '';
         };
     }, [isMenuOpen]);
 

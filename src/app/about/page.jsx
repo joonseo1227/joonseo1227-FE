@@ -1,12 +1,10 @@
 import supabase from '/src/lib/supabase.js';
 import AboutPageContent from '@/components/AboutPageContent';
 
-// ISR 설정: 60초마다 재생성
 export const revalidate = 60;
 
 async function fetchAboutData() {
     try {
-        // 1. About 기본 정보
         const {data: aboutData, error: aboutError} = await supabase
             .from('about_info')
             .select('*')
@@ -15,7 +13,6 @@ async function fetchAboutData() {
 
         if (aboutError) throw aboutError;
 
-        // 2. Work Timeline
         const {data: timelineData, error: timelineError} = await supabase
             .from('work_timeline')
             .select('*')
@@ -24,7 +21,6 @@ async function fetchAboutData() {
 
         if (timelineError) throw timelineError;
 
-        // 3. Tech Stack (카테고리별로 그룹화)
         const {data: categoriesData, error: categoriesError} = await supabase
             .from('tech_categories')
             .select(`
@@ -40,11 +36,10 @@ async function fetchAboutData() {
 
         if (categoriesError) throw categoriesError;
 
-        // 카테고리별로 정리
         const techStackData = {};
         categoriesData.forEach(category => {
             const skills = category.tech_skills
-                .filter(skill => skill.name) // 유효한 스킬만
+                .filter(skill => skill.name)
                 .sort((a, b) => a.display_order - b.display_order);
 
             techStackData[category.name] = {
@@ -53,7 +48,6 @@ async function fetchAboutData() {
             };
         });
 
-        // 4. Services
         const {data: servicesData, error: servicesError} = await supabase
             .from('services')
             .select('*')
@@ -62,7 +56,6 @@ async function fetchAboutData() {
 
         if (servicesError) throw servicesError;
 
-        // 5. Certifications
         const {data: certificationsData, error: certificationsError} = await supabase
             .from('certifications')
             .select('*')
@@ -99,7 +92,6 @@ export default async function AboutPage() {
             />
         );
     } catch (error) {
-        // 에러 발생 시 기본 에러 페이지 표시
         return (
             <div style={{padding: '2rem', textAlign: 'center'}}>
                 <h1>About</h1>

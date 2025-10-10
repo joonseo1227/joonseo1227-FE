@@ -7,10 +7,8 @@ import Comments from '@/components/Comments';
 import MarkdownContent from '@/components/MarkdownContent';
 import BlogPostTransitionWrapper from '@/components/BlogPostTransitionWrapper';
 
-// Revalidate the page every 60 seconds
 export const revalidate = 60;
 
-// Generate static paths at build time
 export async function generateStaticParams() {
     const {data: posts} = await supabase
         .from('posts')
@@ -25,7 +23,6 @@ export async function generateStaticParams() {
 export default async function BlogPostPage({params}) {
     const postId = params?.id;
 
-    // Fetch the current post
     const {data: post, error: postError} = await supabase
         .from('posts')
         .select(`
@@ -44,7 +41,6 @@ export default async function BlogPostPage({params}) {
         notFound();
     }
 
-    // Fetch the previous post (older post - created before the current post)
     const {data: prevPost} = await supabase
         .from('posts')
         .select('id, title, thumbnail_url, created_at')
@@ -54,7 +50,6 @@ export default async function BlogPostPage({params}) {
         .limit(1)
         .single();
 
-    // Fetch the next post (newer post - created after the current post)
     const {data: nextPost} = await supabase
         .from('posts')
         .select('id, title, thumbnail_url, created_at')
@@ -83,7 +78,6 @@ export default async function BlogPostPage({params}) {
             </div>
 
             <div className={styles.blogPostWrapper}>
-                {/* Mobile TOC - shown only on mobile */}
                 <div className={styles.mobileToc}>
                     <TableOfContents content={post.content}/>
                 </div>
@@ -92,18 +86,14 @@ export default async function BlogPostPage({params}) {
                     <MarkdownContent content={post.content}/>
                 </div>
 
-                {/* Desktop TOC - shown only on desktop */}
                 <div className={styles.desktopToc}>
                     <TableOfContents content={post.content}/>
                 </div>
             </div>
 
-            {/* Post navigation - previous and next posts */}
             <PostNavigation prevPost={prevPost} nextPost={nextPost}/>
 
-            {/* Comments section */}
             <Comments postId={postId}/>
-
         </BlogPostTransitionWrapper>
     );
 }
