@@ -51,8 +51,8 @@
 
 @media (max-width: 1279px) {
     .socialIcons {
+        margin: 32px 0;
         position: static;
-        margin-top: unset;
         display: flex;
         flex-direction: row-reverse;
         justify-content: center;
