@@ -90,7 +90,6 @@ export default async function BlogPostPage({params}) {
 
                 <div className={styles.postContent} data-testid="post-content">
                     <MarkdownContent content={post.content}/>
-
                 </div>
 
                 {/* Desktop TOC - shown only on desktop */}

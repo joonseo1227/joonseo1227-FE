@@ -66,7 +66,7 @@
 }
 
 .postContent h1 {
-    margin: 32px 0 16px;
+    margin: 48px 0 16px;
     font-size: 28px;
     font-weight: 600;
 }
@@ -92,12 +92,12 @@
 .postContent ol,
 .postContent ul {
     margin: 18px 0;
+    color: var(--color-text-secondary);
 }
 
 .postContent img {
     max-width: 100%;
-    height: auto;
-    margin: 32px 0 0 0;
+    margin: 0;
 }
 
 .postContent pre {
@@ -114,21 +114,19 @@
     font-size: 14px;
     background-color: var(--color-surface);
     padding: 2px 4px;
-    border-radius: 3px;
 }
 
 .postContent pre code {
     background-color: transparent;
     padding: 0;
-    border-radius: 0;
 }
 
 .postContent blockquote {
-    border-left: 4px solid var(--color-base-4);
+    border-left: 4px solid var(--color-base-8);
     color: var(--color-text-primary);
     background-color: var(--color-surface);
-    margin: 32px 0 0 0;
-    padding: 16px 24px;
+    margin: 18px 0;
+    padding: 24px 24px;
     font-size: 18px;
 }
 
@@ -145,15 +143,16 @@
 .postContent table {
     border-collapse: collapse;
     width: 100%;
-    margin: 32px 0 0 0;
+    margin: 18px 0;
     font-size: 16px;
 }
 
 .postContent th,
 .postContent td {
     text-align: start;
-    border: 1px solid var(--color-base-6);
-    padding: 4px 8px;
+    border: 1px solid var(--color-base-9);
+    background-color: var(--color-surface);
+    padding: 8px 12px;
 }
 
 .postContent ol {
