@@ -151,7 +151,6 @@ export default function HomePage() {
 
     return (
         <div className={styles.homePage}>
-            {/* Hero Section */}
             <section className={styles.heroSection}>
                 <div className={styles.heroContent}>
                     <h1 className={styles.heroTitle}>
@@ -172,7 +171,6 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* About Me Section */}
             <section className={styles.aboutSection} data-section="about" ref={aboutRef}>
                 <div className={styles.aboutContent}>
                     <div className={`${styles.aboutText} ${visibleSections.about ? styles.visible : ''}`}>
@@ -184,12 +182,14 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* Works Section */}
             <section className={styles.worksSection} data-section="works" ref={worksRef}>
                 <div className={styles.sectionHeader}>
                     <Link href="/portfolio" className={styles.sectionLabelLink}>
-                        <span className={styles.sectionLabel}>Portfolio <span
-                            className={styles.arrowIcon}>→</span></span>
+                        <span className={styles.sectionLabel}>All
+                            <span className={styles.arrowIcon}>
+                                →
+                            </span>
+                        </span>
                     </Link>
                     <h2 className={styles.sectionTitle}>Works</h2>
                 </div>
@@ -220,10 +220,9 @@ export default function HomePage() {
                                             width: rect.width,
                                             height: rect.height
                                         },
-                                        'portfolio' // Explicitly specify 'portfolio' as the route
+                                        'portfolio'
                                     );
                                 } else {
-                                    // Fallback to normal navigation if animation can't be triggered
                                     window.location.href = `/portfolio/${project.id}`;
                                 }
                             };
@@ -256,11 +255,14 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* Blog Section - Newsroom Style */}
             <section className={styles.blogSection} data-section="blog" ref={blogRef}>
                 <div className={styles.sectionHeader}>
                     <Link href="/blog" className={styles.sectionLabelLink}>
-                        <span className={styles.sectionLabel}>Blog <span className={styles.arrowIcon}>→</span></span>
+                        <span className={styles.sectionLabel}>All
+                            <span className={styles.arrowIcon}>
+                                →
+                            </span>
+                        </span>
                     </Link>
                     <h2 className={styles.sectionTitle}>Insights</h2>
                 </div>
@@ -307,7 +309,10 @@ export default function HomePage() {
                                 >
                                     <div
                                         className={`${styles.blogCard} ${visibleSections.blog ? styles.visible : ''}`}
-                                        style={{animationDelay: `${0.1 + index * 0.1}s`}}
+                                        style={{
+                                            animationDelay: `${0.1 + index * 0.1}s`,
+                                            borderBottom: index === blogPosts.length - 1 ? 'none' : '1px solid var(--color-base-8)'
+                                        }}
                                     >
                                         <div className={styles.blogCardContent}>
                                             <div className={styles.blogCardMeta}>
@@ -316,7 +321,7 @@ export default function HomePage() {
                                                 </span>
                                             </div>
                                             <h3 className={styles.blogCardTitle}>{post.title}</h3>
-                                            <p className={styles.blogCardExcerpt}>{post.summary}</p>
+                                            <p className={styles.blogCardSummary}>{post.summary}</p>
                                         </div>
                                         {post.thumbnail_url && (
                                             <div className={styles.blogCardThumbnail}>

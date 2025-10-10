@@ -1,4 +1,3 @@
-/* Main container */
 .homePage {
     width: 100%;
     min-height: 100dvh;
@@ -8,11 +7,10 @@
     color: var(--color-text-primary);
 }
 
-/* Hero section */
 .heroSection {
     width: 100%;
-    height: 100dvh;
-    min-height: 100dvh;
+    height: 100svh;
+    min-height: 100svh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,32 +42,6 @@
     animation: fadeInUp 1s ease forwards;
 }
 
-/* Responsive styles for hero section */
-@media (max-width: 1024px) {
-    .heroTitle {
-        font-size: 60px;
-        max-width: 800px;
-    }
-}
-
-@media (max-width: 800px) {
-    .heroContent {
-        padding: 0 24px;
-    }
-
-    .heroTitle {
-        font-size: 48px;
-        max-width: 100%;
-    }
-}
-
-@media (max-width: 480px) {
-    .heroTitle {
-        font-size: 36px;
-        line-height: 1.3;
-    }
-}
-
 .scrollDown {
     position: absolute;
     bottom: 32px;
@@ -81,21 +53,6 @@
     cursor: pointer;
 }
 
-@media (max-width: 800px) {
-    .scrollDown {
-        bottom: 32px;
-        font-size: 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    .scrollDown {
-        bottom: 32px;
-        font-size: 18px;
-    }
-}
-
-/* About Me section */
 .aboutSection {
     width: 100%;
     padding: 120px 0;
@@ -128,44 +85,6 @@
     font-weight: 700;
 }
 
-/* Responsive styles for about section */
-@media (max-width: 1024px) {
-    .aboutSection {
-        padding: 100px 0;
-    }
-
-    .aboutText p {
-        font-size: 28px;
-    }
-}
-
-@media (max-width: 800px) {
-    .aboutSection {
-        padding: 80px 0;
-    }
-
-    .aboutContent {
-        padding: 0 24px;
-    }
-
-    .aboutText p {
-        font-size: 24px;
-        margin-bottom: 24px;
-    }
-}
-
-@media (max-width: 480px) {
-    .aboutSection {
-        padding: 60px 0;
-    }
-
-    .aboutText p {
-        font-size: 20px;
-        line-height: 1.4;
-    }
-}
-
-/* Works section */
 .worksSection {
     padding: 120px 0;
     width: 100%;
@@ -185,7 +104,7 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 16px;
-    color: var(--color-base-3);
+    color: var(--color-text-secondary);
 }
 
 .sectionLabelLink {
@@ -223,69 +142,6 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 80px 40px;
-}
-
-/* Responsive styles for works section */
-@media (max-width: 1024px) {
-    .worksSection {
-        padding: 100px 0;
-    }
-
-    .sectionHeader {
-        margin-bottom: 50px;
-    }
-
-    .sectionTitle {
-        font-size: 40px;
-    }
-
-    .worksGrid {
-        gap: 60px 30px;
-    }
-}
-
-@media (max-width: 800px) {
-    .worksSection {
-        padding: 80px 0;
-    }
-
-    .sectionHeader {
-        margin-bottom: 40px;
-        padding: 0 24px;
-    }
-
-    .sectionTitle {
-        font-size: 36px;
-    }
-
-    .worksGrid {
-        grid-template-columns: 1fr;
-        gap: 50px;
-        padding: 0 24px;
-    }
-}
-
-@media (max-width: 480px) {
-    .worksSection {
-        padding: 60px 0;
-    }
-
-    .sectionHeader {
-        margin-bottom: 30px;
-    }
-
-    .sectionTitle {
-        font-size: 32px;
-    }
-
-    .sectionLabel {
-        font-size: 14px;
-        margin-bottom: 12px;
-    }
-
-    .arrowIcon {
-        margin-left: 3px;
-    }
 }
 
 .workCard {
@@ -343,50 +199,11 @@
     margin: 0;
 }
 
-/* Responsive styles for work cards */
-@media (max-width: 1024px) {
-    .workCardTitle {
-        font-size: 22px;
-        margin: 0 0 10px 0;
-    }
-
-    .workCardImage {
-        margin-bottom: 20px;
-    }
-}
-
-@media (max-width: 800px) {
-    .workCardTitle {
-        font-size: 20px;
-    }
-
-    .workCardDescription {
-        font-size: 15px;
-    }
-}
-
-@media (max-width: 480px) {
-    .workCardImage {
-        margin-bottom: 16px;
-    }
-
-    .workCardTitle {
-        font-size: 18px;
-        margin: 0 0 8px 0;
-    }
-
-    .workCardDescription {
-        font-size: 14px;
-        line-height: 1.4;
-    }
-}
-
-/* Blog section - Newsroom style */
 .blogSection {
     padding: 120px 0;
     width: 100%;
     background-color: var(--color-bg);
-    border-top: 1px solid var(--color-base-6);
+    border-top: 1px solid var(--color-base-8);
 }
 
 .blogList {
@@ -402,17 +219,13 @@
     padding: 40px 0;
     opacity: 0;
     transform: translateY(30px);
-    border-bottom: 1px solid var(--color-base-6);
+    border-bottom: 1px solid var(--color-base-8);
     transition: opacity 0.3s ease;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     gap: 40px;
-}
-
-.blogCard:first-child {
-    border-top: none;
 }
 
 .blogCard.visible {
@@ -464,7 +277,7 @@
 
 .blogCardDate {
     font-size: 14px;
-    color: var(--color-base-3);
+    color: var(--color-text-tertiary);
 }
 
 .blogCardTitle {
@@ -474,90 +287,14 @@
     line-height: 1.3;
 }
 
-.blogCardExcerpt {
+.blogCardSummary {
     font-size: 18px;
     line-height: 1.5;
-    color: var(--color-base-2);
+    color: var(--color-text-secondary);
     margin: 0;
     max-width: 800px;
 }
 
-/* Responsive styles for blog section */
-@media (max-width: 1024px) {
-    .blogSection {
-        padding: 100px 0;
-    }
-
-    .blogCardTitle {
-        font-size: 24px;
-    }
-
-    .blogCardExcerpt {
-        font-size: 16px;
-    }
-
-    .blogCardThumbnail {
-        flex: 0 0 200px;
-    }
-}
-
-@media (max-width: 800px) {
-    .blogSection {
-        padding: 80px 0;
-    }
-
-    .blogList {
-        padding: 0 24px;
-    }
-
-    .blogCard {
-        flex-direction: column-reverse;
-        gap: 24px;
-        padding: 32px 0;
-    }
-
-    .blogCardThumbnail {
-        flex: 0 0 auto;
-        width: 100%;
-        max-height: 200px;
-    }
-
-    .blogCardTitle {
-        font-size: 22px;
-        margin: 0 0 12px 0;
-    }
-
-    .blogCardExcerpt {
-        font-size: 16px;
-    }
-
-    .blogCardSkeleton {
-        flex-direction: column-reverse;
-        height: 300px;
-    }
-}
-
-@media (max-width: 480px) {
-    .blogSection {
-        padding: 60px 0;
-    }
-
-    .blogCard {
-        padding: 24px 0;
-    }
-
-    .blogCardTitle {
-        font-size: 20px;
-        margin: 0 0 10px 0;
-    }
-
-    .blogCardExcerpt {
-        font-size: 15px;
-        line-height: 1.4;
-    }
-}
-
-/* No content message */
 .noContent {
     text-align: center;
     padding: 40px 0;
@@ -566,21 +303,6 @@
     width: 100%;
 }
 
-@media (max-width: 800px) {
-    .noContent {
-        padding: 30px 0;
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 480px) {
-    .noContent {
-        padding: 20px 0;
-        font-size: 15px;
-    }
-}
-
-/* Animations */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -619,5 +341,180 @@
     }
     100% {
         transform: translateX(100%);
+    }
+}
+
+@media (max-width: 768px) {
+    .heroContent {
+        padding: 0 24px;
+    }
+
+    .heroTitle {
+        font-size: 48px;
+        max-width: 100%;
+    }
+
+    .scrollDown {
+        bottom: 32px;
+        font-size: 20px;
+    }
+
+    .aboutSection {
+        padding: 80px 0;
+    }
+
+    .aboutContent {
+        padding: 0 24px;
+    }
+
+    .aboutText p {
+        font-size: 24px;
+        margin-bottom: 24px;
+    }
+
+    .worksSection {
+        padding: 80px 0;
+    }
+
+    .sectionHeader {
+        margin-bottom: 40px;
+        padding: 0 24px;
+    }
+
+    .sectionTitle {
+        font-size: 36px;
+    }
+
+    .worksGrid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+        padding: 0 24px;
+    }
+
+    .workCardTitle {
+        font-size: 20px;
+    }
+
+    .workCardDescription {
+        font-size: 15px;
+    }
+
+    .blogSection {
+        padding: 80px 0;
+    }
+
+    .blogList {
+        padding: 0 24px;
+    }
+
+    .blogCard {
+        flex-direction: column-reverse;
+        gap: 24px;
+        padding: 32px 0;
+    }
+
+    .blogCardThumbnail {
+        flex: 0 0 auto;
+        width: 100%;
+        max-height: 200px;
+    }
+
+    .blogCardTitle {
+        font-size: 22px;
+        margin: 0 0 12px 0;
+    }
+
+    .blogCardSummary {
+        font-size: 16px;
+    }
+
+    .blogCardSkeleton {
+        flex-direction: column-reverse;
+        height: 300px;
+    }
+
+    .noContent {
+        padding: 30px 0;
+        font-size: 16px;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .heroTitle {
+        font-size: 36px;
+        line-height: 1.3;
+    }
+
+    .scrollDown {
+        bottom: 32px;
+        font-size: 18px;
+    }
+
+    .aboutSection {
+        padding: 60px 0;
+    }
+
+    .aboutText p {
+        font-size: 20px;
+        line-height: 1.4;
+    }
+
+    .worksSection {
+        padding: 60px 0;
+    }
+
+    .sectionHeader {
+        margin-bottom: 30px;
+    }
+
+    .sectionTitle {
+        font-size: 32px;
+    }
+
+    .sectionLabel {
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+
+    .arrowIcon {
+        margin-left: 3px;
+    }
+
+    .workCardImage {
+        margin-bottom: 16px;
+    }
+
+    .workCardTitle {
+        font-size: 18px;
+        margin: 0 0 8px 0;
+    }
+
+    .workCardDescription {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .blogSection {
+        padding: 60px 0;
+    }
+
+    .blogCard {
+        padding: 24px 0;
+    }
+
+    .blogCardTitle {
+        font-size: 20px;
+        margin: 0 0 10px 0;
+    }
+
+    .blogCardSummary {
+        font-size: 15px;
+        line-height: 1.4;
+    }
+
+    .noContent {
+        padding: 20px 0;
+        font-size: 15px;
     }
 }
