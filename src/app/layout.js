@@ -1,6 +1,6 @@
 import "../styles/globals.css";
 import Header from "@/components/Header";
-import { SocialIcons } from "@/components/SocialIcons";
+import {SocialIcons} from "@/components/SocialIcons";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import ClientWrapper from "@/components/ClientWrapper";
 
@@ -23,17 +23,17 @@ export const metadata = {
     },
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({children}) {
     return (
         <html lang="ko">
-            <body>
-                <Header />
-                <GoogleAnalytics ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
-                <ClientWrapper>
-                    {children}
-                </ClientWrapper>
-                <SocialIcons />
-            </body>
+        <body>
+        <Header/>
+        <GoogleAnalytics ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}/>
+        <ClientWrapper>
+            {children}
+        </ClientWrapper>
+        <SocialIcons/>
+        </body>
         </html>
     );
 }
