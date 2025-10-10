@@ -73,30 +73,30 @@
 }
 
 .titleContainer {
-    opacity: 0; /* Start transparent */
+    opacity: 0;
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 .titleContainer.animate {
-    opacity: 1; /* Become visible when animated */
+    opacity: 1;
     animation: fadeIn 0.8s ease-out forwards;
 }
 
 .section {
-    opacity: 0; /* Start transparent */
+    opacity: 0;
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 .section.animate {
-    opacity: 1; /* Become visible when animated */
+    opacity: 1;
 }
 
 .section .leftColumn {
-    opacity: 0; /* Start transparent */
+    opacity: 0;
 }
 
 .section .rightColumn {
-    opacity: 0; /* Start transparent */
+    opacity: 0;
 }
 
 .section.animate .leftColumn {
@@ -108,7 +108,6 @@
     animation-delay: 0.1s;
 }
 
-/* 섹션 간격 조정 */
 .section {
     display: flex;
     flex-direction: row;
@@ -135,7 +134,6 @@
     min-width: 300px;
 }
 
-/* 제목 스타일 */
 .subtitleText {
     font-size: 48px;
     font-weight: 500;
@@ -144,7 +142,6 @@
     display: inline-block;
 }
 
-/* 소개글 스타일 */
 .aboutMeText {
     font-size: 20px;
     line-height: 1.8;
@@ -153,9 +150,8 @@
     letter-spacing: 0.3px;
 }
 
-/* 타임라인 스타일 */
 .timelineContainer {
-    opacity: 0; /* Start transparent */
+    opacity: 0;
     animation: fadeInUp 0.8s ease-out forwards;
     animation-delay: 0.2s;
 }
@@ -164,9 +160,8 @@
     margin-bottom: 32px;
     padding-left: 16px;
     position: relative;
-    opacity: 0; /* Start transparent */
+    opacity: 0;
     animation: fadeInUp 0.6s ease-out forwards;
-    /* Animation delay is set inline with style={{animationDelay: `${i * 120 + 100}ms`}} */
 }
 
 .timelineItem::before {
@@ -196,13 +191,12 @@
     opacity: 0.8;
 }
 
-/* 기술 스택 섹션 스타일 */
 .techStackContainer {
     display: flex;
     flex-direction: column;
     gap: 40px;
     width: 100%;
-    opacity: 0; /* Start transparent */
+    opacity: 0;
     animation: fadeInUp 0.8s ease-out forwards;
     animation-delay: 0.3s;
 }
@@ -234,9 +228,8 @@
     align-items: center;
     padding: 16px;
     position: relative;
-    opacity: 0; /* Start transparent */
+    opacity: 0;
     animation: fadeIn 0.6s ease-out forwards;
-    /* Animation delay is set inline with style={{animationDelay: `${i * 80 + 100}ms`}} */
 }
 
 .skillLogo {
@@ -267,10 +260,8 @@
     font-family: 'NanumSquareNeo', system-ui;
 }
 
-
-/* 서비스 섹션 스타일 */
 .servicesContainer {
-    opacity: 0; /* Start transparent */
+    opacity: 0;
     animation: fadeInUp 0.8s ease-out forwards;
     animation-delay: 0.4s;
 }
@@ -279,9 +270,8 @@
     margin-bottom: 32px;
     padding-left: 16px;
     position: relative;
-    opacity: 0; /* Start transparent */
+    opacity: 0;
     animation: fadeInUp 0.6s ease-out forwards;
-    /* Animation delay is set inline with style={{animationDelay: `${i * 120 + 100}ms`}} */
 }
 
 .service::before {
@@ -311,9 +301,8 @@
     opacity: 0.9;
 }
 
-/* 자격증 섹션 스타일 */
 .certificationsContainer {
-    opacity: 0; /* Start transparent */
+    opacity: 0;
     animation: fadeInUp 0.8s ease-out forwards;
     animation-delay: 0.5s;
 }
@@ -322,9 +311,8 @@
     margin-bottom: 32px;
     padding-left: 16px;
     position: relative;
-    opacity: 0; /* Start transparent */
+    opacity: 0;
     animation: fadeInUp 0.6s ease-out forwards;
-    /* Animation delay is set inline with style={{animationDelay: `${i * 120 + 100}ms`}} */
 }
 
 .certification::before {
@@ -354,7 +342,7 @@
     opacity: 0.8;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1279px) {
     .aboutPage {
         width: 90%;
         padding: 30px 0;
@@ -422,7 +410,6 @@
         margin-bottom: 30px;
     }
 
-    /* Animation adjustments for mobile */
     .section.animate .leftColumn,
     .section.animate .rightColumn {
         animation-name: fadeInUp;

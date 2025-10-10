@@ -7,7 +7,6 @@
     overflow: hidden;
 }
 
-
 .portfolioProjectPage::before {
     content: '';
     position: fixed;
@@ -55,7 +54,6 @@
         opacity: 0.5;
     }
 }
-
 
 @keyframes fadeIn {
     0% {
@@ -127,11 +125,11 @@
     position: relative;
     width: 100%;
     overflow: visible;
-    opacity: 0; /* Start transparent */
+    opacity: 0;
 }
 
 .projectHeader.animate {
-    opacity: 1; /* Become visible when animated */
+    opacity: 1;
     animation: fadeIn 0.8s ease-out forwards;
 }
 
@@ -140,15 +138,14 @@
     flex-direction: column;
     gap: 32px;
     margin-bottom: 32px;
-    opacity: 0; /* Start transparent */
+    opacity: 0;
 }
 
 .projectInfo.animate {
-    opacity: 1; /* Become visible when animated */
+    opacity: 1;
     animation: fadeInUp 0.8s ease-out forwards;
 }
 
-/* Image gallery */
 .imageGallery {
     width: 100%;
     position: relative;
@@ -225,7 +222,6 @@
     font-size: 14px;
 }
 
-/* Image navigation */
 .imageNavigation {
     position: absolute;
     bottom: 16px;
@@ -266,14 +262,6 @@
     font-size: 16px;
 }
 
-/* Show navigation on hover for desktop */
-@media (min-width: 768px) {
-    .imageGallery:hover .imageNavigation {
-        opacity: 1;
-    }
-}
-
-/* Class for temporarily showing navigation on mobile */
 .showNavigation {
     opacity: 1;
 }
@@ -305,7 +293,6 @@
     margin: 8px 0 0 0;
 }
 
-/* Tech stack container */
 .techStackContainer {
     display: flex;
     flex-wrap: wrap;
@@ -313,15 +300,13 @@
     margin-top: 8px;
 }
 
-/* Tech stack tag */
 .techTag {
     font-size: 14px;
     background-color: var(--surface-color);
     padding: 6px 12px;
     display: inline-block;
-    opacity: 0; /* Start transparent */
+    opacity: 0;
     animation: fadeIn 0.6s ease-out forwards;
-    /* Animation delay is set inline with style={{animationDelay: `${i * 80 + 100}ms`}} */
 }
 
 .descriptionText {
@@ -329,21 +314,21 @@
     line-height: 1.8;
     margin: 0 0 32px 0;
     white-space: pre-wrap;
-    opacity: 0; /* Start transparent */
+    opacity: 0;
 }
 
 .descriptionText.animate {
-    opacity: 1; /* Become visible when animated */
+    opacity: 1;
     animation: fadeInUp 0.8s ease-out forwards;
 }
 
 .buttonContainer {
-    opacity: 0; /* Start transparent */
+    opacity: 0;
     margin-bottom: 32px;
 }
 
 .buttonContainer.animate {
-    opacity: 1; /* Become visible when animated */
+    opacity: 1;
     animation: fadeInUp 0.8s ease-out forwards;
 }
 
@@ -352,8 +337,11 @@
     margin-right: 8px;
 }
 
-/* Responsive styles */
 @media (min-width: 768px) {
+    .imageGallery:hover .imageNavigation {
+        opacity: 1;
+    }
+
     .projectInfo {
         flex-direction: column;
         align-items: flex-start;

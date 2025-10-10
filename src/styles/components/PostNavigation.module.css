@@ -64,7 +64,6 @@
     background-repeat: no-repeat;
 }
 
-/* For mobile devices */
 @media (min-width: 768px) {
     .navContainer {
         flex-direction: row;

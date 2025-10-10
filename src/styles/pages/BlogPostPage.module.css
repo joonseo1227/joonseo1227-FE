@@ -181,8 +181,7 @@
     text-decoration: underline;
 }
 
-/* Desktop styles */
-@media (min-width: 1201px) {
+@media (min-width: 1280px) {
     .blogPostWrapper {
         flex-direction: row;
         justify-content: center;
@@ -201,8 +200,7 @@
     }
 }
 
-/* Mobile styles */
-@media (max-width: 1200px) {
+@media (max-width: 1279px) {
     .postHeader {
         padding: 16px 62px 16px 16px;
     }

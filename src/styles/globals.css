@@ -130,7 +130,7 @@ p {
     overflow: visible;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
     .titleText {
         font-size: 40px;
         margin-bottom: 32px;

@@ -1,24 +1,20 @@
-/* Table of Contents Container */
 .tableOfContents {
     font-size: 14px;
     line-height: 1.5;
 }
 
-/* TOC Title */
 .tocTitle {
     font-size: 18px;
     margin-bottom: 16px;
     font-weight: 600;
 }
 
-/* TOC List */
 .tocList {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-/* TOC Items */
 .tocItem {
     margin-bottom: 4px;
 }
@@ -35,8 +31,6 @@
     color: var(--text-color);
     font-weight: 700;
 }
-
-/* Heading levels indentation */
 
 .level2 {
     padding-left: 8px;
@@ -58,14 +52,12 @@
     padding-left: 48px;
 }
 
-/* Active item highlighting */
 .active a {
     color: var(--text-color);
     font-weight: 700;
 }
 
-/* Desktop layout */
-@media (min-width: 1201px) {
+@media (min-width: 1280px) {
     .tableOfContents {
         position: fixed;
         top: 100px;
@@ -77,8 +69,7 @@
     }
 }
 
-/* Mobile layout */
-@media (max-width: 1200px) {
+@media (max-width: 1279px) {
     .tableOfContents {
         margin-bottom: 32px;
         padding: 16px;

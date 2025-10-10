@@ -44,7 +44,6 @@
     animation: fadeInUp 0.8s ease forwards 0.4s;
 }
 
-/* Animations */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -56,26 +55,7 @@
     }
 }
 
-@media (max-width: 800px) {
-    .notFoundContainer {
-        padding: 100px 60px;
-    }
-
-    .title {
-        font-size: 5rem;
-    }
-
-    .subtitle {
-        font-size: 2rem;
-    }
-
-    .message {
-        font-size: 1.1rem;
-        margin-bottom: 2.5rem;
-    }
-}
-
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .notFoundContainer {
         padding: 80px 40px;
     }
