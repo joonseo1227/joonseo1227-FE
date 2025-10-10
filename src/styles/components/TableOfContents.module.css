@@ -20,8 +20,9 @@
 }
 
 .tocItem a {
-    color: var(--color-base-4);
+    color: var(--color-text-tertiary);
     text-decoration: none;
+    word-break: auto-phrase;
     display: block;
     padding: 4px 0;
     transition: color 0.1s ease;

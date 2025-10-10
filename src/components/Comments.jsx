@@ -168,10 +168,9 @@ export default function Comments({postId}) {
                 </div>
 
                 <div className={styles.formGroup}>
-                    <label htmlFor="content" className={styles.label}>댓글 내용</label>
                     <textarea
                         id="content"
-                        placeholder={"등록한 댓글은 수정하거나 삭제할 수 없습니다. 허위 사실, 욕설, 사칭 등 부적절한 내용이 포함된 경우에는 통보 없이 삭제될 수 있습니다."}
+                        placeholder={"댓글을 작성하세요"}
                         value={content}
                         onChange={(e) => handleInputChange('content', e.target.value)}
                         className={`${styles.contentInput} ${validationErrors.content ? styles.inputError : ''}`}
@@ -182,23 +181,26 @@ export default function Comments({postId}) {
                     )}
                 </div>
 
-                <button
-                    type="submit"
-                    className={styles.submitButton}
-                    disabled={isSubmitting}
-                >
-                    {isSubmitting ? '등록 중...' : '댓글 등록'}
-                </button>
+                <div className={styles.buttonContainer}>
+                    <button
+                        type="submit"
+                        className={styles.submitButton}
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? '등록 중...' : '댓글 등록'}
+                    </button>
+                </div>
+
             </form>
 
             {/* Comments list */}
             <div className={styles.commentsList}>
                 {isLoading ? (
-                    <p>댓글을 불러오는 중...</p>
+                    <p className={styles.hintMessage}>댓글을 불러오는 중...</p>
                 ) : error ? (
                     <p className={styles.errorMessage}>댓글을 불러오는데 실패했습니다: {error}</p>
                 ) : comments.length === 0 ? (
-                    <p className={styles.noComments}>아직 댓글이 없습니다. 첫 댓글을 남겨보세요!</p>
+                    <p className={styles.hintMessage}>아직 댓글이 없습니다. 첫 댓글을 남겨보세요!</p>
                 ) : (
                     comments.map((comment) => (
                         <div key={comment.id} className={styles.commentItem}>

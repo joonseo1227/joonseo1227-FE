@@ -1,18 +1,19 @@
 .commentsContainer {
     max-width: 800px;
-    margin: 64px auto 0;
+    margin: 80px auto;
     padding: 0 16px;
 }
 
 .commentsTitle {
-    font-size: 24px;
-    margin-bottom: 24px;
+    font-size: 20px;
     font-weight: 600;
+    margin: 0 0 32px 0;
     color: var(--color-text-primary);
 }
 
 .commentForm {
-    margin-bottom: 32px;
+    padding: 0;
+    margin-bottom: 64px;
 }
 
 .formGroup {
@@ -30,17 +31,16 @@
     width: 100%;
     max-width: 300px;
     padding: 8px 12px;
-    border: 1px solid var(--color-base-6);
+    border: 1px solid var(--color-base-8);
     font-size: 16px;
     background-color: var(--color-bg);
     color: var(--color-text-primary);
-    transition: border-color 0.3s, box-shadow 0.3s;
+    transition: border-color 0.3s;
     outline: none;
 }
 
 .nicknameInput:focus {
     border-color: var(--color-text-primary);
-    box-shadow: 0 0 0 2px rgba(244, 244, 244, 0.2);
 }
 
 .nicknameInput:invalid, .inputError {
@@ -57,18 +57,17 @@
 .contentInput {
     width: 100%;
     padding: 12px;
-    border: 1px solid var(--color-base-6);
+    border: 1px solid var(--color-base-8);
     font-size: 16px;
     resize: vertical;
     background-color: var(--color-bg);
     color: var(--color-text-primary);
-    transition: border-color 0.3s, box-shadow 0.3s;
+    transition: border-color 0.3s;
     outline: none;
 }
 
 .contentInput:focus {
     border-color: var(--color-text-primary);
-    box-shadow: 0 0 0 2px rgba(244, 244, 244, 0.2);
 }
 
 .contentInput::placeholder {
@@ -91,12 +90,17 @@
     border-color: var(--color-error);
 }
 
+.buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .submitButton {
     background-color: var(--color-text-primary);
     color: var(--color-bg);
     text-decoration: none;
     border: none;
-    padding: 16px;
+    padding: 12px 16px;
     display: inline-flex;
     text-align: center;
     align-items: center;
@@ -126,38 +130,44 @@
 }
 
 .commentItem {
-    padding: 16px;
+    padding: 24px;
     background-color: var(--color-surface);
-    margin-bottom: 16px;
+    margin-bottom: 24px;
 }
 
 .commentHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
 }
 
 .commentAuthor {
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 700;
     color: var(--color-text-primary);
 }
 
 .commentDate {
-    font-size: 14px;
-    color: var(--color-base-4);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-text-tertiary);
 }
 
 .commentContent {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
     line-height: 1.6;
     color: var(--color-text-primary);
     white-space: pre-wrap;
 }
 
-.noComments {
+.hintMessage {
     text-align: center;
-    color: var(--color-base-4);
-    padding: 24px 0;
+    color: var(--color-text-tertiary);
+    background-color: var(--color-surface);
+    padding: 48px 0;
 }
 
 .errorMessage {
@@ -167,10 +177,6 @@
 @media (max-width: 768px) {
     .commentsContainer {
         padding: 0 16px;
-    }
-
-    .commentForm {
-        padding: 16px;
     }
 
     .commentHeader {
