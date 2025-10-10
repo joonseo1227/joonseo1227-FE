@@ -158,10 +158,12 @@ export default function BlogPage() {
                                             alt={post.title}
                                         />
                                     )}
-                                    <div className={styles.postInfo}>
-                                        <h2>{post.title}</h2>
-                                        <p>{post.summary}</p>
-                                        <p className="post-date">
+                                    <div className={styles.tileDescription}>
+                                        <div className={styles.tileHead}>
+                                            <h2 className={styles.postTitle}>{post.title}</h2>
+                                            <p className={styles.postSummary}>{post.summary}</p>
+                                        </div>
+                                        <p className={styles.postDate}>
                                             {new Date(post.created_at).toLocaleDateString('ko-KR')}
                                         </p>
                                     </div>

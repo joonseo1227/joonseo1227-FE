@@ -14,7 +14,7 @@
 }
 
 .postTile {
-    border: 1px solid var(--text-color);
+    border: 1px solid var(--sub-color-6);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     overflow: hidden;
     background: var(--bg-color);
@@ -23,6 +23,31 @@
 .postTile:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tileHead {
+    flex-direction: column;
+    height: 112px;
+}
+
+.postTitle {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.5;
+    margin: 0 0 8px 0;
+    height: 54px;
+}
+
+.postSummary {
+    font-size: 14px;
+    color: var(--sub-color-3);
+    margin: 0;
+}
+
+.postDate {
+    font-size: 14px;
+    color: var(--sub-color-3);
+    margin: 16px 0 0 0;
 }
 
 .postLink {
@@ -39,12 +64,8 @@
     position: relative;
 }
 
-.postInfo {
+.tileDescription {
     padding: 16px;
-}
-
-.postInfo p {
-    color: var(--sub-color-3);
 }
 
 .categoryFilter {
