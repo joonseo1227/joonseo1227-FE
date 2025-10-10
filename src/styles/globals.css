@@ -34,20 +34,27 @@
 }
 
 :root {
+    --font-nanumsquareneo: 'NanumSquareNeo', sans-serif;
+
     --bg-color-rgb: 0, 0, 0;
     --bg-color: rgb(var(--bg-color-rgb));
+
     --surface-color: #161616;
+
     --text-color: #f4f4f4;
+
     --sub-color: #e0e0e0;
     --sub-color-2: #c6c6c6;
     --sub-color-3: #a8a8a8;
     --sub-color-4: #8d8d8d;
     --sub-color-5: #6f6f6f;
     --sub-color-6: #525252;
-    --error-color: #da1e28;
+
+    --error-color: #fa4d56;
+
     --overlay-color: rgb(0 0 0 / 70%);
     --overlay-color-2: rgb(38 38 38 / 70%);
-    --font-nanumsquareneo: 'NanumSquareNeo', sans-serif;
+
     --header-height: 52px;
     --header-expanded-height: 400px;
 }
@@ -55,17 +62,23 @@
 [data-theme="light"] {
     --bg-color-rgb: 255, 255, 255;
     --bg-color: rgb(var(--bg-color-rgb));
+
     --surface-color: #f4f4f4;
+
     --text-color: #161616;
+
     --sub-color: #262626;
     --sub-color-2: #393939;
     --sub-color-3: #525252;
     --sub-color-4: #6f6f6f;
     --sub-color-5: #6f6f6f;
     --sub-color-6: #8d8d8d;
-    --error-color: #fa4d56;
+
+    --error-color: #da1e28;
+
     --overlay-color: rgb(255 255 255 / 70%);
     --overlay-color-2: rgb(244 244 244 / 70%);
+
     --header-height: 52px;
     --header-expanded-height: 400px;
 }
@@ -110,37 +123,6 @@ p {
     white-space: pre-wrap;
 }
 
-/* Custom form validation styling */
-input:focus, textarea:focus {
-    outline: none;
-}
-
-/* Override default browser validation message */
-input:invalid, textarea:invalid {
-    box-shadow: none;
-}
-
-/* Custom validation message styling */
-input:user-invalid, textarea:user-invalid {
-    border-color: #e74c3c !important;
-}
-
-/* Hide default browser validation popup */
-::-webkit-validation-bubble-message {
-    display: none;
-}
-
-input::-webkit-validation-bubble-icon,
-input::-webkit-validation-bubble-arrow {
-    display: none;
-}
-
-/* For Firefox */
-input:required:invalid:not(:focus)::before,
-textarea:required:invalid:not(:focus)::before {
-    display: none;
-}
-
 .titleText {
     margin-top: 10vh;
     margin-bottom: 64px;
@@ -148,7 +130,6 @@ textarea:required:invalid:not(:focus)::before {
     overflow: visible;
 }
 
-/* Media query for mobile devices */
 @media (max-width: 800px) {
     .titleText {
         font-size: 40px;
@@ -158,9 +139,4 @@ textarea:required:invalid:not(:focus)::before {
         word-break: break-word;
         width: 100%;
     }
-}
-
-.subtitleText {
-    margin-bottom: 32px;
-    font-size: 32px;
 }
