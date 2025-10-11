@@ -9,91 +9,92 @@ import BlogPostTransitionWrapper from '@/components/BlogPostTransitionWrapper';
 
 export const revalidate = 60;
 
+const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('ko-KR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+};
+
 export async function generateStaticParams() {
     const {data: posts} = await supabase
         .from('posts')
         .select('id')
         .eq('is_published', true);
 
-    return posts?.map((post) => ({
-        id: post.id,
-    })) || [];
+    return posts?.map(({id}) => ({id})) || [];
 }
 
 export default async function BlogPostPage({params}) {
-    const postId = params?.id;
-
-    const {data: post, error: postError} = await supabase
+    const {data: post} = await supabase
         .from('posts')
-        .select(`
-            *,
-            post_categories (
-                categories (
-                    name
-                )
-            )
-        `)
-        .eq('id', postId)
+        .select('*, post_categories(categories(name))')
+        .eq('id', params?.id)
         .in('status', ['published', 'unlisted'])
         .single();
 
-    if (postError || !post) {
-        notFound();
-    }
+    if (!post) notFound();
 
-    const {data: prevPost} = await supabase
-        .from('posts')
-        .select('id, title, thumbnail_url, created_at')
-        .eq('status', 'published')
-        .lt('created_at', post.created_at)
-        .order('created_at', {ascending: false})
-        .limit(1)
-        .single();
+    const navigationPostFields = 'id, title, thumbnail_url, created_at';
 
-    const {data: nextPost} = await supabase
-        .from('posts')
-        .select('id, title, thumbnail_url, created_at')
-        .eq('status', 'published')
-        .gt('created_at', post.created_at)
-        .order('created_at', {ascending: true})
-        .limit(1)
-        .single();
+    const [{data: prevPost}, {data: nextPost}] = await Promise.all([
+        supabase
+            .from('posts')
+            .select(navigationPostFields)
+            .eq('status', 'published')
+            .lt('created_at', post.created_at)
+            .order('created_at', {ascending: false})
+            .limit(1)
+            .single(),
+        supabase
+            .from('posts')
+            .select(navigationPostFields)
+            .eq('status', 'published')
+            .gt('created_at', post.created_at)
+            .order('created_at', {ascending: true})
+            .limit(1)
+            .single()
+    ]);
 
     return (
         <BlogPostTransitionWrapper>
-            <div
-                className={styles.postHeader}
-                style={{
-                    backgroundImage: post.thumbnail_url ? `url(${post.thumbnail_url})` : 'none'
-                }}
-            >
-                <h1 className={styles.titleText}>{post.title}</h1>
-                <p className={styles.postDate}>
-                    {new Date(post.created_at).toLocaleDateString('ko-KR', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    })}
-                </p>
-            </div>
-
-            <div className={styles.blogPostWrapper}>
-                <div className={styles.mobileToc}>
-                    <TableOfContents content={post.content}/>
+            {post.thumbnail_url && (
+                <div className={styles.thumbnailWrapper}>
+                    <div className={styles.thumbnailInner}>
+                        <img src={post.thumbnail_url} alt={post.title} className={styles.thumbnail}/>
+                    </div>
                 </div>
+            )}
 
-                <div className={styles.postContent} data-testid="post-content">
-                    <MarkdownContent content={post.content}/>
-                </div>
-
-                <div className={styles.desktopToc}>
-                    <TableOfContents content={post.content}/>
+            <div className={styles.container}>
+                <div className={styles.postHeader}>
+                    <h1 className={styles.titleText}>{post.title}</h1>
+                    <p className={styles.postDate}>{formatDate(post.created_at)}</p>
                 </div>
             </div>
 
-            <PostNavigation prevPost={prevPost} nextPost={nextPost}/>
+            <div className={styles.mobileTocWrapper}>
+                <TableOfContents content={post.content}/>
+            </div>
 
-            <Comments postId={postId}/>
+            <div className={styles.contentWrapper}>
+                <div className={styles.blogPostWrapper}>
+                    <div className={styles.postContent} data-testid="post-content">
+                        <MarkdownContent content={post.content}/>
+                    </div>
+
+                    <div className={styles.desktopToc}>
+                        <TableOfContents content={post.content}/>
+                    </div>
+                </div>
+            </div>
+
+            <div className={styles.container}>
+                <PostNavigation prevPost={prevPost} nextPost={nextPost}/>
+
+                <Comments postId={params?.id}/>
+            </div>
         </BlogPostTransitionWrapper>
     );
 }

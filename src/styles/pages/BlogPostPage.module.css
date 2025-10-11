@@ -1,85 +1,103 @@
-.postHeader {
-    position: relative;
-    padding: 48px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: #fff;
-    overflow: hidden;
-    margin: 0 auto 64px auto;
+.container {
     max-width: 800px;
+    margin: 0 auto;
+    padding: 0 32px;
+}
+
+.thumbnailWrapper {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 48px auto;
+    padding: 0 32px;
+}
+
+.thumbnailInner {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+.thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.postHeader {
+    margin: 0 auto 32px auto;
     word-break: keep-all;
 }
 
-.postHeader::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 1;
-}
-
-.postHeader > * {
-    position: relative;
-    z-index: 2;
-}
-
 .titleText {
-    font-size: 48px;
-    margin-bottom: 8px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0 0 16px 0;
+    color: var(--color-text-primary);
 }
 
 .postDate {
     margin: 0;
-    font-size: 16px;
-    opacity: 0.8;
+    font-size: 15px;
+    color: var(--color-text-tertiary);
+}
+
+.contentWrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 32px;
 }
 
 .blogPostWrapper {
     position: relative;
     display: flex;
     flex-direction: column;
-    max-width: 800px;
     margin: 0 auto;
 }
 
 .postContent {
-    font-size: 18px;
-    line-height: 1.7;
+    font-size: 17px;
+    line-height: 1.8;
     color: var(--color-text-primary);
-    margin-bottom: 18px;
+    margin-bottom: 24px;
     width: 100%;
-    padding: 0 16px;
 }
 
-.mobileToc {
+.mobileTocWrapper {
     display: none;
-    padding: 0 16px;
+    max-width: 800px;
+    margin: 0 auto 32px auto;
+    padding: 0 32px;
 }
 
 .desktopToc {
     display: block;
-    padding: 0 16px;
 }
 
 .postContent h1 {
-    margin: 48px 0 16px;
-    font-size: 28px;
-    font-weight: 600;
+    margin: 56px 0 20px;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.3;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 .postContent h2 {
-    margin: 40px 0 16px;
-    font-size: 24px;
-    font-weight: 600;
+    margin: 48px 0 18px;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.4;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 .postContent h3 {
     margin: 40px 0 16px;
+    font-size: 21px;
     font-weight: 600;
+    line-height: 1.4;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 .postContent h1,
@@ -91,29 +109,31 @@
 .postContent p,
 .postContent ol,
 .postContent ul {
-    margin: 18px 0;
+    margin: 24px 0;
     color: var(--color-text-secondary);
+    line-height: 1.8;
 }
 
 .postContent img {
     max-width: 100%;
-    margin: 0;
+    margin: 32px 0;
 }
 
 .postContent pre {
     background-color: var(--color-surface);
-    padding: 16px;
+    padding: 20px;
     overflow-x: auto;
-    margin: 32px 0 0 0;
+    margin: 32px 0;
     font-size: 14px;
-    font-family: Consolas, Monaco, 'Courier New', monospace;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    line-height: 1.6;
 }
 
 .postContent code {
-    font-family: Consolas, Monaco, 'Courier New', monospace;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
     font-size: 14px;
     background-color: var(--color-surface);
-    padding: 2px 4px;
+    padding: 3px 6px;
 }
 
 .postContent pre code {
@@ -125,9 +145,10 @@
     border-left: 4px solid var(--color-base-8);
     color: var(--color-text-primary);
     background-color: var(--color-surface);
-    margin: 18px 0;
-    padding: 24px 24px;
-    font-size: 18px;
+    margin: 32px 0;
+    padding: 20px 24px;
+    font-size: 17px;
+    line-height: 1.8;
 }
 
 .postContent blockquote p {
@@ -136,15 +157,16 @@
 
 .postContent blockquote ol,
 .postContent blockquote ul {
-    margin: 0;
+    margin: 12px 0;
     padding-left: 1.5em;
 }
 
 .postContent table {
     border-collapse: collapse;
     width: 100%;
-    margin: 18px 0;
-    font-size: 16px;
+    margin: 32px 0;
+    font-size: 15px;
+    overflow: hidden;
 }
 
 .postContent th,
@@ -152,7 +174,7 @@
     text-align: start;
     border: 1px solid var(--color-base-9);
     background-color: var(--color-surface);
-    padding: 8px 12px;
+    padding: 12px 16px;
 }
 
 .postContent ol {
@@ -182,11 +204,7 @@
         justify-content: center;
     }
 
-    .postContent {
-        max-width: 800px;
-    }
-
-    .mobileToc {
+    .mobileTocWrapper {
         display: none;
     }
 
@@ -196,17 +214,8 @@
 }
 
 @media (max-width: 1279px) {
-    .postHeader {
-        padding: 16px 62px 16px 16px;
-    }
-
-    .titleText {
-        font-size: 32px;
-    }
-
-    .mobileToc {
+    .mobileTocWrapper {
         display: block;
-        margin-bottom: 32px;
     }
 
     .desktopToc {
@@ -215,5 +224,278 @@
 
     .postContent {
         font-size: 16px;
+        line-height: 1.8;
+    }
+
+    .postContent h1 {
+        margin: 48px 0 18px;
+        font-size: 28px;
+    }
+
+    .postContent h2 {
+        margin: 40px 0 16px;
+        font-size: 24px;
+    }
+
+    .postContent h3 {
+        margin: 36px 0 14px;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    .contentWrapper {
+        padding: 0 20px;
+    }
+
+    .thumbnailWrapper {
+        margin: 0 0 32px 0;
+        padding: 0;
+        max-width: 100%;
+    }
+
+    .mobileTocWrapper {
+        padding: 0;
+        max-width: 100%;
+    }
+
+    .postContent {
+        font-size: 16px;
+        line-height: 1.75;
+    }
+
+    .postContent h1 {
+        margin: 40px 0 16px;
+        font-size: 26px;
+    }
+
+    .postContent h2 {
+        margin: 36px 0 14px;
+        font-size: 22px;
+    }
+
+    .postContent h3 {
+        margin: 32px 0 12px;
+        font-size: 19px;
+    }
+
+    .titleText {
+        font-size: 32px;
+        line-height: 1.3;
+    }
+
+    .postDate {
+        font-size: 14px;
+    }
+
+    .postContent {
+        font-size: 16px;
+        line-height: 1.75;
+    }
+
+    .postContent h1 {
+        margin: 40px 0 16px;
+        font-size: 26px;
+    }
+
+    .postContent h2 {
+        margin: 36px 0 14px;
+        font-size: 22px;
+    }
+
+    .postContent h3 {
+        margin: 32px 0 12px;
+        font-size: 19px;
+    }
+
+    .postContent p,
+    .postContent ol,
+    .postContent ul {
+        margin: 20px 0;
+    }
+
+    .postContent pre {
+        padding: 16px;
+        margin: 24px -20px;
+        font-size: 13px;
+    }
+
+    .postContent code {
+        font-size: 13px;
+        padding: 2px 5px;
+    }
+
+    .postContent blockquote {
+        margin: 24px 0;
+        padding: 16px 20px;
+        font-size: 16px;
+    }
+
+    .postContent table {
+        margin: 24px 0;
+        font-size: 14px;
+    }
+
+    .postContent th,
+    .postContent td {
+        padding: 10px 12px;
+    }
+
+    .postContent img {
+        margin: 24px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 16px;
+    }
+
+    .contentWrapper {
+        padding: 0 16px;
+    }
+
+    .thumbnailWrapper {
+        margin: 0 0 24px 0;
+    }
+
+    .mobileTocWrapper {
+        margin-bottom: 24px;
+    }
+
+    .postHeader {
+        margin-bottom: 24px;
+    }
+
+    .titleText {
+        font-size: 28px;
+    }
+
+    .postDate {
+        font-size: 13px;
+    }
+
+    .postContent {
+        font-size: 15px;
+    }
+
+    .postContent h1 {
+        margin: 32px 0 14px;
+        font-size: 24px;
+    }
+
+    .postContent h2 {
+        margin: 28px 0 12px;
+        font-size: 20px;
+    }
+
+    .postContent h3 {
+        margin: 24px 0 10px;
+        font-size: 18px;
+    }
+
+    .postContent p,
+    .postContent ol,
+    .postContent ul {
+        margin: 16px 0;
+    }
+
+    .postContent pre {
+        padding: 14px;
+        margin: 20px -16px;
+        font-size: 12px;
+    }
+
+    .postContent code {
+        font-size: 12px;
+    }
+
+    .postContent blockquote {
+        margin: 20px 0;
+        padding: 14px 16px;
+        font-size: 15px;
+    }
+
+    .postContent table {
+        margin: 20px 0;
+        font-size: 13px;
+    }
+
+    .postContent th,
+    .postContent td {
+        padding: 8px 10px;
+    }
+
+    .postContent img {
+        margin: 20px 0;
+    }
+}
+
+@media (max-width: 360px) {
+    .container {
+        padding: 0 12px;
+    }
+
+    .contentWrapper {
+        padding: 0 12px;
+    }
+
+    .thumbnailWrapper {
+        margin: 0 0 20px 0;
+    }
+
+    .mobileTocWrapper {
+        margin-bottom: 20px;
+    }
+
+    .postHeader {
+        margin-bottom: 20px;
+    }
+
+    .titleText {
+        font-size: 24px;
+    }
+
+    .postContent {
+        font-size: 14px;
+    }
+
+    .postContent h1 {
+        font-size: 22px;
+        margin: 28px 0 12px;
+    }
+
+    .postContent h2 {
+        font-size: 19px;
+        margin: 24px 0 10px;
+    }
+
+    .postContent h3 {
+        font-size: 17px;
+        margin: 20px 0 10px;
+    }
+
+    .postContent pre {
+        padding: 12px;
+        margin: 16px -12px;
+        font-size: 11px;
+    }
+
+    .postContent blockquote {
+        padding: 12px 14px;
+        margin: 16px 0;
+    }
+
+    .postContent table {
+        font-size: 12px;
+    }
+
+    .postContent th,
+    .postContent td {
+        padding: 6px 8px;
     }
 }
