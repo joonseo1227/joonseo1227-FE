@@ -5,7 +5,7 @@ import Link from "next/link";
 import styles from '@/styles/pages/HomePage.module.css';
 import supabase from "/src/lib/supabase.js";
 import EmptyState from '@/components/EmptyState';
-import {ChevronRight, ArrowDown} from '@carbon/icons-react';
+import {ArrowDown, ChevronRight} from '@carbon/icons-react';
 
 export default function HomePage() {
     // Refs for intersection observer
@@ -172,7 +172,7 @@ export default function HomePage() {
                             </>
                         )}
                     </h1>
-                    <div className={styles.scrollDown}><ArrowDown size={24} /></div>
+                    <div className={styles.scrollDown}><ArrowDown size={24}/></div>
                 </div>
             </section>
 
@@ -193,7 +193,7 @@ export default function HomePage() {
                         <h2 className={styles.sectionTitle}>
                             Works
                             <span className={styles.arrowIcon}>
-                                <ChevronRight size={28} />
+                                <ChevronRight size={28}/>
                             </span>
                         </h2>
                     </Link>
@@ -272,7 +272,7 @@ export default function HomePage() {
                         <h2 className={styles.sectionTitle}>
                             Insights
                             <span className={styles.arrowIcon}>
-                                <ChevronRight size={28} />
+                                <ChevronRight size={28}/>
                             </span>
                         </h2>
                     </Link>
