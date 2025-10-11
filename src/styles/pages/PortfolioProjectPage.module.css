@@ -133,7 +133,7 @@
     animation: fadeIn 0.8s ease-out forwards;
 }
 
-.projectInfo {
+.tileDescription {
     display: flex;
     flex-direction: column;
     gap: 32px;
@@ -141,7 +141,7 @@
     opacity: 0;
 }
 
-.projectInfo.animate {
+.tileDescription.animate {
     opacity: 1;
     animation: fadeInUp 0.8s ease-out forwards;
 }
@@ -342,7 +342,7 @@
         opacity: 1;
     }
 
-    .projectInfo {
+    .tileDescription {
         flex-direction: column;
         align-items: flex-start;
     }

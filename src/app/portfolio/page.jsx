@@ -94,10 +94,7 @@ export default function PortfolioPage() {
                                             alt={project.title}
                                         />
                                     )}
-                                    <div className={styles.projectInfo}>
-                                        <h2>{project.title}</h2>
-                                        <p>{project.summary}</p>
-                                    </div>
+                                    <h2 className={styles.projectTitle}>{project.title}</h2>
                                 </article>
                             </Link>
                         );
