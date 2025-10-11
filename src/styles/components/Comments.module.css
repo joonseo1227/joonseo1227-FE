@@ -142,22 +142,20 @@
 
 .commentAuthor {
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--color-text-primary);
 }
 
 .commentDate {
     font-size: 16px;
-    font-weight: 500;
     color: var(--color-text-tertiary);
 }
 
 .commentContent {
     margin: 0;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 16px;
     line-height: 1.6;
-    color: var(--color-text-primary);
+    color: var(--color-text-secondary);
     white-space: pre-wrap;
 }
 
