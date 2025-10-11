@@ -5,6 +5,7 @@ import Link from "next/link";
 import styles from '@/styles/pages/HomePage.module.css';
 import supabase from "/src/lib/supabase.js";
 import EmptyState from '@/components/EmptyState';
+import {ChevronRight, ArrowDown} from '@carbon/icons-react';
 
 export default function HomePage() {
     // Refs for intersection observer
@@ -171,7 +172,7 @@ export default function HomePage() {
                             </>
                         )}
                     </h1>
-                    <div className={styles.scrollDown}>↓</div>
+                    <div className={styles.scrollDown}><ArrowDown size={24} /></div>
                 </div>
             </section>
 
@@ -189,13 +190,13 @@ export default function HomePage() {
             <section className={styles.worksSection} data-section="works" ref={worksRef}>
                 <div className={styles.sectionHeader}>
                     <Link href="/portfolio" className={styles.sectionLabelLink}>
-                        <span className={styles.sectionLabel}>All
+                        <h2 className={styles.sectionTitle}>
+                            Works
                             <span className={styles.arrowIcon}>
-                                →
+                                <ChevronRight size={28} />
                             </span>
-                        </span>
+                        </h2>
                     </Link>
-                    <h2 className={styles.sectionTitle}>Works</h2>
                 </div>
                 <div className={styles.worksGrid}>
                     {loading.projects ? (
@@ -268,13 +269,13 @@ export default function HomePage() {
             <section className={styles.blogSection} data-section="blog" ref={blogRef}>
                 <div className={styles.sectionHeader}>
                     <Link href="/blog" className={styles.sectionLabelLink}>
-                        <span className={styles.sectionLabel}>All
+                        <h2 className={styles.sectionTitle}>
+                            Insights
                             <span className={styles.arrowIcon}>
-                                →
+                                <ChevronRight size={28} />
                             </span>
-                        </span>
+                        </h2>
                     </Link>
-                    <h2 className={styles.sectionTitle}>Insights</h2>
                 </div>
                 <div className={styles.blogList}>
                     {loading.posts ? (
