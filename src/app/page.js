@@ -4,6 +4,7 @@ import {useEffect, useRef, useState} from "react";
 import Link from "next/link";
 import styles from '@/styles/pages/HomePage.module.css';
 import supabase from "/src/lib/supabase.js";
+import EmptyState from '@/components/EmptyState';
 
 export default function HomePage() {
     // Refs for intersection observer
@@ -30,7 +31,10 @@ export default function HomePage() {
         projects: true,
         posts: true
     });
-    const [error, setError] = useState(null);
+    const [error, setError] = useState({
+        projects: null,
+        posts: null
+    });
 
     // Refs for project and blog post images (for transition animation)
     const imgRefs = useRef({});
@@ -102,15 +106,15 @@ export default function HomePage() {
                     .limit(4);
 
                 if (error) {
-                    console.error('Supabase error:', error);
-                    setError(error.message);
+                    console.error('홈페이지 프로젝트 로딩 실패:', error);
+                    setError(prev => ({...prev, projects: '프로젝트를 불러올 수 없습니다.'}));
                     return;
                 }
 
                 setProjects(data || []);
             } catch (err) {
-                console.error('Exception:', err);
-                setError(err.message);
+                console.error('홈페이지 프로젝트 로딩 실패:', err);
+                setError(prev => ({...prev, projects: '프로젝트를 불러올 수 없습니다.'}));
             } finally {
                 setLoading(prev => ({...prev, projects: false}));
             }
@@ -132,15 +136,15 @@ export default function HomePage() {
                     .limit(3);
 
                 if (error) {
-                    console.error('Supabase error:', error);
-                    setError(error.message);
+                    console.error('홈페이지 블로그 포스트 로딩 실패:', error);
+                    setError(prev => ({...prev, posts: '게시물을 불러올 수 없습니다.'}));
                     return;
                 }
 
                 setBlogPosts(data || []);
             } catch (err) {
-                console.error('Exception:', err);
-                setError(err.message);
+                console.error('홈페이지 블로그 포스트 로딩 실패:', err);
+                setError(prev => ({...prev, posts: '게시물을 불러올 수 없습니다.'}));
             } finally {
                 setLoading(prev => ({...prev, posts: false}));
             }
@@ -202,8 +206,14 @@ export default function HomePage() {
                                 className={`${styles.workCard} ${styles.workCardSkeleton}`}
                             ></div>
                         ))
+                    ) : error.projects ? (
+                        <div style={{gridColumn: '1 / -1'}}>
+                            <EmptyState type="error" message={error.projects}/>
+                        </div>
                     ) : projects.length === 0 ? (
-                        <p className={styles.noContent}>No projects available</p>
+                        <div style={{gridColumn: '1 / -1'}}>
+                            <EmptyState type="empty" message="프로젝트가 없습니다."/>
+                        </div>
                     ) : (
                         projects.map((project, index) => {
                             const handleProjectClick = (e) => {
@@ -275,8 +285,10 @@ export default function HomePage() {
                                 className={`${styles.blogCard} ${styles.blogCardSkeleton}`}
                             ></div>
                         ))
+                    ) : error.posts ? (
+                        <EmptyState type="error" message={error.posts}/>
                     ) : blogPosts.length === 0 ? (
-                        <p className={styles.noContent}>블로그 포스트가 없습니다.</p>
+                        <EmptyState type="empty" message="게시물이 없습니다."/>
                     ) : (
                         blogPosts.map((post, index) => {
                             const handleBlogClick = (e) => {

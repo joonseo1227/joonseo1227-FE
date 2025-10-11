@@ -1,5 +1,6 @@
 import supabase from '/src/lib/supabase.js';
 import AboutPageContent from '@/components/AboutPageContent';
+import EmptyState from '@/components/EmptyState';
 
 export const revalidate = 60;
 
@@ -93,10 +94,14 @@ export default async function AboutPage() {
         );
     } catch (error) {
         return (
-            <div style={{padding: '2rem', textAlign: 'center'}}>
-                <h1>About</h1>
-                <p>데이터를 불러오는 중 오류가 발생했습니다.</p>
-                <p>잠시 후 다시 시도해주세요.</p>
+            <div style={{
+                width: '100%',
+                maxWidth: '1200px',
+                padding: '16px',
+                margin: '0 auto'
+            }}>
+                <h1 className="titleText">About</h1>
+                <EmptyState type="error" message="페이지를 불러올 수 없습니다."/>
             </div>
         );
     }

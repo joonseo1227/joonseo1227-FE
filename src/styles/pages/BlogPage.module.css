@@ -96,13 +96,6 @@
     color: var(--color-bg);
 }
 
-.noPosts {
-    text-align: center;
-    padding: 40px;
-    font-size: 1.1rem;
-    color: var(--color-text-primary);
-}
-
 @keyframes fadeIn {
     from {
         opacity: 0;

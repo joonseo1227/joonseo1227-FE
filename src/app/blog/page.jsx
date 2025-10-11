@@ -5,6 +5,7 @@ import supabase from "/src/lib/supabase.js";
 import styles from '@/styles/pages/BlogPage.module.css';
 import Link from "next/link";
 import SkeletonLoader from '@/components/SkeletonLoader';
+import EmptyState from '@/components/EmptyState';
 
 export default function BlogPage() {
     const [posts, setPosts] = useState([]);
@@ -25,7 +26,7 @@ export default function BlogPage() {
                 if (error) throw error;
                 setCategories(data || []);
             } catch (err) {
-                console.error('카테고리를 불러오는데 실패했습니다:', err);
+                console.error('카테고리 로딩 실패:', err);
             }
         };
 
@@ -69,8 +70,8 @@ export default function BlogPage() {
                 if (error) throw error;
                 setPosts(data || []);
             } catch (err) {
-                setError('포스트를 불러오는데 실패했습니다.');
-                console.error('Error:', err);
+                console.error('블로그 포스트 로딩 실패:', err);
+                setError('게시물을 불러올 수 없습니다.');
             } finally {
                 setLoading(false);
             }
@@ -110,9 +111,9 @@ export default function BlogPage() {
             {loading ? (
                 <SkeletonLoader page="blogPage"/>
             ) : error ? (
-                <p className={styles.errorMessage}>{error}</p>
+                <EmptyState type="error" message={error}/>
             ) : posts.length === 0 ? (
-                <p className={styles.noPosts}>게시물이 없습니다.</p>
+                <EmptyState type="empty" message="게시물이 없습니다."/>
             ) : (
                 <div className={styles.postList}>
                     {posts.map((post) => {

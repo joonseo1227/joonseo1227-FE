@@ -295,14 +295,6 @@
     max-width: 800px;
 }
 
-.noContent {
-    text-align: center;
-    padding: 40px 0;
-    color: var(--color-base-3);
-    font-size: 18px;
-    width: 100%;
-}
-
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -432,12 +424,6 @@
         flex-direction: column-reverse;
         height: 300px;
     }
-
-    .noContent {
-        padding: 30px 0;
-        font-size: 16px;
-    }
-
 }
 
 @media (max-width: 480px) {
@@ -511,10 +497,5 @@
     .blogCardSummary {
         font-size: 15px;
         line-height: 1.4;
-    }
-
-    .noContent {
-        padding: 20px 0;
-        font-size: 15px;
     }
 }

@@ -13,7 +13,7 @@ export default function ContactPage() {
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
         } catch (err) {
-            console.error('Failed to copy text: ', err);
+            console.error('텍스트 복사 실패: ', err);
         }
     };
 
@@ -25,7 +25,6 @@ export default function ContactPage() {
                 <button
                     className={`${styles.copyButton} ${copied ? styles.copied : ''}`}
                     onClick={copyToClipboard}
-                    aria-label="Copy email to clipboard"
                 >
                     {copied ? <CheckmarkFilled size={24}/> : <Copy size={24}/>}
                 </button>

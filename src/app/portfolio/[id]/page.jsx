@@ -90,6 +90,10 @@ export default function PortfolioProjectPage({params}) {
 
     const router = useRouter();
 
+    if (loading) {
+        return null; // or return a loading spinner
+    }
+
     if (error || !project) {
         router.push('/404');
         return null;

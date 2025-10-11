@@ -1,0 +1,7 @@
+.message {
+    text-align: center;
+    padding: 40px;
+    font-size: 16px;
+    color: var(--color-text-secondary);
+    margin: 0;
+}

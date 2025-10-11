@@ -5,6 +5,7 @@ import {useEffect, useRef, useState} from "react";
 import supabase from "/src/lib/supabase.js";
 import Link from "next/link";
 import SkeletonLoader from '@/components/SkeletonLoader';
+import EmptyState from '@/components/EmptyState';
 
 export default function PortfolioPage() {
     const [projects, setProjects] = useState([]);
@@ -22,15 +23,15 @@ export default function PortfolioPage() {
                     .order('start_date', {ascending: false});
 
                 if (error) {
-                    console.error('Supabase 에러:', error);
-                    setError(error.message);
+                    console.error('포트폴리오 데이터 로딩 실패:', error);
+                    setError('프로젝트를 불러올 수 없습니다.');
                     return;
                 }
 
                 setProjects(data || []);
             } catch (err) {
-                console.error('예외 발생:', err);
-                setError(err.message);
+                console.error('포트폴리오 데이터 로딩 실패:', err);
+                setError('프로젝트를 불러올 수 없습니다.');
             } finally {
                 setLoading(false);
             }
@@ -40,10 +41,6 @@ export default function PortfolioPage() {
     }, []);
 
 
-    if (error) {
-        return <div>에러가 발생했습니다: {error}</div>;
-    }
-
     return (
         <div className={styles.portfolioPage}>
             <h1 className="titleText">Portfolio</h1>
@@ -51,9 +48,9 @@ export default function PortfolioPage() {
             {loading ? (
                 <SkeletonLoader page="portfolioPage"/>
             ) : error ? (
-                <p className={styles.errorMessage}>{error}</p>
+                <EmptyState type="error" message={error}/>
             ) : projects.length === 0 ? (
-                <p className={styles.noProjects}>게시물이 없습니다.</p>
+                <EmptyState type="empty" message="게시물이 없습니다."/>
             ) : (
                 <div className={styles.projectList}>
                     {projects.map((project) => {

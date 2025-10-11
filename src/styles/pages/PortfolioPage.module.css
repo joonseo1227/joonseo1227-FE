@@ -55,17 +55,3 @@
 .fadeIn {
     animation: fadeIn 0.5s ease-in-out;
 }
-
-.noProjects {
-    text-align: center;
-    padding: 40px;
-    font-size: 1.1rem;
-    color: var(--color-text-primary);
-}
-
-.errorMessage {
-    text-align: center;
-    padding: 40px;
-    font-size: 1.1rem;
-    color: var(--color-error);
-}
