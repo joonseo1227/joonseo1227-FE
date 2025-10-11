@@ -1,267 +1,103 @@
-/* Base skeleton container */
-.skeletonContainer {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* Generic skeleton box with animation */
-.skeletonBox {
-    background: linear-gradient(90deg,
-    var(--color-surface),
-    var(--color-base-6),
-    var(--color-surface));
-    background-size: 200% 100%;
-    animation: pulse 1.5s ease-in-out infinite;
-    opacity: 0.7;
-}
-
-/* Pulse animation */
-@keyframes pulse {
-    0% {
-        background-position: 0 0;
-    }
-    100% {
-        background-position: -200% 0;
-    }
-}
-
-/* Category container */
-.categoryContainer {
+/* Blog Page Skeleton Styles */
+.categoryFilter {
+    margin: 20px 0 30px;
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
-    margin: 20px 0 30px;
 }
 
-/* Category button skeleton */
-.categoryButton {
-    width: 80px;
+.categoryBtn {
+    padding: 8px 16px;
     height: 36px;
+    width: 80px;
     border-radius: 20px;
 }
 
-/* Grid container for blog posts and portfolio projects */
-.gridContainer {
+.postList {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 24px;
     padding: 0;
+    list-style: none;
 }
 
-/* Tile container */
-.tileContainer {
-    border: 1px solid var(--color-text-primary);
+.postTile {
+    border: 1px solid var(--color-base-6);
     overflow: hidden;
     background: var(--color-bg);
 }
 
-/* Thumbnail skeleton */
-.thumbnail {
+.postThumbnail {
     width: 100%;
     aspect-ratio: 16/9;
+    background: linear-gradient(90deg, var(--color-base-8) 25%, var(--color-base-7) 50%, var(--color-base-8) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
 }
 
-/* Content container */
-.contentContainer {
+.tileDescription {
     padding: 16px;
 }
 
-/* Title skeleton */
-.title {
-    height: 24px;
-    margin-bottom: 12px;
-    width: 80%;
-}
-
-/* Summary skeleton */
-.summary {
-    height: 16px;
-    margin-bottom: 12px;
-    width: 100%;
-}
-
-/* Date skeleton */
-.date {
-    height: 14px;
-    width: 40%;
-}
-
-/* Header container for blog detail */
-.headerContainer {
-    padding: 48px;
-    margin: 0 auto 64px auto;
-    max-width: 800px;
-    background: var(--color-bg);
-}
-
-/* Detail title skeleton */
-.detailTitle {
-    height: 48px;
-    margin-bottom: 16px;
-    width: 70%;
-}
-
-/* Detail date skeleton */
-.detailDate {
-    height: 16px;
-    width: 30%;
-}
-
-/* Detail content container */
-.detailContentContainer {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-/* Paragraph skeleton */
-.paragraph {
-    height: 16px;
-    margin-bottom: 24px;
-    width: 100%;
-}
-
-/* Project header skeleton */
-.projectHeader {
-    position: relative;
-    padding: 48px;
-    background-color: var(--color-surface);
-    margin-bottom: 48px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-/* Project info container */
-.projectInfoContainer {
-    display: flex;
+.tileHead {
     flex-direction: column;
-    gap: 32px;
-    margin-bottom: 32px;
+    height: 112px;
 }
 
-/* Image gallery skeleton */
-.imageGallerySkeleton {
-    position: relative;
-    width: 100%;
+.postTitle {
+    height: 54px;
+    margin: 0 0 8px 0;
+}
+
+.postSummary {
+    height: 40px;
+    margin: 0;
+}
+
+.postDate {
+    height: 20px;
+    margin: 16px 0 0 0;
+    width: 120px;
+}
+
+/* Portfolio Page Skeleton Styles */
+.projectList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    padding: 0;
+    list-style: none;
+}
+
+.projectTile {
     overflow: hidden;
-    margin-bottom: 32px;
 }
 
-/* Project image skeleton */
-.projectImage {
+.projectThumbnail {
     width: 100%;
     aspect-ratio: 16/9;
-    border-radius: 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(90deg, var(--color-base-8) 25%, var(--color-base-7) 50%, var(--color-base-8) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
 }
 
-/* Image navigation skeleton */
-.imageNavigationSkeleton {
-    position: absolute;
-    bottom: 16px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 16px;
-    z-index: 10;
-    height: 40px;
-    background-color: var(--color-overlay-2);
-    backdrop-filter: blur(8px);
+.projectTitle {
+    height: 27px;
+    margin: 16px 0;
 }
 
-/* Navigation button skeleton */
-.navButtonSkeleton {
-    width: 40px;
-    height: 40px;
-    border-radius: 0;
+/* Skeleton Animation */
+.skeleton {
+    background: linear-gradient(90deg, var(--color-base-8) 25%, var(--color-base-7) 50%, var(--color-base-8) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
 }
 
-/* Image counter skeleton */
-.imageCounterSkeleton {
-    width: 60px;
-    height: 24px;
-    border-radius: 0;
-}
-
-/* Project details container */
-.projectDetailsSkeleton {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    width: 100%;
-}
-
-/* Project job skeleton */
-.projectJob {
-    height: 24px;
-    margin-bottom: 16px;
-    width: 60%;
-}
-
-/* Project period skeleton */
-.projectPeriod {
-    height: 16px;
-    margin-bottom: 16px;
-    width: 80%;
-}
-
-/* Tech stack container skeleton */
-.techStackContainerSkeleton {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 8px;
-}
-
-/* Tech tag skeleton */
-.techTagSkeleton {
-    height: 32px;
-    width: 80px;
-    padding: 6px 12px;
-}
-
-/* Button container skeleton */
-.buttonContainerSkeleton {
-    margin-bottom: 32px;
-}
-
-/* GitHub link skeleton */
-.githubLink {
-    height: 48px;
-    width: 200px;
-}
-
-
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-    .headerContainer {
-        padding: 24px;
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
     }
-
-    .projectHeader {
-        padding: 24px;
-    }
-
-    .projectImage {
-        width: 100%;
-        aspect-ratio: 16/9;
-    }
-}
-
-/* Desktop responsiveness */
-@media (min-width: 768px) {
-    .projectInfoContainer {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .imageGallerySkeleton {
-        width: 100%;
-    }
-
-    .projectDetailsSkeleton {
-        width: 100%;
-        padding-left: 0;
+    100% {
+        background-position: -200% 0;
     }
 }

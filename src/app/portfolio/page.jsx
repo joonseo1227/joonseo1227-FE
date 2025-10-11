@@ -49,7 +49,7 @@ export default function PortfolioPage() {
             <h1 className="titleText">Portfolio</h1>
 
             {loading ? (
-                <SkeletonLoader page="portfolioList"/>
+                <SkeletonLoader page="portfolioPage"/>
             ) : error ? (
                 <p className={styles.errorMessage}>{error}</p>
             ) : projects.length === 0 ? (

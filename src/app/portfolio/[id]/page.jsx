@@ -8,7 +8,6 @@ import {LogoGithub} from "@carbon/icons-react";
 import LinkButton from '@/components/LinkButton';
 import ImageSlider from '@/components/ImageSlider';
 import {useInView} from 'react-intersection-observer';
-import SkeletonLoader from '@/components/SkeletonLoader';
 
 export default function PortfolioProjectPage({params}) {
     const unwrappedParams = React.use(params);
@@ -90,14 +89,6 @@ export default function PortfolioProjectPage({params}) {
     }, [loading]);
 
     const router = useRouter();
-
-    if (loading) {
-        return (
-            <div className={styles.portfolioProjectPage}>
-                <SkeletonLoader page="portfolioDetail"/>
-            </div>
-        );
-    }
 
     if (error || !project) {
         router.push('/404');
