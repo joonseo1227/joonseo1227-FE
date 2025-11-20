@@ -81,10 +81,10 @@ export default function PortfolioProjectPage({params}) {
         fetchProject();
     }, [projectId]);
 
-    // End the transition when loading is complete
+    // End the portfolio transition when loading is complete
     useEffect(() => {
-        if (!loading && window.endProjectTransition) {
-            window.endProjectTransition();
+        if (!loading && window.endPortfolioTransition) {
+            window.endPortfolioTransition();
         }
     }, [loading]);
 

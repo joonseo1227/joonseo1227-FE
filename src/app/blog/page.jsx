@@ -120,9 +120,10 @@ export default function BlogPage() {
                         const handlePostClick = (e) => {
                             e.preventDefault();
 
-                            if (post.thumbnail_url && imgRefs.current[post.id] && window.startProjectTransition) {
-                                const rect = imgRefs.current[post.id].getBoundingClientRect();
-                                window.startProjectTransition(
+                            const imgElement = imgRefs.current[post.id];
+                            if (post.thumbnail_url && imgElement && window.startBlogTransition) {
+                                const rect = imgElement.getBoundingClientRect();
+                                window.startBlogTransition(
                                     post.id,
                                     post.thumbnail_url,
                                     {
@@ -131,7 +132,7 @@ export default function BlogPage() {
                                         width: rect.width,
                                         height: rect.height
                                     },
-                                    'blog'
+                                    {sourceElement: imgElement}
                                 );
                             } else {
                                 window.location.href = `/blog/${post.id}`;

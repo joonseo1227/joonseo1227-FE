@@ -57,9 +57,10 @@ export default function PortfolioPage() {
                         const handleProjectClick = (e) => {
                             e.preventDefault();
 
-                            if (project.img_url && imgRefs.current[project.id] && window.startProjectTransition) {
-                                const rect = imgRefs.current[project.id].getBoundingClientRect();
-                                window.startProjectTransition(
+                            const imgElement = imgRefs.current[project.id];
+                            if (project.img_url && imgElement && window.startPortfolioTransition) {
+                                const rect = imgElement.getBoundingClientRect();
+                                window.startPortfolioTransition(
                                     project.id,
                                     project.img_url,
                                     {
@@ -67,7 +68,8 @@ export default function PortfolioPage() {
                                         left: rect.left,
                                         width: rect.width,
                                         height: rect.height
-                                    }
+                                    },
+                                    {sourceElement: imgElement}
                                 );
                             } else {
                                 // Fallback to normal navigation if animation can't be triggered

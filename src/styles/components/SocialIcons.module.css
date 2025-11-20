@@ -3,6 +3,7 @@
     left: 24px;
     position: fixed;
     margin-top: -80px;
+    z-index: 1100;
 }
 
 .socialIcons ul {
@@ -52,7 +53,9 @@
 @media (max-width: 1279px) {
     .socialIcons {
         margin: 32px 0;
-        position: static;
+        position: relative;
+        top: auto;
+        left: auto;
         display: flex;
         flex-direction: row-reverse;
         justify-content: center;

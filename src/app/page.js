@@ -220,9 +220,10 @@ export default function HomePage() {
                             const handleProjectClick = (e) => {
                                 e.preventDefault();
 
-                                if (project.img_url && imgRefs.current[project.id] && window.startProjectTransition) {
-                                    const rect = imgRefs.current[project.id].getBoundingClientRect();
-                                    window.startProjectTransition(
+                                const imgElement = imgRefs.current[project.id];
+                                if (project.img_url && imgElement && window.startPortfolioTransition) {
+                                    const rect = imgElement.getBoundingClientRect();
+                                    window.startPortfolioTransition(
                                         project.id,
                                         project.img_url,
                                         {
@@ -231,7 +232,7 @@ export default function HomePage() {
                                             width: rect.width,
                                             height: rect.height
                                         },
-                                        'portfolio'
+                                        {sourceElement: imgElement}
                                     );
                                 } else {
                                     window.location.href = `/portfolio/${project.id}`;
@@ -295,9 +296,10 @@ export default function HomePage() {
                             const handleBlogClick = (e) => {
                                 e.preventDefault();
 
-                                if (post.thumbnail_url && blogImgRefs.current[post.id] && window.startProjectTransition) {
-                                    const rect = blogImgRefs.current[post.id].getBoundingClientRect();
-                                    window.startProjectTransition(
+                                const imgElement = blogImgRefs.current[post.id];
+                                if (post.thumbnail_url && imgElement && window.startBlogTransition) {
+                                    const rect = imgElement.getBoundingClientRect();
+                                    window.startBlogTransition(
                                         post.id,
                                         post.thumbnail_url,
                                         {
@@ -306,7 +308,7 @@ export default function HomePage() {
                                             width: rect.width,
                                             height: rect.height
                                         },
-                                        'blog' // Specify 'blog' as the route
+                                        {sourceElement: imgElement}
                                     );
                                 } else {
                                     // Fallback to normal navigation if animation can't be triggered

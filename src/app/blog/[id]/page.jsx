@@ -58,7 +58,7 @@ export default async function BlogPostPage({params}) {
     ]);
 
     return (
-        <BlogPostTransitionWrapper>
+        <>
             {post.thumbnail_url && (
                 <div className={styles.thumbnailWrapper}>
                     <div className={styles.thumbnailInner}>
@@ -67,34 +67,36 @@ export default async function BlogPostPage({params}) {
                 </div>
             )}
 
-            <div className={styles.container}>
-                <div className={styles.postHeader}>
-                    <h1 className={styles.titleText}>{post.title}</h1>
-                    <p className={styles.postDate}>{formatDate(post.created_at)}</p>
-                </div>
-            </div>
-
-            <div className={styles.mobileTocWrapper}>
-                <TableOfContents content={post.content}/>
-            </div>
-
-            <div className={styles.contentWrapper}>
-                <div className={styles.blogPostWrapper}>
-                    <div className={styles.postContent} data-testid="post-content">
-                        <MarkdownContent content={post.content}/>
-                    </div>
-
-                    <div className={styles.desktopToc}>
-                        <TableOfContents content={post.content}/>
+            <BlogPostTransitionWrapper>
+                <div className={styles.container}>
+                    <div className={styles.postHeader}>
+                        <h1 className={styles.titleText}>{post.title}</h1>
+                        <p className={styles.postDate}>{formatDate(post.created_at)}</p>
                     </div>
                 </div>
-            </div>
 
-            <div className={styles.container}>
-                <PostNavigation prevPost={prevPost} nextPost={nextPost}/>
+                <div className={styles.mobileTocWrapper}>
+                    <TableOfContents content={post.content}/>
+                </div>
 
-                <Comments postId={params?.id}/>
-            </div>
-        </BlogPostTransitionWrapper>
+                <div className={styles.contentWrapper}>
+                    <div className={styles.blogPostWrapper}>
+                        <div className={styles.postContent} data-testid="post-content">
+                            <MarkdownContent content={post.content}/>
+                        </div>
+
+                        <div className={styles.desktopToc}>
+                            <TableOfContents content={post.content}/>
+                        </div>
+                    </div>
+                </div>
+
+                <div className={styles.container}>
+                    <PostNavigation prevPost={prevPost} nextPost={nextPost}/>
+
+                    <Comments postId={params?.id}/>
+                </div>
+            </BlogPostTransitionWrapper>
+        </>
     );
 }

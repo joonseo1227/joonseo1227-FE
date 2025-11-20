@@ -1,0 +1,10 @@
+.fadeContainer {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    will-change: opacity;
+}
+
+.fadeContainerVisible {
+    opacity: 1;
+}
+

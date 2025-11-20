@@ -1,11 +1,11 @@
 "use client";
 
-import ProjectTransition from "@/components/ProjectTransition";
+import PageTransition from "@/components/PageTransition";
 
 export default function ClientWrapper({children}) {
     return (
-        <ProjectTransition>
+        <PageTransition>
             {children}
-        </ProjectTransition>
+        </PageTransition>
     );
 }
