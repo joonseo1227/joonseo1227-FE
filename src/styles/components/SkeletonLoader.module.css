@@ -8,9 +8,16 @@
 
 .categoryBtn {
     padding: 8px 16px;
-    height: 36px;
     width: 80px;
     border-radius: 20px;
+    border: 1px solid var(--color-base-9);
+    font-size: 0.9rem;
+    line-height: normal;
+}
+
+.categoryBtn::after {
+    content: "\00a0";
+    display: inline-block;
 }
 
 .postList {
@@ -22,9 +29,11 @@
 }
 
 .postTile {
-    border: 1px solid var(--color-base-6);
     overflow: hidden;
-    background: var(--color-bg);
+    background: var(--color-base-10);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .postThumbnail {
@@ -37,11 +46,13 @@
 
 .tileDescription {
     padding: 16px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .tileHead {
     flex-direction: column;
-    height: 112px;
 }
 
 .postTitle {
@@ -50,13 +61,13 @@
 }
 
 .postSummary {
-    height: 40px;
-    margin: 0;
+    height: 42px;
+    margin: 0 0 8px 0;
 }
 
 .postDate {
     height: 20px;
-    margin: 16px 0 0 0;
+    margin: auto 0 0 0;
     width: 120px;
 }
 
@@ -97,6 +108,7 @@
     0% {
         background-position: 200% 0;
     }
+
     100% {
         background-position: -200% 0;
     }
