@@ -1,6 +1,7 @@
 "use client";
 
 import {useEffect, useRef, useState} from "react";
+import {AnimatePresence, motion} from "framer-motion";
 import supabase from "/src/lib/supabase.js";
 import styles from '@/styles/pages/BlogPage.module.css';
 import Link from "next/link";
@@ -116,58 +117,68 @@ export default function BlogPage() {
                 <EmptyState type="empty" message="게시물이 없습니다."/>
             ) : (
                 <div className={styles.postList}>
-                    {posts.map((post) => {
-                        const handlePostClick = (e) => {
-                            e.preventDefault();
+                    <AnimatePresence mode="popLayout" initial={false}>
+                        {posts.map((post) => {
+                            const handlePostClick = (e) => {
+                                e.preventDefault();
 
-                            const imgElement = imgRefs.current[post.id];
-                            if (post.thumbnail_url && imgElement && window.startBlogTransition) {
-                                const rect = imgElement.getBoundingClientRect();
-                                window.startBlogTransition(
-                                    post.id,
-                                    post.thumbnail_url,
-                                    {
-                                        top: rect.top,
-                                        left: rect.left,
-                                        width: rect.width,
-                                        height: rect.height
-                                    },
-                                    {sourceElement: imgElement}
-                                );
-                            } else {
-                                window.location.href = `/blog/${post.id}`;
-                            }
-                        };
+                                const imgElement = imgRefs.current[post.id];
+                                if (post.thumbnail_url && imgElement && window.startBlogTransition) {
+                                    const rect = imgElement.getBoundingClientRect();
+                                    window.startBlogTransition(
+                                        post.id,
+                                        post.thumbnail_url,
+                                        {
+                                            top: rect.top,
+                                            left: rect.left,
+                                            width: rect.width,
+                                            height: rect.height
+                                        },
+                                        {sourceElement: imgElement}
+                                    );
+                                } else {
+                                    window.location.href = `/blog/${post.id}`;
+                                }
+                            };
 
-                        return (
-                            <Link
-                                key={post.id}
-                                className={styles.postLink}
-                                href={`/blog/${post.id}`}
-                                onClick={handlePostClick}
-                            >
-                                <article className={styles.postTile}>
-                                    {post.thumbnail_url && (
-                                        <img
-                                            ref={el => imgRefs.current[post.id] = el}
-                                            className={styles.postThumbnail}
-                                            src={post.thumbnail_url}
-                                            alt={post.title}
-                                        />
-                                    )}
-                                    <div className={styles.tileDescription}>
-                                        <div className={styles.tileHead}>
-                                            <h2 className={styles.postTitle}>{post.title}</h2>
-                                            <p className={styles.postSummary}>{post.summary}</p>
-                                        </div>
-                                        <p className={styles.postDate}>
-                                            {new Date(post.created_at).toLocaleDateString('ko-KR')}
-                                        </p>
-                                    </div>
-                                </article>
-                            </Link>
-                        );
-                    })}
+                            return (
+                                <motion.div
+                                    key={post.id}
+                                    layout
+                                    initial={{scale: 0.8, opacity: 0}}
+                                    animate={{scale: 1, opacity: 1}}
+                                    exit={{scale: 0.8, opacity: 0}}
+                                    transition={{duration: 0.3}}
+                                >
+                                    <Link
+                                        className={styles.postLink}
+                                        href={`/blog/${post.id}`}
+                                        onClick={handlePostClick}
+                                    >
+                                        <article className={styles.postTile}>
+                                            {post.thumbnail_url && (
+                                                <img
+                                                    ref={el => imgRefs.current[post.id] = el}
+                                                    className={styles.postThumbnail}
+                                                    src={post.thumbnail_url}
+                                                    alt={post.title}
+                                                />
+                                            )}
+                                            <div className={styles.tileDescription}>
+                                                <div className={styles.tileHead}>
+                                                    <h2 className={styles.postTitle}>{post.title}</h2>
+                                                    <p className={styles.postSummary}>{post.summary}</p>
+                                                </div>
+                                                <p className={styles.postDate}>
+                                                    {new Date(post.created_at).toLocaleDateString('ko-KR')}
+                                                </p>
+                                            </div>
+                                        </article>
+                                    </Link>
+                                </motion.div>
+                            );
+                        })}
+                    </AnimatePresence>
                 </div>
             )}
         </div>
