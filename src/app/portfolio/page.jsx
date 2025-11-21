@@ -45,61 +45,61 @@ export default function PortfolioPage() {
         <div className={styles.portfolioPage}>
             <h1 className="titleText">Portfolio</h1>
 
-            {loading ? (
-                <SkeletonLoader page="portfolioPage"/>
-            ) : error ? (
-                <EmptyState type="error" message={error}/>
-            ) : projects.length === 0 ? (
-                <EmptyState type="empty" message="게시물이 없습니다."/>
-            ) : (
-                <div className={styles.projectList}>
-                    {projects.map((project) => {
-                        const handleProjectClick = (e) => {
-                            e.preventDefault();
+            <SkeletonLoader isLoading={loading} page="portfolioPage">
+                {error ? (
+                    <EmptyState type="error" message={error}/>
+                ) : projects.length === 0 && !loading ? (
+                    <EmptyState type="empty" message="게시물이 없습니다."/>
+                ) : (
+                    <div className={styles.projectList}>
+                        {projects.map((project) => {
+                            const handleProjectClick = (e) => {
+                                e.preventDefault();
 
-                            const imgElement = imgRefs.current[project.id];
-                            if (project.img_url && imgElement && window.startPortfolioTransition) {
-                                const rect = imgElement.getBoundingClientRect();
-                                window.startPortfolioTransition(
-                                    project.id,
-                                    project.img_url,
-                                    {
-                                        top: rect.top,
-                                        left: rect.left,
-                                        width: rect.width,
-                                        height: rect.height
-                                    },
-                                    {sourceElement: imgElement}
-                                );
-                            } else {
-                                // Fallback to normal navigation if animation can't be triggered
-                                window.location.href = `/portfolio/${project.id}`;
-                            }
-                        };
+                                const imgElement = imgRefs.current[project.id];
+                                if (project.img_url && imgElement && window.startPortfolioTransition) {
+                                    const rect = imgElement.getBoundingClientRect();
+                                    window.startPortfolioTransition(
+                                        project.id,
+                                        project.img_url,
+                                        {
+                                            top: rect.top,
+                                            left: rect.left,
+                                            width: rect.width,
+                                            height: rect.height
+                                        },
+                                        {sourceElement: imgElement}
+                                    );
+                                } else {
+                                    // Fallback to normal navigation if animation can't be triggered
+                                    window.location.href = `/portfolio/${project.id}`;
+                                }
+                            };
 
-                        return (
-                            <Link
-                                key={project.id}
-                                className={styles.projectLink}
-                                href={`/portfolio/${project.id}`}
-                                onClick={handleProjectClick}
-                            >
-                                <article className={styles.projectTile}>
-                                    {project.img_url && (
-                                        <img
-                                            ref={el => imgRefs.current[project.id] = el}
-                                            className={styles.projectThumbnail}
-                                            src={project.img_url}
-                                            alt={project.title}
-                                        />
-                                    )}
-                                    <h2 className={styles.projectTitle}>{project.title}</h2>
-                                </article>
-                            </Link>
-                        );
-                    })}
-                </div>
-            )}
+                            return (
+                                <Link
+                                    key={project.id}
+                                    className={styles.projectLink}
+                                    href={`/portfolio/${project.id}`}
+                                    onClick={handleProjectClick}
+                                >
+                                    <article className={styles.projectTile}>
+                                        {project.img_url && (
+                                            <img
+                                                ref={el => imgRefs.current[project.id] = el}
+                                                className={styles.projectThumbnail}
+                                                src={project.img_url}
+                                                alt={project.title}
+                                            />
+                                        )}
+                                        <h2 className={styles.projectTitle}>{project.title}</h2>
+                                    </article>
+                                </Link>
+                            );
+                        })}
+                    </div>
+                )}
+            </SkeletonLoader>
         </div>
     );
 }

@@ -1,3 +1,17 @@
+/* Container for the cross-fade transition */
+.container {
+    display: grid;
+    grid-template-areas: "stack";
+    isolation: isolate;
+    /* Create a new stacking context */
+}
+
+.layer {
+    grid-area: stack;
+    width: 100%;
+    /* Ensure content takes up space naturally */
+}
+
 /* Blog Page Skeleton Styles */
 .categoryFilter {
     margin: 20px 0 30px;

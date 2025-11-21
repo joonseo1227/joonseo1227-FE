@@ -14,6 +14,7 @@ export default function BlogPage() {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isInitialLoad, setIsInitialLoad] = useState(true);
     const imgRefs = useRef({});
 
     useEffect(() => {
@@ -81,6 +82,17 @@ export default function BlogPage() {
         fetchPosts();
     }, [selectedCategory]);
 
+    // Update isInitialLoad after tiles have rendered
+    useEffect(() => {
+        if (!loading && posts.length > 0 && isInitialLoad) {
+            // Use RAF to ensure DOM has updated
+            requestAnimationFrame(() => {
+                setIsInitialLoad(false);
+            });
+        }
+    }, [loading, posts, isInitialLoad]);
+
+
     const handleCategoryChange = (categoryId) => {
         setSelectedCategory(categoryId);
     };
@@ -89,98 +101,104 @@ export default function BlogPage() {
         <div className={styles.blogPage}>
             <h1 className="titleText">Blog</h1>
 
-            {!loading && (
-                <div className={styles.categoryFilter}>
-                    <button
-                        className={`${styles.categoryBtn} ${selectedCategory === null ? styles.active : ''}`}
-                        onClick={() => handleCategoryChange(null)}
-                    >
-                        전체보기
-                    </button>
-                    {categories.map((category) => (
+            <SkeletonLoader isLoading={loading} page="blogPage">
+                {!loading && (
+                    <div className={styles.categoryFilter}>
                         <button
-                            key={category.id}
-                            className={`${styles.categoryBtn} ${selectedCategory === category.id ? styles.active : ''}`}
-                            onClick={() => handleCategoryChange(category.id)}
+                            className={`${styles.categoryBtn} ${selectedCategory === null ? styles.active : ''}`}
+                            onClick={() => handleCategoryChange(null)}
                         >
-                            {category.name}
+                            전체보기
                         </button>
-                    ))}
-                </div>
-            )}
+                        {categories.map((category) => (
+                            <button
+                                key={category.id}
+                                className={`${styles.categoryBtn} ${selectedCategory === category.id ? styles.active : ''}`}
+                                onClick={() => handleCategoryChange(category.id)}
+                            >
+                                {category.name}
+                            </button>
+                        ))}
+                    </div>
+                )}
 
-            {loading ? (
-                <SkeletonLoader page="blogPage"/>
-            ) : error ? (
-                <EmptyState type="error" message={error}/>
-            ) : posts.length === 0 ? (
-                <EmptyState type="empty" message="게시물이 없습니다."/>
-            ) : (
-                <div className={styles.postList}>
-                    <AnimatePresence mode="popLayout" initial={false}>
-                        {posts.map((post) => {
-                            const handlePostClick = (e) => {
-                                e.preventDefault();
+                {error ? (
+                    <EmptyState type="error" message={error}/>
+                ) : posts.length === 0 && !loading ? (
+                    <EmptyState type="empty" message="게시물이 없습니다."/>
+                ) : (
+                    <div className={styles.postList}>
+                        <AnimatePresence mode="popLayout" initial={false}>
+                            {posts.map((post) => {
+                                const handlePostClick = (e) => {
+                                    e.preventDefault();
 
-                                const imgElement = imgRefs.current[post.id];
-                                if (post.thumbnail_url && imgElement && window.startBlogTransition) {
-                                    const rect = imgElement.getBoundingClientRect();
-                                    window.startBlogTransition(
-                                        post.id,
-                                        post.thumbnail_url,
-                                        {
-                                            top: rect.top,
-                                            left: rect.left,
-                                            width: rect.width,
-                                            height: rect.height
-                                        },
-                                        {sourceElement: imgElement}
-                                    );
-                                } else {
-                                    window.location.href = `/blog/${post.id}`;
-                                }
-                            };
+                                    const imgElement = imgRefs.current[post.id];
+                                    if (post.thumbnail_url && imgElement && window.startBlogTransition) {
+                                        const rect = imgElement.getBoundingClientRect();
+                                        window.startBlogTransition(
+                                            post.id,
+                                            post.thumbnail_url,
+                                            {
+                                                top: rect.top,
+                                                left: rect.left,
+                                                width: rect.width,
+                                                height: rect.height
+                                            },
+                                            {sourceElement: imgElement}
+                                        );
+                                    } else {
+                                        window.location.href = `/blog/${post.id}`;
+                                    }
+                                };
 
-                            return (
-                                <motion.div
-                                    key={post.id}
-                                    layout
-                                    initial={{scale: 0.8, opacity: 0}}
-                                    animate={{scale: 1, opacity: 1}}
-                                    exit={{scale: 0.8, opacity: 0}}
-                                    transition={{duration: 0.3}}
-                                >
-                                    <Link
-                                        className={styles.postLink}
-                                        href={`/blog/${post.id}`}
-                                        onClick={handlePostClick}
+                                const tileVariants = {
+                                    hidden: {scale: 0.8, opacity: 0},
+                                    visible: {scale: 1, opacity: 1}
+                                };
+
+                                return (
+                                    <motion.div
+                                        key={post.id}
+                                        layout
+                                        variants={tileVariants}
+                                        initial={isInitialLoad ? false : "hidden"}
+                                        animate={isInitialLoad ? false : "visible"}
+                                        exit="hidden"
+                                        transition={{duration: 0.3}}
                                     >
-                                        <article className={styles.postTile}>
-                                            {post.thumbnail_url && (
-                                                <img
-                                                    ref={el => imgRefs.current[post.id] = el}
-                                                    className={styles.postThumbnail}
-                                                    src={post.thumbnail_url}
-                                                    alt={post.title}
-                                                />
-                                            )}
-                                            <div className={styles.tileDescription}>
-                                                <div className={styles.tileHead}>
-                                                    <h2 className={styles.postTitle}>{post.title}</h2>
-                                                    <p className={styles.postSummary}>{post.summary}</p>
+                                        <Link
+                                            className={styles.postLink}
+                                            href={`/blog/${post.id}`}
+                                            onClick={handlePostClick}
+                                        >
+                                            <article className={styles.postTile}>
+                                                {post.thumbnail_url && (
+                                                    <img
+                                                        ref={el => imgRefs.current[post.id] = el}
+                                                        className={styles.postThumbnail}
+                                                        src={post.thumbnail_url}
+                                                        alt={post.title}
+                                                    />
+                                                )}
+                                                <div className={styles.tileDescription}>
+                                                    <div className={styles.tileHead}>
+                                                        <h2 className={styles.postTitle}>{post.title}</h2>
+                                                        <p className={styles.postSummary}>{post.summary}</p>
+                                                    </div>
+                                                    <p className={styles.postDate}>
+                                                        {new Date(post.created_at).toLocaleDateString('ko-KR')}
+                                                    </p>
                                                 </div>
-                                                <p className={styles.postDate}>
-                                                    {new Date(post.created_at).toLocaleDateString('ko-KR')}
-                                                </p>
-                                            </div>
-                                        </article>
-                                    </Link>
-                                </motion.div>
-                            );
-                        })}
-                    </AnimatePresence>
-                </div>
-            )}
+                                            </article>
+                                        </Link>
+                                    </motion.div>
+                                );
+                            })}
+                        </AnimatePresence>
+                    </div>
+                )}
+            </SkeletonLoader>
         </div>
     );
 }
