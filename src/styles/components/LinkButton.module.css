@@ -10,14 +10,21 @@
     cursor: pointer;
     font-size: 16px;
     line-height: 1;
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.linkButton:hover {
-    opacity: 0.6;
+/* Hover only on devices with mouse */
+@media (hover: hover) and (pointer: fine) {
+    .linkButton:hover {
+        opacity: 0.6;
+    }
 }
 
+/* Active state for all devices */
 .linkButton:active {
     opacity: 0.4;
+    transform: scale(0.95);
 }
 
 

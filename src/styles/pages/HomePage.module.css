@@ -51,6 +51,20 @@
     opacity: 0;
     animation: fadeIn 1s ease forwards 1s, bounce 2s ease-in-out infinite 2s;
     cursor: pointer;
+    transition: transform 0.2s ease-out;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Hover only on devices with mouse */
+@media (hover: hover) and (pointer: fine) {
+    .scrollDown:hover {
+        transform: translateX(-50%) scale(1.1);
+    }
+}
+
+/* Active state for all devices */
+.scrollDown:active {
+    transform: translateX(-50%) scale(0.9);
 }
 
 .aboutSection {
@@ -111,11 +125,25 @@
     text-decoration: none;
     cursor: pointer;
     display: inline-block;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.sectionLabelLink:hover {
+/* Hover only on devices with mouse */
+@media (hover: hover) and (pointer: fine) {
+    .sectionLabelLink:hover {
+        opacity: 0.7;
+    }
+
+    .sectionLabelLink:hover .arrowIcon {
+        transform: translateX(3px);
+    }
+}
+
+/* Active state for all devices */
+.sectionLabelLink:active {
     opacity: 0.7;
+    transform: scale(0.98);
 }
 
 .arrowIcon {
@@ -125,10 +153,6 @@
     transition: transform 0.3s ease;
     vertical-align: middle;
     color: var(--color-base-6);
-}
-
-.sectionLabelLink:hover .arrowIcon {
-    transform: translateX(3px);
 }
 
 .sectionTitle {
@@ -148,23 +172,45 @@
     gap: 80px 40px;
 }
 
+.worksGrid > a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.2s ease-out;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.worksGrid > a:active {
+    transform: scale(0.95);
+}
+
 .workCard {
     position: relative;
     cursor: pointer;
     opacity: 0;
     transform: translateY(40px);
-    transition: transform 0.4s ease;
+    transition: transform 0.2s ease-out;
     display: flex;
     flex-direction: column;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .workCard.visible {
     animation: fadeInUp 0.8s ease forwards;
+    transition: transform 0.2s ease-out;
 }
 
-.workCard:hover {
-    transform: translateY(-8px);
+/* Hover only on devices with mouse */
+@media (hover: hover) and (pointer: fine) {
+    .workCard:hover {
+        transform: translateY(-8px);
+    }
+
+    .workCard:hover .workCardImage {
+        transform: scale(1.03);
+    }
 }
+
 
 .workCardImage {
     width: 100%;
@@ -172,10 +218,6 @@
     object-fit: cover;
     transition: transform 0.6s ease;
     margin-bottom: 24px;
-}
-
-.workCard:hover .workCardImage {
-    transform: scale(1.03);
 }
 
 .workCardSkeleton {
@@ -219,26 +261,49 @@
     flex-direction: column;
 }
 
+.blogList > a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.2s ease-out;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.blogList > a:active {
+    transform: scale(0.97);
+}
+
 .blogCard {
     padding: 40px 0;
     opacity: 0;
     transform: translateY(30px);
     border-bottom: 1px solid var(--color-base-8);
-    transition: opacity 0.3s ease;
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     gap: 40px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .blogCard.visible {
     animation: fadeInUp 0.8s ease forwards;
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
 }
 
-.blogCard:hover {
-    opacity: 0.8;
+/* Hover only on devices with mouse */
+@media (hover: hover) and (pointer: fine) {
+    .blogCard:hover {
+        opacity: 0.8;
+    }
+
+    .blogCard:hover .blogCardImage {
+        transform: scale(1.05);
+    }
 }
+
 
 .blogCardContent {
     flex: 1;
@@ -256,10 +321,6 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
-}
-
-.blogCard:hover .blogCardImage {
-    transform: scale(1.05);
 }
 
 .blogCardSkeleton {

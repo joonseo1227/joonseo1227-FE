@@ -106,21 +106,32 @@
     cursor: pointer;
     font-size: 16px;
     line-height: 1;
+    transition: background-color 0.2s ease-out, transform 0.2s ease-out;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.submitButton:hover {
-    background-color: var(--color-base-2);
-    color: var(--color-bg);
+/* Hover only on devices with mouse */
+@media (hover: hover) and (pointer: fine) {
+    .submitButton:hover {
+        background-color: var(--color-base-2);
+        color: var(--color-bg);
+    }
 }
 
+/* Active state for all devices */
 .submitButton:active {
     background-color: var(--color-base-3);
     color: var(--color-bg);
+    transform: scale(0.95);
 }
 
 .submitButton:disabled {
     background-color: var(--color-base-6);
     cursor: not-allowed;
+}
+
+.submitButton:disabled:active {
+    transform: none;
 }
 
 .commentsList {

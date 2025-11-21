@@ -19,9 +19,18 @@
     transition: all .4s cubic-bezier(0.55, 0, 0.1, 1);
 }
 
-.socialIcons svg:hover {
-    transform: scale(1.5);
-    transition: all .2s cubic-bezier(0.55, 0, 0.1, 1);
+/* Hover only on devices with mouse */
+@media (hover: hover) and (pointer: fine) {
+    .socialIcons svg:hover {
+        transform: scale(1.5);
+        transition: all .2s cubic-bezier(0.55, 0, 0.1, 1);
+    }
+}
+
+/* Active state for all devices */
+.socialIcons svg:active {
+    transform: scale(1.3);
+    transition: all .1s cubic-bezier(0.55, 0, 0.1, 1);
 }
 
 .socialIcons p {

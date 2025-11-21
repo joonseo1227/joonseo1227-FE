@@ -22,8 +22,16 @@
     height: 100%;
 }
 
-.postTile:hover {
-    transform: translateY(-8px);
+/* Hover only on devices with mouse */
+@media (hover: hover) and (pointer: fine) {
+    .postTile:hover {
+        transform: translateY(-8px);
+    }
+}
+
+/* Active state for all devices */
+.postTile:active {
+    transform: scale(0.98);
 }
 
 .tileHead {
@@ -85,11 +93,21 @@
     border-radius: 20px;
     cursor: pointer;
     font-size: 0.9rem;
+    transition: all 0.2s ease-out;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.categoryBtn:hover {
-    border: 1px solid var(--color-base-8);
-    color: var(--color-text-primary);
+/* Hover only on devices with mouse */
+@media (hover: hover) and (pointer: fine) {
+    .categoryBtn:hover {
+        border: 1px solid var(--color-base-8);
+        color: var(--color-text-primary);
+    }
+}
+
+/* Active state for all devices */
+.categoryBtn:active {
+    transform: scale(0.95);
 }
 
 .categoryBtn.active {

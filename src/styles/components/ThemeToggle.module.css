@@ -3,6 +3,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease-out;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Hover only on devices with mouse */
+@media (hover: hover) and (pointer: fine) {
+    .themeToggle:hover {
+        transform: scale(1.1);
+    }
+}
+
+/* Active state for all devices */
+.themeToggle:active {
+    transform: scale(0.90);
 }
 
 .iconWrapper {

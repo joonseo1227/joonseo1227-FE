@@ -106,6 +106,9 @@
 
 * {
     box-sizing: border-box;
+    /* Remove mobile tap highlight */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
 }
 
 body {
@@ -160,4 +163,39 @@ p {
         word-break: break-word;
         width: 100%;
     }
+}
+
+/* Reusable clickable element utility class */
+.clickable {
+    /* Smooth transition for all transform effects */
+    transition: transform 0.2s ease-out;
+
+    /* Ensure the element is interactive */
+    cursor: pointer;
+
+    /* Prevent text selection on rapid clicks/taps */
+    user-select: none;
+    -webkit-user-select: none;
+
+    /* Remove tap highlight on mobile browsers */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Hover effect - only on devices with hover capability (mouse) */
+@media (hover: hover) and (pointer: fine) {
+    .clickable:hover {
+        transform: scale(1.02);
+    }
+}
+
+/* Active/pressed state - works universally on both mobile touch and desktop click */
+.clickable:active {
+    transform: scale(0.95);
+    transition: transform 0.2s ease-out;
+}
+
+/* Optional: Handle focus state for keyboard navigation accessibility */
+.clickable:focus-visible {
+    outline: 2px solid var(--color-text-primary);
+    outline-offset: 2px;
 }

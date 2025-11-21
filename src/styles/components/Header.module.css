@@ -44,10 +44,20 @@
     color: var(--color-base-1);
     font-weight: 500;
     font-size: 14px;
+    transition: color 0.2s ease-out, transform 0.2s ease-out;
 }
 
-.link:hover {
+/* Hover only on devices with mouse */
+@media (hover: hover) and (pointer: fine) {
+    .link:hover {
+        color: var(--color-base-6);
+    }
+}
+
+/* Active state for all devices */
+.link:active {
     color: var(--color-base-6);
+    transform: scale(0.95);
 }
 
 .navButton {
@@ -57,10 +67,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: color 0.2s ease-out, transform 0.2s ease-out;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.navButton:hover {
+/* Hover only on devices with mouse */
+@media (hover: hover) and (pointer: fine) {
+    .navButton:hover {
+        color: var(--color-base-6);
+    }
+}
+
+/* Active state for all devices */
+.navButton:active {
     color: var(--color-base-6);
+    transform: scale(0.90);
 }
 
 .menuButton {
@@ -100,11 +121,21 @@
     font-weight: 600;
     font-size: 48px;
     padding: 1rem 2rem;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease-out, transform 0.2s ease-out;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.mobileLink:hover {
+/* Hover only on devices with mouse */
+@media (hover: hover) and (pointer: fine) {
+    .mobileLink:hover {
+        color: var(--color-base-6);
+    }
+}
+
+/* Active state for all devices */
+.mobileLink:active {
     color: var(--color-base-6);
+    transform: scale(0.95);
 }
 
 @media (max-width: 768px) {

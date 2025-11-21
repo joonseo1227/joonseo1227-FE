@@ -14,12 +14,20 @@
 }
 
 .projectTile {
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease-out;
     overflow: hidden;
 }
 
-.projectTile:hover {
-    transform: translateY(-8px);
+/* Hover only on devices with mouse */
+@media (hover: hover) and (pointer: fine) {
+    .projectTile:hover {
+        transform: translateY(-8px);
+    }
+}
+
+/* Active state for all devices */
+.projectTile:active {
+    transform: scale(0.98);
 }
 
 .projectLink {
