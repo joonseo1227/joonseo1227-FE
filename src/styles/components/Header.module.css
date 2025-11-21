@@ -71,6 +71,42 @@
     display: none;
 }
 
+/* Mobile Full-Screen Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100dvh;
+    background-color: rgba(var(--color-bg-rgb), 0.85);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    z-index: 1050;
+    display: none;
+}
+
+.mobileMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 2rem;
+}
+
+.mobileLink {
+    text-decoration: none;
+    color: var(--color-base-1);
+    font-weight: 600;
+    font-size: 48px;
+    padding: 1rem 2rem;
+    transition: color 0.2s ease;
+}
+
+.mobileLink:hover {
+    color: var(--color-base-6);
+}
+
 @media (max-width: 768px) {
     .menuButton {
         display: flex;
@@ -78,17 +114,6 @@
 
     .headerWrapper {
         padding-left: 0;
-        transition: height 0.3s ease-in-out;
-        overflow: hidden;
-    }
-
-    .headerWrapper.menuOpened {
-        height: var(--header-expanded-height, 100dvh);
-    }
-
-    .header {
-        flex-direction: column;
-        align-items: flex-start;
     }
 
     .logoSection {
@@ -96,7 +121,6 @@
         justify-content: space-between;
         padding-right: 0;
         gap: 8px;
-        height: var(--header-height);
     }
 
     .themeToggleSection {
@@ -108,29 +132,13 @@
         margin-left: auto;
     }
 
+    /* Hide PC Navigation on Mobile */
     .nav {
-        flex-direction: column;
-        width: 100%;
-        padding: 1rem 0;
-        gap: 1.5rem;
-        align-items: center;
-        opacity: 0;
-        visibility: hidden;
-        max-height: 0;
-        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, max-height 0.3s ease-in-out;
+        display: none;
     }
 
-    .navOpen {
-        opacity: 1;
-        visibility: visible;
-        max-height: 1000px;
-    }
-
-    .nav .link {
-        font-size: 32px;
-        width: 100%;
-        text-align: center;
-        padding: 10px 0;
+    /* Show Overlay on Mobile */
+    .overlay {
         display: block;
     }
 }

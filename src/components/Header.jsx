@@ -1,18 +1,93 @@
 "use client";
 
 import Link from "next/link";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
+import {AnimatePresence, motion} from "framer-motion";
 import ThemeToggle from "@/components/ThemeToggle";
 import {CloseLarge, Menu} from '@carbon/icons-react';
 import styles from '@/styles/components/Header.module.css';
-import {usePathname} from "next/navigation";
+
+// Animation variants
+const overlayVariants = {
+    hidden: {
+        opacity: 0,
+        transition: {
+            duration: 0.3,
+            ease: [0.22, 1, 0.36, 1]
+        }
+    },
+    visible: {
+        opacity: 1,
+        transition: {
+            duration: 0.3,
+            ease: [0.22, 1, 0.36, 1]
+        }
+    }
+};
+
+const menuContainerVariants = {
+    hidden: {
+        transition: {
+            staggerChildren: 0.05,
+            staggerDirection: -1
+        }
+    },
+    visible: {
+        transition: {
+            staggerChildren: 0.08,
+            delayChildren: 0.1
+        }
+    }
+};
+
+const menuItemVariants = {
+    hidden: {
+        opacity: 0,
+        y: 20,
+        scale: 0.8,
+        transition: {
+            duration: 0.3,
+            ease: [0.22, 1, 0.36, 1]
+        }
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: {
+            duration: 0.5,
+            ease: [0.22, 1, 0.36, 1]
+        }
+    }
+};
+
+const iconVariants = {
+    menu: {
+        rotate: 0,
+        transition: {
+            duration: 0.3,
+            ease: [0.22, 1, 0.36, 1]
+        }
+    },
+    close: {
+        rotate: 90,
+        transition: {
+            duration: 0.3,
+            ease: [0.22, 1, 0.36, 1]
+        }
+    }
+};
+
+// Navigation links
+const NAV_LINKS = [
+    {href: '/portfolio', label: 'Portfolio'},
+    {href: '/blog', label: 'Blog'},
+    {href: '/about', label: 'About'},
+    {href: '/contact', label: 'Contact'}
+];
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const pathname = usePathname();
-    const isHomePage = pathname === '/';
-    const navRef = useRef(null);
-    const menuButtonRef = useRef(null);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -22,54 +97,79 @@ export default function Header() {
         setIsMenuOpen(false);
     };
 
+    // Scroll lock when menu is open
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (isMenuOpen &&
-                navRef.current &&
-                !navRef.current.contains(event.target) &&
-                menuButtonRef.current &&
-                !menuButtonRef.current.contains(event.target)) {
-                setIsMenuOpen(false);
-            }
-        };
-
         if (isMenuOpen) {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = '';
         }
 
-        document.addEventListener('mousedown', handleClickOutside);
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
             document.body.style.overflow = '';
         };
     }, [isMenuOpen]);
 
     return (
-        <header
-            className={`${styles.headerWrapper} ${isHomePage ? styles.headerHome : ''} ${isMenuOpen ? styles.menuOpened : ''}`}>
-            <div className={styles.header}>
-                <div className={styles.logoSection}>
-                    <div ref={menuButtonRef} className={`${styles.navButton} ${styles.menuButton}`}
-                         onClick={toggleMenu}>
-                        {isMenuOpen ? <CloseLarge size={20}/> : <Menu size={20}/>}
+        <>
+            <header className={styles.headerWrapper}>
+                <div className={styles.header}>
+                    <div className={styles.logoSection}>
+                        <motion.div
+                            className={`${styles.navButton} ${styles.menuButton}`}
+                            onClick={toggleMenu}
+                            animate={isMenuOpen ? "close" : "menu"}
+                            variants={iconVariants}
+                        >
+                            {isMenuOpen ? <CloseLarge size={20}/> : <Menu size={20}/>}
+                        </motion.div>
+                        <Link href='/' className={styles.link} onClick={handleLinkClick}>joonseo1227</Link>
+                        <div className={styles.mobileThemeToggle}>
+                            <ThemeToggle/>
+                        </div>
                     </div>
-                    <Link href='/' className={styles.link} onClick={handleLinkClick}>joonseo1227</Link>
-                    <div className={styles.mobileThemeToggle}>
+                    {/* PC Navigation */}
+                    <nav className={styles.nav}>
+                        {NAV_LINKS.map(({href, label}) => (
+                            <Link key={href} href={href} className={styles.link}>
+                                {label}
+                            </Link>
+                        ))}
+                    </nav>
+                    <div className={styles.themeToggleSection}>
                         <ThemeToggle/>
                     </div>
                 </div>
-                <nav ref={navRef} className={`${styles.nav} ${isMenuOpen ? styles.navOpen : ''}`}>
-                    <Link href='/portfolio' className={styles.link} onClick={handleLinkClick}>Portfolio</Link>
-                    <Link href='/blog' className={styles.link} onClick={handleLinkClick}>Blog</Link>
-                    <Link href='/about' className={styles.link} onClick={handleLinkClick}>About</Link>
-                    <Link href='/contact' className={styles.link} onClick={handleLinkClick}>Contact</Link>
-                </nav>
-                <div className={styles.themeToggleSection}>
-                    <ThemeToggle/>
-                </div>
-            </div>
-        </header>
+            </header>
+
+            {/* Mobile Full-Screen Overlay Menu */}
+            <AnimatePresence>
+                {isMenuOpen && (
+                    <motion.div
+                        className={styles.overlay}
+                        variants={overlayVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="hidden"
+                    >
+                        <motion.nav
+                            className={styles.mobileMenu}
+                            variants={menuContainerVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="hidden"
+                        >
+                            {NAV_LINKS.map(({href, label}) => (
+                                <motion.div key={href} variants={menuItemVariants}>
+                                    <Link href={href} className={styles.mobileLink} onClick={handleLinkClick}>
+                                        {label}
+                                    </Link>
+                                </motion.div>
+                            ))}
+                        </motion.nav>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </>
     );
 }
