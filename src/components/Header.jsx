@@ -28,14 +28,15 @@ const overlayVariants = {
 const menuContainerVariants = {
     hidden: {
         transition: {
-            staggerChildren: 0.05,
-            staggerDirection: -1
+            staggerChildren: 0,  // 동시에 닫힘
+            when: "afterChildren"
         }
     },
     visible: {
         transition: {
-            staggerChildren: 0.08,
-            delayChildren: 0.1
+            staggerChildren: 0.04,  // 빠르게 연속적으로 열림
+            delayChildren: 0.1,
+            when: "beforeChildren"
         }
     }
 };
@@ -44,9 +45,9 @@ const menuItemVariants = {
     hidden: {
         opacity: 0,
         y: 20,
-        scale: 0.8,
+        scale: 0.5,
         transition: {
-            duration: 0.3,
+            duration: 0.25,
             ease: [0.22, 1, 0.36, 1]
         }
     },
@@ -55,8 +56,10 @@ const menuItemVariants = {
         y: 0,
         scale: 1,
         transition: {
-            duration: 0.5,
-            ease: [0.22, 1, 0.36, 1]
+            type: "spring",
+            stiffness: 400,
+            damping: 25,
+            mass: 0.8
         }
     }
 };
@@ -160,10 +163,20 @@ export default function Header() {
                             exit="hidden"
                         >
                             {NAV_LINKS.map(({href, label}) => (
-                                <motion.div key={href} variants={menuItemVariants}>
-                                    <Link href={href} className={styles.mobileLink} onClick={handleLinkClick}>
-                                        {label}
-                                    </Link>
+                                <motion.div
+                                    key={href}
+                                    variants={menuItemVariants}
+                                >
+                                    <motion.div
+                                        whileTap={{
+                                            scale: 0.95,
+                                            transition: {duration: 0.2, ease: [0.22, 1, 0.36, 1]}
+                                        }}
+                                    >
+                                        <Link href={href} className={styles.mobileLink} onClick={handleLinkClick}>
+                                            {label}
+                                        </Link>
+                                    </motion.div>
                                 </motion.div>
                             ))}
                         </motion.nav>

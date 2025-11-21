@@ -121,7 +121,8 @@
     font-weight: 600;
     font-size: 48px;
     padding: 1rem 2rem;
-    transition: color 0.2s ease-out, transform 0.2s ease-out;
+    display: block;
+    transition: color 0.2s ease-out;
     -webkit-tap-highlight-color: transparent;
 }
 
