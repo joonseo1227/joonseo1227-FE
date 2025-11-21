@@ -32,14 +32,12 @@
 /* Hover only on devices with mouse */
 @media (hover: hover) and (pointer: fine) {
     .tocItem a:hover {
-        color: var(--color-text-primary);
         text-decoration: underline;
     }
 }
 
 /* Active state for all devices */
 .tocItem a:active {
-    color: var(--color-text-primary);
     transform: scale(0.97);
 }
 
@@ -65,7 +63,6 @@
 
 .active a {
     color: var(--color-text-primary);
-    font-weight: 700;
 }
 
 @media (min-width: 1280px) {
