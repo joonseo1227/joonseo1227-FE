@@ -3,7 +3,7 @@
 import React, {useEffect, useState} from 'react';
 import {useRouter} from 'next/navigation';
 import styles from "@/styles/pages/PortfolioProjectPage.module.css";
-import supabase from "/src/lib/supabase.js";
+import supabase from "@/lib/supabase";
 import {LogoGithub} from "@carbon/icons-react";
 import LinkButton from '@/components/LinkButton';
 import ImageSlider from '@/components/ImageSlider';

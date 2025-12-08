@@ -1,4 +1,4 @@
-import supabase from '/src/lib/supabase.js';
+import supabase from "@/lib/supabase";
 import AboutPageContent from '@/components/AboutPageContent';
 import EmptyState from '@/components/EmptyState';
 

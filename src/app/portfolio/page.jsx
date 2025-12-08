@@ -2,7 +2,7 @@
 
 import styles from '@/styles/pages/PortfolioPage.module.css';
 import {useEffect, useRef, useState} from "react";
-import supabase from "/src/lib/supabase.js";
+import supabase from "@/lib/supabase";
 import Link from "next/link";
 import SkeletonLoader from '@/components/SkeletonLoader';
 import EmptyState from '@/components/EmptyState';

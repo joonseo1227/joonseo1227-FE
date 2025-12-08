@@ -1,5 +1,5 @@
 import {notFound} from 'next/navigation';
-import supabase from "/src/lib/supabase.js";
+import supabase from "@/lib/supabase";
 import styles from '@/styles/pages/BlogPostPage.module.css';
 import TableOfContents from '@/components/TableOfContents';
 import PostNavigation from '@/components/PostNavigation';
@@ -27,10 +27,11 @@ export async function generateStaticParams() {
 }
 
 export default async function BlogPostPage({params}) {
+    const {id} = await params;
     const {data: post} = await supabase
         .from('posts')
         .select('*, post_categories(categories(name))')
-        .eq('id', params?.id)
+        .eq('id', id)
         .in('status', ['published', 'unlisted'])
         .single();
 
@@ -94,7 +95,7 @@ export default async function BlogPostPage({params}) {
                 <div className={styles.container}>
                     <PostNavigation prevPost={prevPost} nextPost={nextPost}/>
 
-                    <Comments postId={params?.id}/>
+                    <Comments postId={id}/>
                 </div>
             </BlogPostTransitionWrapper>
         </>

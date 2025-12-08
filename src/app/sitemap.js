@@ -1,4 +1,4 @@
-import supabase from "/src/lib/supabase.js";
+import supabase from "@/lib/supabase";
 
 export default async function sitemap() {
     // Base URL for the site

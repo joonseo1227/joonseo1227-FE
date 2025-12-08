@@ -3,7 +3,7 @@
 import {useEffect, useRef, useState} from "react";
 import Link from "next/link";
 import styles from '@/styles/pages/HomePage.module.css';
-import supabase from "/src/lib/supabase.js";
+import supabase from "@/lib/supabase";
 import EmptyState from '@/components/EmptyState';
 import {ArrowDown, ChevronRight} from '@carbon/icons-react';
 

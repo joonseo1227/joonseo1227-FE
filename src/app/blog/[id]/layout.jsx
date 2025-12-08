@@ -1,7 +1,7 @@
-import supabase from "/src/lib/supabase.js";
+import supabase from "@/lib/supabase";
 
 export async function generateMetadata({params}) {
-    const postId = params?.id;
+    const {id: postId} = await params;
 
     if (!postId) {
         return {

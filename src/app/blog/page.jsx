@@ -2,7 +2,7 @@
 
 import {useEffect, useRef, useState} from "react";
 import {AnimatePresence, motion} from "framer-motion";
-import supabase from "/src/lib/supabase.js";
+import supabase from "@/lib/supabase";
 import styles from '@/styles/pages/BlogPage.module.css';
 import Link from "next/link";
 import SkeletonLoader from '@/components/SkeletonLoader';

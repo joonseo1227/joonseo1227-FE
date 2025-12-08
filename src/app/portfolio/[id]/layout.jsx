@@ -1,7 +1,7 @@
-import supabase from "/src/lib/supabase.js";
+import supabase from "@/lib/supabase";
 
 export async function generateMetadata({params}) {
-    const projectId = params?.id;
+    const {id: projectId} = await params;
 
     if (!projectId) {
         return {
