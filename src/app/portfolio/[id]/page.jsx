@@ -2,12 +2,7 @@
 
 import React, {useEffect, useState} from 'react';
 import {useRouter} from 'next/navigation';
-import styles from "@/styles/pages/PortfolioProjectPage.module.css";
 import supabase from "@/lib/supabase";
-import {LogoGithub} from "@carbon/icons-react";
-import LinkButton from '@/components/LinkButton';
-import ImageSlider from '@/components/ImageSlider';
-import {useInView} from 'react-intersection-observer';
 
 export default function PortfolioProjectPage({params}) {
     const unwrappedParams = React.use(params);
@@ -15,36 +10,6 @@ export default function PortfolioProjectPage({params}) {
     const [project, setProject] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
-    const observerOptions = {
-        triggerOnce: true,
-        threshold: 0.1,
-        rootMargin: '-50px 0px -100px 0px', // Trigger earlier for smoother transitions
-    };
-
-    // Title section
-    const [titleRef, titleInView] = useInView({
-        ...observerOptions,
-        threshold: 0.2, // Higher threshold for title to ensure it's more visible
-    });
-
-    // Project info section
-    const [infoRef, infoInView] = useInView({
-        ...observerOptions,
-        delay: 100
-    });
-
-    // Description section
-    const [descRef, descInView] = useInView({
-        ...observerOptions,
-        delay: 150
-    });
-
-    // GitHub button section
-    const [buttonRef, buttonInView] = useInView({
-        ...observerOptions,
-        delay: 200
-    });
 
     useEffect(() => {
         const fetchProject = async () => {
@@ -81,13 +46,6 @@ export default function PortfolioProjectPage({params}) {
         fetchProject();
     }, [projectId]);
 
-    // End the portfolio transition when loading is complete
-    useEffect(() => {
-        if (!loading && window.endPortfolioTransition) {
-            window.endPortfolioTransition();
-        }
-    }, [loading]);
-
     const router = useRouter();
 
     if (loading) {
@@ -100,80 +58,64 @@ export default function PortfolioProjectPage({params}) {
     }
 
     return (
-        <div className={styles.portfolioProjectPage}>
+        <div>
             {project && (
-                project.img_url && (
-                    <div
-                        key={`bg-main`}
-                        className={styles.blurredBackground}
-                        style={{backgroundImage: `url(${project.img_url})`}}
-                    />
-                )
-            )}
-            <div
-                ref={titleRef}
-                className={`${styles.projectHeader} ${titleInView ? styles.animate : ''}`}
-            >
-                <h1 className="titleText">{project.title}</h1>
-            </div>
+                <>
+                    {/* Background Image (semantics only if needed, or just remove if purely decorative) - keeping as img tag for content */}
+                    {project.img_url && (
+                        <p>Background Image: {project.img_url}</p>
+                    )}
 
-            <div
-                ref={infoRef}
-                className={`${styles.projectInfo} ${infoInView ? styles.animate : ''}`}
-            >
-                {/* Image Gallery/Carousel */}
-                <ImageSlider
-                    images={project.project_images}
-                    defaultImage={project.img_url}
-                />
+                    <h1>{project.title}</h1>
 
-                <div className={styles.projectDetails}>
-                    <p className={styles.jobText}>{project.job}</p>
-                    <p className={styles.periodText}>
-                        {new Date(project.start_date).toLocaleDateString()} -&nbsp;
-                        {project.end_date ? new Date(project.end_date).toLocaleDateString() : '진행중'}
-                    </p>
-
-                    {/* Tech Stack Tags */}
-                    <div className={styles.techStackContainer}>
-                        {project.project_techs && project.project_techs.length > 0 ? (
-                            project.project_techs.map((tech, i) => (
-                                <span
-                                    key={tech.id}
-                                    className={styles.techTag}
-                                    style={{animationDelay: `${i * 80 + 100}ms`}}
-                                >
-                                    {tech.tech_name}
-                                </span>
-                            ))
+                    <div>
+                        {/* Image List replacing Slider */}
+                        {project.project_images && project.project_images.length > 0 ? (
+                            <ul>
+                                {project.project_images.map((img) => (
+                                    <li key={img.id}>
+                                        <img src={img.img_url}
+                                             alt={img.caption || `Project image ${img.display_order}`}/>
+                                        {img.caption && <p>{img.caption}</p>}
+                                    </li>
+                                ))}
+                            </ul>
                         ) : (
-                            // Fallback to the original tech field if no tech stacks in the new table
-                            project.tech && <p className={styles.techText}>{project.tech}</p>
+                            // Fallback main image if no gallery
+                            project.img_url && <img src={project.img_url} alt={project.title}/>
                         )}
+
+                        <div>
+                            <p>Job: {project.job}</p>
+                            <p>
+                                Period: {new Date(project.start_date).toLocaleDateString()} -
+                                {project.end_date ? new Date(project.end_date).toLocaleDateString() : 'Present'}
+                            </p>
+
+                            {/* Tech Stack */}
+                            <h3>Tech Stack</h3>
+                            <ul>
+                                {project.project_techs && project.project_techs.length > 0 ? (
+                                    project.project_techs.map((tech) => (
+                                        <li key={tech.id}>{tech.tech_name}</li>
+                                    ))
+                                ) : (
+                                    project.tech && <li>{project.tech}</li>
+                                )}
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <p
-                ref={descRef}
-                className={`${styles.descriptionText} ${descInView ? styles.animate : ''}`}
-            >
-                {project.description}
-            </p>
+                    <p>{project.description}</p>
 
-            {project.github_url && (
-                <div
-                    ref={buttonRef}
-                    className={`${styles.buttonContainer} ${buttonInView ? styles.animate : ''}`}
-                >
-                    <LinkButton
-                        href={project.github_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <LogoGithub size={24} className={styles.icon}/>GitHub
-                    </LinkButton>
-                </div>
+                    {project.github_url && (
+                        <div>
+                            <a href={project.github_url} target="_blank" rel="noopener noreferrer">
+                                GitHub Repository
+                            </a>
+                        </div>
+                    )}
+                </>
             )}
         </div>
     );
