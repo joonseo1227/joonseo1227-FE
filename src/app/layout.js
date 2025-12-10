@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import Header from "@/components/Header";
 import {SocialIcons} from "@/components/SocialIcons";
+import Footer from "@/components/Footer";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import ClientWrapper from "@/components/ClientWrapper";
 
@@ -33,6 +34,7 @@ export default function RootLayout({children}) {
             {children}
         </ClientWrapper>
         <SocialIcons/>
+        <Footer/>
         </body>
         </html>
     );
