@@ -108,7 +108,7 @@ export default function BlogPage() {
                             className={`${styles.categoryBtn} ${selectedCategory === null ? styles.active : ''}`}
                             onClick={() => handleCategoryChange(null)}
                         >
-                            전체보기
+                            전체
                         </button>
                         {categories.map((category) => (
                             <button

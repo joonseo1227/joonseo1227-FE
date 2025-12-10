@@ -5,7 +5,7 @@
     margin: 0 auto;
 }
 
-.projectList {
+.projectGrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 24px;
@@ -13,27 +13,50 @@
     list-style: none;
 }
 
-.projectTile {
-    transition: transform 0.2s ease-out;
+.projectCard {
+    transition: transform 0.2s ease;
     overflow: hidden;
+    background: var(--color-base-10);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 /* Hover only on devices with mouse */
 @media (hover: hover) and (pointer: fine) {
-    .projectTile:hover {
+    .projectCard:hover {
         transform: translateY(-8px);
     }
 }
 
 /* Active state for all devices */
-.projectTile:active {
+.projectCard:active {
     transform: scale(0.98);
+}
+
+.cardHead {
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.projectTitle {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin: 0 0 8px 0;
+}
+
+.projectSummary {
+    font-size: 14px;
+    color: var(--color-text-tertiary);
+    margin: 0;
 }
 
 .projectLink {
     text-decoration: none;
     color: var(--color-text-primary);
     display: block;
+    height: 100%;
 }
 
 .projectThumbnail {
@@ -41,24 +64,203 @@
     aspect-ratio: 16/9;
     object-fit: cover;
     position: relative;
+    background-color: var(--color-base-9);
 }
 
-.projectTitle {
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 1.5;
-    margin: 16px 0;
+.cardDescription {
+    padding: 16px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
+.categoryTabs {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--color-base-9);
+    padding-bottom: 1px;
+    justify-content: flex-start;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.categoryTabs::-webkit-scrollbar {
+    display: none;
+}
+
+.categoryTabBtn {
+    flex-shrink: 0;
+    padding: 12px 24px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--color-text-tertiary);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .categoryTabBtn:hover {
+        color: var(--color-text-primary);
     }
-    to {
-        opacity: 1;
+}
+
+.categoryTabBtn.active {
+    color: var(--color-text-primary);
+}
+
+.activeTabIndicator {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background-color: var(--color-text-primary);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.techFilterContainer {
+    margin: 0 0 16px;
+}
+
+@media (min-width: 1024px) {
+    .techFilterContainer {
+        margin: 0 0 32px;
     }
 }
 
-.fadeIn {
-    animation: fadeIn 0.5s ease-in-out;
+.mobileFilterControls {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+    margin-top: -12px;
+}
+
+.selectedFilterChip {
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: var(--color-base-10);
+    border: 1px solid var(--color-base-9);
+    color: var(--color-text-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.filterCircleBtn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-base-10);
+    border: 1px solid var(--color-base-9);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filterCircleBtn:active {
+    transform: scale(0.95);
+}
+
+.filterCircleBtn.active {
+    background-color: var(--color-text-primary);
+    color: var(--color-bg);
+    border-color: var(--color-text-primary);
+}
+
+@media (min-width: 1024px) {
+    .mobileFilterControls {
+        display: none;
+    }
+}
+
+.techList {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-top: 16px;
+}
+
+.techList {
+    flex-wrap: wrap;
+}
+
+@media (min-width: 1024px) {
+    .techList {
+        flex-wrap: nowrap;
+        overflow-x: auto !important;
+        padding-bottom: 8px;
+        padding-top: 0;
+        scrollbar-width: none;
+        height: auto !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .techList::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.techBtn {
+    padding: 8px 16px;
+    border: 1px solid var(--color-base-9);
+    color: var(--color-text-secondary);
+    background-color: var(--color-base-10);
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all 0.2s ease-out;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Hover only on devices with mouse */
+@media (hover: hover) and (pointer: fine) {
+    .techBtn:hover {
+        border: 1px solid var(--color-base-8);
+        color: var(--color-text-primary);
+    }
+}
+
+.techBtn:active {
+    transform: scale(0.95);
+}
+
+.techBtn.active {
+    border: 1px solid var(--color-text-primary);
+    color: var(--color-bg);
+    background-color: var(--color-text-primary);
+}
+
+.techChipsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: auto;
+}
+
+.techChip {
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    background-color: var(--color-base-9);
+    color: var(--color-text-secondary);
+    font-weight: 500;
 }

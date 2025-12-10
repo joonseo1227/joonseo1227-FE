@@ -73,7 +73,7 @@ export default function PortfolioProjectPage({params}) {
                         )}
 
                         <div>
-                            <p>Job: {project.job}</p>
+                            <p>Role: {project.role}</p>
                             <p>
                                 Period: {new Date(project.start_date).toLocaleDateString()} -
                                 {project.end_date ? new Date(project.end_date).toLocaleDateString() : 'Present'}
@@ -92,11 +92,18 @@ export default function PortfolioProjectPage({params}) {
 
                     <p>{project.description}</p>
 
-                    {project.github_url && (
+                    {project.links && project.links.length > 0 && (
                         <div>
-                            <a href={project.github_url} target="_blank" rel="noopener noreferrer">
-                                GitHub Repository
-                            </a>
+                            {project.links.map((link, index) => (
+                                <a
+                                    key={index}
+                                    href={link.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {link.title}
+                                </a>
+                            ))}
                         </div>
                     )}
                 </>

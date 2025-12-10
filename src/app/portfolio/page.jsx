@@ -1,17 +1,30 @@
 "use client";
 
-import styles from '@/styles/pages/PortfolioPage.module.css';
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 import supabase from "@/lib/supabase";
 import Link from "next/link";
 import SkeletonLoader from '@/components/SkeletonLoader';
 import EmptyState from '@/components/EmptyState';
+import {AnimatePresence, motion} from "framer-motion";
+import styles from '@/styles/pages/PortfolioPage.module.css';
+import {Filter} from "@carbon/icons-react";
 
 export default function PortfolioPage() {
     const [projects, setProjects] = useState([]);
+    const [categories, setCategories] = useState([]);
+
+
+    const [selectedCategory, setSelectedCategory] = useState('All');
+    const [selectedTech, setSelectedTech] = useState(null);
+    const [isTechExpanded, setIsTechExpanded] = useState(false);
+
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [isInitialLoad, setIsInitialLoad] = useState(true);
+
     const imgRefs = useRef({});
+    const categoryScrollRef = useRef(null);
+    const categoryBtnRefs = useRef({});
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -28,7 +41,15 @@ export default function PortfolioPage() {
                     return;
                 }
 
-                setProjects(data || []);
+                const loadedProjects = data || [];
+                setProjects(loadedProjects);
+
+                const uniqueCategories = new Set(['All']);
+                loadedProjects.forEach(p => {
+                    if (p.category) uniqueCategories.add(p.category);
+                });
+                setCategories(Array.from(uniqueCategories));
+
             } catch (err) {
                 console.error('포트폴리오 데이터 로딩 실패:', err);
                 setError('프로젝트를 불러올 수 없습니다.');
@@ -40,66 +61,239 @@ export default function PortfolioPage() {
         fetchProjects();
     }, []);
 
+    useEffect(() => {
+        if (!loading && projects.length > 0 && isInitialLoad) {
+            requestAnimationFrame(() => {
+                setIsInitialLoad(false);
+            });
+        }
+    }, [loading, projects, isInitialLoad]);
+
+    const categoryFilteredProjects = selectedCategory === 'All'
+        ? projects
+        : projects.filter(p => p.category === selectedCategory);
+
+    const techs = useMemo(() => {
+        const allowedTechs = new Set();
+        categoryFilteredProjects.forEach(p => {
+            if (p.tech_stack && Array.isArray(p.tech_stack)) {
+                p.tech_stack.forEach(t => allowedTechs.add(t));
+            }
+        });
+        return Array.from(allowedTechs).sort();
+    }, [categoryFilteredProjects]);
+
+    useEffect(() => {
+        setSelectedTech(null);
+    }, [selectedCategory]);
+
+    const [indicatorStyle, setIndicatorStyle] = useState({left: 0, width: 0, opacity: 0});
+
+    useEffect(() => {
+        if (selectedCategory && categoryBtnRefs.current[selectedCategory]) {
+            const btn = categoryBtnRefs.current[selectedCategory];
+
+            // Update indicator position
+            setIndicatorStyle({
+                left: btn.offsetLeft,
+                width: btn.offsetWidth,
+                opacity: 1
+            });
+
+            // Scroll to center logic
+            if (categoryScrollRef.current) {
+                const container = categoryScrollRef.current;
+                const containerWidth = container.offsetWidth;
+                const btnLeft = btn.offsetLeft;
+                const btnWidth = btn.offsetWidth;
+                const scrollLeft = btnLeft - (containerWidth / 2) + (btnWidth / 2);
+
+                container.scrollTo({
+                    left: scrollLeft,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }, [selectedCategory, categories]);
+
+
+    const finalFilteredProjects = selectedTech
+        ? categoryFilteredProjects.filter(p => p.tech_stack?.includes(selectedTech))
+        : categoryFilteredProjects;
+
+
+    const handleCategoryChange = (cat) => {
+        setSelectedCategory(cat);
+    };
+
+    const handleTechChange = (tech) => {
+        setSelectedTech(tech);
+    };
 
     return (
         <div className={styles.portfolioPage}>
             <h1 className="titleText">Portfolio</h1>
 
             <SkeletonLoader isLoading={loading} page="portfolioPage">
+
+                {!loading && categories.length > 0 && (
+                    <div className={styles.categoryTabs} ref={categoryScrollRef}>
+                        {categories.map((cat) => (
+                            <button
+                                key={cat}
+                                ref={el => categoryBtnRefs.current[cat] = el}
+                                className={`${styles.categoryTabBtn} ${selectedCategory === cat ? styles.active : ''}`}
+                                onClick={() => handleCategoryChange(cat)}
+                            >
+                                {cat}
+                            </button>
+                        ))}
+                        <div
+                            className={styles.activeTabIndicator}
+                            style={{
+                                left: indicatorStyle.left,
+                                width: indicatorStyle.width,
+                                opacity: indicatorStyle.opacity
+                            }}
+                        />
+                    </div>
+                )}
+
+                {!loading && techs.length > 0 && (
+                    <div className={styles.techFilterContainer}>
+                        <div className={styles.mobileFilterControls}>
+                            <button
+                                className={`${styles.filterCircleBtn} ${isTechExpanded ? styles.active : ''}`}
+                                onClick={() => setIsTechExpanded(!isTechExpanded)}
+                                aria-label="Toggle tech filter"
+                            >
+                                <Filter/>
+                            </button>
+                            {selectedTech && (
+                                <div className={styles.selectedFilterChip}>
+                                    {selectedTech}
+                                </div>
+                            )}
+                        </div>
+
+                        <motion.div
+                            className={styles.techList}
+                            initial={false}
+                            animate={{
+                                height: isTechExpanded ? 'auto' : 0,
+                                opacity: isTechExpanded ? 1 : 0
+                            }}
+                            transition={{duration: 0.3, ease: "easeInOut"}}
+                            style={{overflow: 'hidden'}}
+                        >
+                            <button
+                                className={`${styles.techBtn} ${selectedTech === null ? styles.active : ''}`}
+                                onClick={() => handleTechChange(null)}
+                            >
+                                전체
+                            </button>
+                            {techs.map((tech) => (
+                                <button
+                                    key={tech}
+                                    className={`${styles.techBtn} ${selectedTech === tech ? styles.active : ''}`}
+                                    onClick={() => handleTechChange(tech)}
+                                >
+                                    {tech}
+                                </button>
+                            ))}
+                        </motion.div>
+                    </div>
+                )}
+
                 {error ? (
                     <EmptyState type="error" message={error}/>
-                ) : projects.length === 0 && !loading ? (
+                ) : finalFilteredProjects.length === 0 && !loading ? (
                     <EmptyState type="empty" message="게시물이 없습니다."/>
                 ) : (
-                    <div className={styles.projectList}>
-                        {projects.map((project) => {
-                            const handleProjectClick = (e) => {
-                                e.preventDefault();
+                    <div className={styles.projectGrid}>
+                        <AnimatePresence mode="popLayout" initial={false}>
+                            {finalFilteredProjects.map((project) => {
+                                const handleProjectClick = (e) => {
+                                    e.preventDefault();
 
-                                const imgElement = imgRefs.current[project.id];
-                                if (project.img_url && imgElement && window.startPortfolioTransition) {
-                                    const rect = imgElement.getBoundingClientRect();
-                                    window.startPortfolioTransition(
-                                        project.slug,
-                                        project.img_url,
-                                        {
-                                            top: rect.top,
-                                            left: rect.left,
-                                            width: rect.width,
-                                            height: rect.height
-                                        },
-                                        {sourceElement: imgElement}
-                                    );
-                                } else {
-                                    // Fallback to normal navigation if animation can't be triggered
-                                    window.location.href = `/portfolio/${project.slug}`;
-                                }
-                            };
+                                    const imgElement = imgRefs.current[project.id];
+                                    if (project.img_url && imgElement && window.startPortfolioTransition) {
+                                        const rect = imgElement.getBoundingClientRect();
+                                        window.startPortfolioTransition(
+                                            project.slug,
+                                            project.img_url,
+                                            {
+                                                top: rect.top,
+                                                left: rect.left,
+                                                width: rect.width,
+                                                height: rect.height
+                                            },
+                                            {sourceElement: imgElement}
+                                        );
+                                    } else {
+                                        window.location.href = `/portfolio/${project.slug}`;
+                                    }
+                                };
 
-                            return (
-                                <Link
-                                    key={project.id}
-                                    className={styles.projectLink}
-                                    href={`/portfolio/${project.slug}`}
-                                    onClick={handleProjectClick}
-                                >
-                                    <article className={styles.projectTile}>
-                                        {project.img_url && (
-                                            <img
-                                                ref={el => imgRefs.current[project.id] = el}
-                                                className={styles.projectThumbnail}
-                                                src={project.img_url}
-                                                alt={project.title}
-                                            />
-                                        )}
-                                        <h2 className={styles.projectTitle}>{project.title}</h2>
-                                    </article>
-                                </Link>
-                            );
-                        })}
+                                const tileVariants = {
+                                    hidden: {scale: 0.8, opacity: 0},
+                                    visible: {scale: 1, opacity: 1}
+                                };
+
+                                return (
+                                    <motion.div
+                                        key={project.id}
+                                        layout
+                                        variants={tileVariants}
+                                        initial={isInitialLoad ? false : "hidden"}
+                                        animate={isInitialLoad ? false : "visible"}
+                                        exit="hidden"
+                                        transition={{duration: 0.3}}
+                                    >
+                                        <Link
+                                            className={styles.projectLink}
+                                            href={`/portfolio/${project.slug}`}
+                                            onClick={handleProjectClick}
+                                        >
+                                            <article className={styles.projectCard}>
+                                                {project.img_url && (
+                                                    <img
+                                                        ref={el => imgRefs.current[project.id] = el}
+                                                        className={styles.projectThumbnail}
+                                                        src={project.img_url}
+                                                        alt={project.title}
+                                                    />
+                                                )}
+                                                <div className={styles.cardDescription}>
+                                                    <div className={styles.cardHead}>
+                                                        <h2 className={styles.projectTitle}>{project.title}</h2>
+                                                        {project.summary && (
+                                                            <p className={styles.projectSummary}>{project.summary}</p>
+                                                        )}
+                                                    </div>
+
+                                                    {project.tech_stack && project.tech_stack.length > 0 && (
+                                                        <div className={styles.techChipsContainer}>
+                                                            {project.tech_stack.slice(0, 4).map((tech) => (
+                                                                <span key={tech}
+                                                                      className={styles.techChip}>{tech}</span>
+                                                            ))}
+                                                            {project.tech_stack.length > 4 && (
+                                                                <span className={styles.techChip}>+</span>
+                                                            )}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </article>
+                                        </Link>
+                                    </motion.div>
+                                );
+                            })}
+                        </AnimatePresence>
                     </div>
                 )}
             </SkeletonLoader>
         </div>
     );
 }
+
