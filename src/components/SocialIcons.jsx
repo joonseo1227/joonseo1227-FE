@@ -1,52 +1,48 @@
+"use client";
+
 import styles from '@/styles/components/SocialIcons.module.css';
 
-import {
-    FaCircle,
-    FaFacebookF,
-    FaGithub,
-    FaInstagram,
-    FaLinkedin,
-    FaSnapchatGhost,
-    FaTiktok,
-    FaTwitch,
-    FaTwitter,
-    FaYoutube
-} from "react-icons/fa";
+import {FaGithub, FaInstagram, FaLinkedin, FaYoutube} from "react-icons/fa";
+import {usePathname} from 'next/navigation';
 
-const ICON_MAPPING = {
-    default: FaCircle,
-    facebook: FaFacebookF,
-    github: FaGithub,
-    instagram: FaInstagram,
-    linkedin: FaLinkedin,
-    snapchat: FaSnapchatGhost,
-    tiktok: FaTiktok,
-    twitter: FaTwitter,
-    twitch: FaTwitch,
-    youtube: FaYoutube
-};
-
-const social = {
-    github: "https://github.com/joonseo1227",
-    instagram: "https://www.instagram.com/joonseo1227/",
-    linkedin: "https://www.linkedin.com/in/joonseo1227/",
-    youtube: "https://www.youtube.com/@nulll0512/featured",
-};
+const socialLinks = [
+    {
+        id: 'github',
+        url: "https://github.com/joonseo1227",
+        Icon: FaGithub
+    },
+    {
+        id: 'instagram',
+        url: "https://www.instagram.com/joonseo1227/",
+        Icon: FaInstagram
+    },
+    {
+        id: 'linkedin',
+        url: "https://www.linkedin.com/in/joonseo1227/",
+        Icon: FaLinkedin
+    },
+    {
+        id: 'youtube',
+        url: "https://www.youtube.com/@nulll0512/featured",
+        Icon: FaYoutube
+    }
+];
 
 export const SocialIcons = () => {
+    const pathname = usePathname();
+
+    if (pathname !== '/') return null;
+
     return (
         <div className={styles.socialIcons}>
             <ul>
-                {Object.entries(social).map(([platform, url]) => {
-                    const IconComponent = ICON_MAPPING[platform] || ICON_MAPPING.default;
-                    return (
-                        <li key={platform}>
-                            <a href={url}>
-                                <IconComponent/>
-                            </a>
-                        </li>
-                    );
-                })}
+                {socialLinks.map(({id, url, Icon}) => (
+                    <li key={id}>
+                        <a href={url} target="_blank" rel="noopener noreferrer">
+                            <Icon/>
+                        </a>
+                    </li>
+                ))}
             </ul>
             <div className={styles.line}></div>
             <p>Follow Me</p>

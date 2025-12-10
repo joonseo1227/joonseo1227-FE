@@ -61,33 +61,6 @@
 
 @media (max-width: 1279px) {
     .socialIcons {
-        margin: 32px 0;
-        position: relative;
-        top: auto;
-        left: auto;
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .socialIcons p {
-        white-space: nowrap;
-        position: relative;
-        writing-mode: horizontal-tb;
-        font-size: 16px;
-        margin-left: 16px;
-    }
-
-    .socialIcons .line {
-        border-top: 1px solid var(--color-text-primary);
-        height: 0;
-        width: 32px;
-        margin: 16px;
-    }
-
-    .socialIcons ul li {
-        display: inline;
-        margin-right: 16px;
+        display: none;
     }
 }
