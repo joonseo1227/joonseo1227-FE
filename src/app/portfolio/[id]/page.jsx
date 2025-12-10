@@ -6,7 +6,7 @@ import supabase from "@/lib/supabase";
 
 export default function PortfolioProjectPage({params}) {
     const unwrappedParams = React.use(params);
-    const projectId = unwrappedParams?.id;
+    const slug = unwrappedParams?.id;
     const [project, setProject] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -17,22 +17,13 @@ export default function PortfolioProjectPage({params}) {
                 setLoading(true);
                 const {data, error} = await supabase
                     .from('project')
-                    .select(`
-                        *,
-                        project_techs(id, tech_name),
-                        project_images(id, img_url, caption, display_order)
-                    `)
-                    .eq('id', projectId)
+                    .select('*')
+                    .eq('slug', slug)
                     .single();
 
                 if (error) {
                     setError(error.message);
                     return;
-                }
-
-                // Sort images by display_order
-                if (data.project_images) {
-                    data.project_images.sort((a, b) => a.display_order - b.display_order);
                 }
 
                 setProject(data);
@@ -44,7 +35,7 @@ export default function PortfolioProjectPage({params}) {
         };
 
         fetchProject();
-    }, [projectId]);
+    }, [slug]);
 
     const router = useRouter();
 
@@ -61,27 +52,23 @@ export default function PortfolioProjectPage({params}) {
         <div>
             {project && (
                 <>
-                    {/* Background Image (semantics only if needed, or just remove if purely decorative) - keeping as img tag for content */}
-                    {project.img_url && (
-                        <p>Background Image: {project.img_url}</p>
-                    )}
+
 
                     <h1>{project.title}</h1>
 
                     <div>
-                        {/* Image List replacing Slider */}
-                        {project.project_images && project.project_images.length > 0 ? (
+
+                        {project.gallery && project.gallery.length > 0 ? (
                             <ul>
-                                {project.project_images.map((img) => (
-                                    <li key={img.id}>
-                                        <img src={img.img_url}
-                                             alt={img.caption || `Project image ${img.display_order}`}/>
+                                {project.gallery.map((img, index) => (
+                                    <li key={index}>
+                                        <img src={img.url}
+                                             alt={img.caption || `Project image ${index + 1}`}/>
                                         {img.caption && <p>{img.caption}</p>}
                                     </li>
                                 ))}
                             </ul>
                         ) : (
-                            // Fallback main image if no gallery
                             project.img_url && <img src={project.img_url} alt={project.title}/>
                         )}
 
@@ -92,16 +79,13 @@ export default function PortfolioProjectPage({params}) {
                                 {project.end_date ? new Date(project.end_date).toLocaleDateString() : 'Present'}
                             </p>
 
-                            {/* Tech Stack */}
                             <h3>Tech Stack</h3>
                             <ul>
-                                {project.project_techs && project.project_techs.length > 0 ? (
-                                    project.project_techs.map((tech) => (
-                                        <li key={tech.id}>{tech.tech_name}</li>
+                                {project.tech_stack && project.tech_stack.length > 0 &&
+                                    project.tech_stack.map((tech, index) => (
+                                        <li key={index}>{tech}</li>
                                     ))
-                                ) : (
-                                    project.tech && <li>{project.tech}</li>
-                                )}
+                                }
                             </ul>
                         </div>
                     </div>

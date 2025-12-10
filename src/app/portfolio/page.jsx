@@ -60,7 +60,7 @@ export default function PortfolioPage() {
                                 if (project.img_url && imgElement && window.startPortfolioTransition) {
                                     const rect = imgElement.getBoundingClientRect();
                                     window.startPortfolioTransition(
-                                        project.id,
+                                        project.slug,
                                         project.img_url,
                                         {
                                             top: rect.top,
@@ -72,7 +72,7 @@ export default function PortfolioPage() {
                                     );
                                 } else {
                                     // Fallback to normal navigation if animation can't be triggered
-                                    window.location.href = `/portfolio/${project.id}`;
+                                    window.location.href = `/portfolio/${project.slug}`;
                                 }
                             };
 
@@ -80,7 +80,7 @@ export default function PortfolioPage() {
                                 <Link
                                     key={project.id}
                                     className={styles.projectLink}
-                                    href={`/portfolio/${project.id}`}
+                                    href={`/portfolio/${project.slug}`}
                                     onClick={handleProjectClick}
                                 >
                                     <article className={styles.projectTile}>

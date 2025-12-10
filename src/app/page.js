@@ -224,7 +224,7 @@ export default function HomePage() {
                                 if (project.img_url && imgElement && window.startPortfolioTransition) {
                                     const rect = imgElement.getBoundingClientRect();
                                     window.startPortfolioTransition(
-                                        project.id,
+                                        project.slug,
                                         project.img_url,
                                         {
                                             top: rect.top,
@@ -235,13 +235,13 @@ export default function HomePage() {
                                         {sourceElement: imgElement}
                                     );
                                 } else {
-                                    window.location.href = `/portfolio/${project.id}`;
+                                    window.location.href = `/portfolio/${project.slug}`;
                                 }
                             };
 
                             return (
                                 <Link
-                                    href={`/portfolio/${project.id}`}
+                                    href={`/portfolio/${project.slug}`}
                                     key={project.id}
                                     onClick={handleProjectClick}
                                 >
