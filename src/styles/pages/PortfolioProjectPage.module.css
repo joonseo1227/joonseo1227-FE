@@ -1,0 +1,366 @@
+.container {
+    --spacing-section: 80px;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.fadeIn {
+    opacity: 0;
+    animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.delay1 {
+    animation-delay: 0.1s;
+}
+
+.delay2 {
+    animation-delay: 0.2s;
+}
+
+.delay3 {
+    animation-delay: 0.3s;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.heroSection {
+    padding: 80px 0 80px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.categoryLabel {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    background: var(--color-base-10);
+    padding: 6px 14px;
+    border-radius: 100px;
+}
+
+.projectTitle {
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+    word-break: keep-all;
+    color: var(--color-text-primary);
+}
+
+.projectMeta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    color: var(--color-text-secondary);
+    font-size: 16px;
+    font-weight: 500;
+    flex-wrap: wrap;
+}
+
+.metaItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.thumbnailWrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto var(--spacing-section);
+    padding: 0 20px;
+}
+
+.thumbnailImage {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.contentWrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.section {
+    margin-bottom: var(--spacing-section);
+}
+
+.sectionTitle {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-top: 48px;
+    margin-bottom: 20px;
+}
+
+.summaryText {
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    font-weight: 400;
+}
+
+.featureList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.featureItem {
+    background: var(--color-base-10);
+    padding: 24px;
+    border: 1px solid var(--color-base-9);
+}
+
+.featureItem p {
+    margin: 0;
+}
+
+.featureText {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--color-text-primary);
+}
+
+.techGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.techBadge {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+    background: var(--color-base-10);
+    padding: 6px 14px;
+    border-radius: 100px;
+}
+
+.contentTitle {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-top: 48px;
+    margin-bottom: 20px;
+}
+
+.contentText {
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--color-text-primary);
+}
+
+.listItem {
+    position: relative;
+    padding-left: 8px;
+    margin-bottom: 12px;
+    line-height: 1.6;
+    color: var(--color-text-primary);
+}
+
+.contentText strong {
+    font-weight: 600;
+}
+
+.quoteBlock {
+    background: var(--color-base-10);
+    border-left: 4px solid var(--color-text-primary);
+    padding: 24px 32px;
+    margin: 32px 0;
+    font-size: 19px;
+    color: var(--color-text-primary);
+}
+
+.quoteBlock p {
+    margin: 0;
+}
+
+.quoteBlock footer {
+    margin-top: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+}
+
+.contentImageWrapper {
+    margin: 40px 0;
+    text-align: center;
+}
+
+.contentImage {
+    width: 100%;
+}
+
+.contentImageWrapper figcaption {
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+.galleryGrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    gap: 24px;
+}
+
+.landscapeGrid {
+    gap: 32px;
+}
+
+.landscapeGrid .galleryItem {
+    width: calc((100% - 32px) / 2);
+}
+
+.portraitGrid {
+    gap: 20px;
+}
+
+.portraitGrid .galleryItem {
+    width: calc((100% - 40px) / 3);
+}
+
+@media (min-width: 1400px) {
+    .portraitGrid {
+        gap: 24px;
+    }
+
+    .portraitGrid .galleryItem {
+        width: calc((100% - 72px) / 4);
+    }
+}
+
+.galleryItem {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-base-10);
+    display: flex;
+    flex-direction: column;
+}
+
+.galleryImage {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .heroSection {
+        padding: 32px 16px 32px;
+        text-align: left;
+    }
+
+    .projectTitle {
+        font-size: 36px;
+    }
+
+    .projectMeta {
+        justify-content: flex-start;
+        font-size: 14px;
+        gap: 16px;
+    }
+
+    .landscapeGrid {
+        gap: 20px;
+    }
+
+    .landscapeGrid .galleryItem {
+        width: 100%;
+    }
+
+    .portraitGrid {
+        gap: 12px;
+    }
+
+    .portraitGrid .galleryItem {
+        width: calc((100% - 12px) / 2);
+    }
+
+    .summaryText {
+        font-size: 18px;
+    }
+}
+
+.linkSection {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.linkGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.linkCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--color-base-10);
+    border: 1px solid var(--color-base-9);
+    padding: 20px;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.linkContent {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.linkIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-primary);
+}
+
+.linkInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.linkTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.linkUrl {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+.linkArrow {
+    color: var(--color-text-secondary);
+}
