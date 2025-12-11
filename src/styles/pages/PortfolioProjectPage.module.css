@@ -133,9 +133,8 @@
 }
 
 .featureText {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 500;
-    line-height: 1.5;
     color: var(--color-text-primary);
 }
 
@@ -166,7 +165,7 @@
 }
 
 .contentText {
-    font-size: 19px;
+    font-size: 16px;
     line-height: 1.6;
     color: var(--color-text-primary);
 }
@@ -188,7 +187,8 @@
     border-left: 4px solid var(--color-text-primary);
     padding: 24px 32px;
     margin: 32px 0;
-    font-size: 19px;
+    font-size: 16px;
+    font-weight: 500;
     color: var(--color-text-primary);
 }
 
@@ -197,9 +197,8 @@
 }
 
 .quoteBlock footer {
-    margin-top: 12px;
-    font-size: 15px;
-    font-weight: 500;
+    margin-top: 8px;
+    font-size: 14px;
     color: var(--color-text-secondary);
 }
 
@@ -268,43 +267,6 @@
     display: block;
 }
 
-@media (max-width: 768px) {
-    .heroSection {
-        padding: 32px 16px 32px;
-        text-align: left;
-    }
-
-    .projectTitle {
-        font-size: 36px;
-    }
-
-    .projectMeta {
-        justify-content: flex-start;
-        font-size: 14px;
-        gap: 16px;
-    }
-
-    .landscapeGrid {
-        gap: 20px;
-    }
-
-    .landscapeGrid .galleryItem {
-        width: 100%;
-    }
-
-    .portraitGrid {
-        gap: 12px;
-    }
-
-    .portraitGrid .galleryItem {
-        width: calc((100% - 12px) / 2);
-    }
-
-    .summaryText {
-        font-size: 18px;
-    }
-}
-
 .linkSection {
     max-width: 800px;
     margin: 0 auto;
@@ -363,4 +325,41 @@
 
 .linkArrow {
     color: var(--color-text-secondary);
+}
+
+@media (max-width: 768px) {
+    .heroSection {
+        padding: 32px 16px 32px;
+        text-align: left;
+    }
+
+    .projectTitle {
+        font-size: 36px;
+    }
+
+    .projectMeta {
+        justify-content: flex-start;
+        font-size: 14px;
+        gap: 16px;
+    }
+
+    .landscapeGrid {
+        gap: 20px;
+    }
+
+    .landscapeGrid .galleryItem {
+        width: 100%;
+    }
+
+    .portraitGrid {
+        gap: 12px;
+    }
+
+    .portraitGrid .galleryItem {
+        width: calc((100% - 12px) / 2);
+    }
+
+    .summaryText {
+        font-size: 18px;
+    }
 }
