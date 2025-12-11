@@ -32,7 +32,7 @@ export default function PortfolioPage() {
                 setLoading(true);
                 const {data, error} = await supabase
                     .from('project')
-                    .select('*')
+                    .select('*, project_technologies(technologies(name))')
                     .order('start_date', {ascending: false});
 
                 if (error) {
@@ -76,8 +76,12 @@ export default function PortfolioPage() {
     const techs = useMemo(() => {
         const allowedTechs = new Set();
         categoryFilteredProjects.forEach(p => {
-            if (p.tech_stack && Array.isArray(p.tech_stack)) {
-                p.tech_stack.forEach(t => allowedTechs.add(t));
+            if (p.project_technologies && Array.isArray(p.project_technologies)) {
+                p.project_technologies.forEach(pt => {
+                    if (pt.technologies?.name) {
+                        allowedTechs.add(pt.technologies.name);
+                    }
+                });
             }
         });
         return Array.from(allowedTechs).sort();
@@ -118,7 +122,9 @@ export default function PortfolioPage() {
 
 
     const finalFilteredProjects = selectedTech
-        ? categoryFilteredProjects.filter(p => p.tech_stack?.includes(selectedTech))
+        ? categoryFilteredProjects.filter(p =>
+            p.project_technologies?.some(pt => pt.technologies?.name === selectedTech)
+        )
         : categoryFilteredProjects;
 
 
@@ -217,11 +223,11 @@ export default function PortfolioPage() {
                                     e.preventDefault();
 
                                     const imgElement = imgRefs.current[project.id];
-                                    if (project.img_url && imgElement && window.startPortfolioTransition) {
+                                    if (project.thumbnail_url && imgElement && window.startPortfolioTransition) {
                                         const rect = imgElement.getBoundingClientRect();
                                         window.startPortfolioTransition(
                                             project.slug,
-                                            project.img_url,
+                                            project.thumbnail_url,
                                             {
                                                 top: rect.top,
                                                 left: rect.left,
@@ -256,11 +262,11 @@ export default function PortfolioPage() {
                                             onClick={handleProjectClick}
                                         >
                                             <article className={styles.projectCard}>
-                                                {project.img_url && (
+                                                {project.thumbnail_url && (
                                                     <img
                                                         ref={el => imgRefs.current[project.id] = el}
                                                         className={styles.projectThumbnail}
-                                                        src={project.img_url}
+                                                        src={project.thumbnail_url}
                                                         alt={project.title}
                                                     />
                                                 )}
@@ -272,13 +278,15 @@ export default function PortfolioPage() {
                                                         )}
                                                     </div>
 
-                                                    {project.tech_stack && project.tech_stack.length > 0 && (
+                                                    {project.project_technologies && project.project_technologies.length > 0 && (
                                                         <div className={styles.techChipsContainer}>
-                                                            {project.tech_stack.slice(0, 4).map((tech) => (
-                                                                <span key={tech}
-                                                                      className={styles.techChip}>{tech}</span>
+                                                            {project.project_technologies.slice(0, 4).map((pt) => (
+                                                                <span key={pt.technologies.name}
+                                                                      className={styles.techChip}>
+                                                                    {pt.technologies.name}
+                                                                </span>
                                                             ))}
-                                                            {project.tech_stack.length > 4 && (
+                                                            {project.project_technologies.length > 4 && (
                                                                 <span className={styles.techChip}>+</span>
                                                             )}
                                                         </div>
