@@ -1,9 +1,9 @@
 import supabase from "@/lib/supabase";
 
 export async function generateMetadata({params}) {
-    const {id: projectId} = await params;
+    const {id: projectSlug} = await params;
 
-    if (!projectId) {
+    if (!projectSlug) {
         return {
             title: "프로젝트 없음 | joonseo1227",
             description: "존재하지 않는 프로젝트입니다.",
@@ -13,7 +13,7 @@ export async function generateMetadata({params}) {
     const {data: project, error} = await supabase
         .from("project")
         .select("*")
-        .eq("id", projectId)
+        .eq("slug", projectSlug)
         .single();
 
     if (error || !project) {
