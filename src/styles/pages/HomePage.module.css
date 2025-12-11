@@ -239,9 +239,9 @@
 }
 
 .workCardDescription {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.5;
-    color: var(--color-base-2);
+    color: var(--color-text-secondary);
     margin: 0;
 }
 
@@ -452,10 +452,6 @@
         font-size: 20px;
     }
 
-    .workCardDescription {
-        font-size: 15px;
-    }
-
     .blogSection {
         padding: 80px 0;
     }
@@ -542,7 +538,6 @@
     }
 
     .workCardDescription {
-        font-size: 14px;
         line-height: 1.4;
     }
 
