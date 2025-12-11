@@ -2,7 +2,7 @@
     --spacing-section: 80px;
     width: 100%;
     max-width: 100%;
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 .fadeIn {
@@ -35,10 +35,11 @@
 }
 
 .heroSection {
-    padding: 80px 0 80px;
+    padding: 120px 0 80px;
     max-width: 800px;
     margin: 0 auto;
     text-align: center;
+    position: relative;
 }
 
 .categoryLabel {
@@ -78,17 +79,53 @@
     gap: 6px;
 }
 
-.thumbnailWrapper {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto var(--spacing-section);
-    padding: 0 20px;
+/* Tech Stack - Hero Meta */
+.techStackMeta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Immersive Thumbnail Section - Full Screen Sticky */
+.thumbnailSection {
+    height: 300vh;
+    position: relative;
+}
+
+.thumbnailStickyWrapper {
+    height: 100vh;
+    width: 100vw;
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.thumbnailContainer {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    will-change: transform, opacity;
 }
 
 .thumbnailImage {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
+    object-fit: cover;
+    object-position: center;
+    will-change: transform;
 }
 
 .contentWrapper {
@@ -124,8 +161,16 @@
 
 .featureItem {
     background: var(--color-base-10);
-    padding: 24px;
+    padding: 32px;
     border: 1px solid var(--color-base-9);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+    cursor: pointer;
+}
+
+.featureItem:hover {
+    border-color: var(--color-base-8);
+    transform: translateY(-4px);
 }
 
 .featureItem p {
@@ -146,14 +191,22 @@
 
 .techBadge {
     display: inline-block;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--color-text-primary);
-    margin-bottom: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
     letter-spacing: -0.01em;
     background: var(--color-base-10);
     padding: 6px 14px;
     border-radius: 100px;
+    border: 1px solid var(--color-base-9);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.techBadge:hover {
+    background: var(--color-base-9);
+    border-color: var(--color-base-8);
+    color: var(--color-text-primary);
+    transform: translateY(-1px);
 }
 
 .contentTitle {
@@ -185,11 +238,12 @@
 .quoteBlock {
     background: var(--color-base-10);
     border-left: 4px solid var(--color-text-primary);
-    padding: 24px 32px;
+    padding: 32px 40px;
     margin: 32px 0;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 500;
     color: var(--color-text-primary);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .quoteBlock p {
@@ -203,12 +257,14 @@
 }
 
 .contentImageWrapper {
-    margin: 40px 0;
+    margin: 48px 0;
     text-align: center;
 }
 
 .contentImage {
     width: 100%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .contentImageWrapper figcaption {
@@ -217,14 +273,102 @@
     color: var(--color-text-secondary);
 }
 
-.galleryGrid {
+.gallerySection {
+    overflow: visible;
+    margin-bottom: var(--spacing-section);
+}
+
+.gallerySectionHeader {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+    padding: 0 16px;
+}
+
+.gallerySectionHeader .sectionTitle {
+    margin: 0;
+}
+
+.galleryNav {
+    display: flex;
+    gap: 12px;
+}
+
+.galleryNavBtn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--color-base-10);
+    border: 1px solid var(--color-base-9);
+    color: var(--color-text-primary);
+    display: flex;
+    align-items: center;
     justify-content: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    gap: 24px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.galleryNavBtn:hover {
+    background-color: var(--color-base-9);
+    transform: scale(1.1);
+}
+
+.galleryNavBtn:active {
+    transform: scale(0.95);
+}
+
+.galleryContainer {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 40px;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.galleryContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.galleryTrack {
+    display: flex;
+    gap: 32px;
+    padding-left: max(16px, calc((100vw - 800px) / 2 + 16px));
+    padding-right: max(16px, calc((100vw - 800px) / 2 + 16px));
+    width: max-content;
+}
+
+.galleryCard {
+    height: 500px;
+    width: auto;
+    max-width: 90vw;
+    background-color: var(--color-base-10);
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+    border: 1px solid var(--color-base-9);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.galleryCard:hover {
+    border-color: var(--color-base-8);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.galleryCardImage {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
 }
 
 .landscapeGrid {
@@ -259,12 +403,20 @@
     background: var(--color-base-10);
     display: flex;
     flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.galleryItem:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
 .galleryImage {
     width: 100%;
     height: auto;
     display: block;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .linkSection {
@@ -285,10 +437,23 @@
     justify-content: space-between;
     background: var(--color-base-10);
     border: 1px solid var(--color-base-9);
-    padding: 20px;
+    padding: 24px;
     text-decoration: none;
     position: relative;
     overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+}
+
+.linkCard:hover {
+    background: var(--color-base-9);
+    border-color: var(--color-base-8);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.linkCard:hover .linkArrow {
+    transform: translate(4px, -4px);
 }
 
 .linkContent {
@@ -325,6 +490,7 @@
 
 .linkArrow {
     color: var(--color-text-secondary);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (max-width: 768px) {
@@ -341,6 +507,23 @@
         justify-content: flex-start;
         font-size: 14px;
         gap: 16px;
+    }
+
+    .thumbnailSection {
+        height: 250vh;
+    }
+
+    .thumbnailStickyWrapper {
+        width: 100vw;
+    }
+
+    .thumbnailContainer {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .thumbnailImage {
+        object-fit: contain;
     }
 
     .landscapeGrid {
@@ -362,4 +545,112 @@
     .summaryText {
         font-size: 18px;
     }
+
+    .techStackMeta {
+        justify-content: flex-start;
+        margin-top: 20px;
+        gap: 8px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .techBadge {
+        font-size: 13px;
+        padding: 5px 12px;
+    }
+
+    .gallerySection {
+        padding: 60px 0;
+    }
+
+    .gallerySectionHeader {
+        padding: 0 16px;
+        margin-bottom: 24px;
+    }
+
+    .galleryNav {
+        display: none;
+    }
+
+    .galleryTrack {
+        gap: 20px;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .galleryCard {
+        height: 70vh;
+        width: auto;
+        max-width: 85vw;
+        min-width: 200px;
+    }
+
+    .galleryCardImage {
+        height: 100%;
+        width: auto;
+        max-width: 100%;
+        object-fit: contain;
+    }
+}
+
+.thumbnailImage,
+.thumbnailContainer,
+.thumbnailStickyWrapper,
+.galleryItem,
+.galleryCard,
+.galleryCardImage,
+.linkCard,
+.featureItem,
+.contentImage {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+.thumbnailSection {
+    isolation: isolate;
+}
+
+.thumbnailStickyWrapper {
+    contain: layout style paint;
+}
+
+.projectTitle {
+    background: linear-gradient(135deg, var(--color-text-primary), var(--color-text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.categoryLabel {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.categoryLabel:hover {
+    transform: scale(1.05);
+}
+
+.linkIcon {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.linkCard:hover .linkIcon {
+    transform: scale(1.1);
+    color: var(--color-text-primary);
+}
+
+.linkCard:hover .linkTitle {
+    color: var(--color-text-primary);
+}
+
+.contentText {
+    line-height: 1.8;
+}
+
+.contentText p {
+    margin-bottom: 1.2em;
+}
+
+.contentText ul,
+.contentText ol {
+    margin-bottom: 1.5em;
 }
