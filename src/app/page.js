@@ -221,11 +221,11 @@ export default function HomePage() {
                                 e.preventDefault();
 
                                 const imgElement = imgRefs.current[project.id];
-                                if (project.img_url && imgElement && window.startPortfolioTransition) {
+                                if (project.thumbnail_url && imgElement && window.startPortfolioTransition) {
                                     const rect = imgElement.getBoundingClientRect();
                                     window.startPortfolioTransition(
                                         project.slug,
-                                        project.img_url,
+                                        project.thumbnail_url,
                                         {
                                             top: rect.top,
                                             left: rect.left,
@@ -251,7 +251,7 @@ export default function HomePage() {
                                     >
                                         <img
                                             ref={el => imgRefs.current[project.id] = el}
-                                            src={project.img_url}
+                                            src={project.thumbnail_url}
                                             alt={project.title}
                                             className={styles.workCardImage}
                                         />
