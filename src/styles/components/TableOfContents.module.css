@@ -1,6 +1,13 @@
 .tableOfContents {
     font-size: 14px;
     line-height: 1.5;
+    position: fixed;
+    top: 100px;
+    right: calc((100% - 800px) / 2 - 250px);
+    width: 220px;
+    max-height: calc(100dvh - 200px);
+    overflow-y: auto;
+    padding-right: 20px;
 }
 
 .tocTitle {
@@ -63,28 +70,5 @@
 
 .active a {
     color: var(--color-text-primary);
-}
-
-@media (min-width: 1280px) {
-    .tableOfContents {
-        position: fixed;
-        top: 100px;
-        right: calc((100% - 800px) / 2 - 250px);
-        width: 220px;
-        max-height: calc(100dvh - 200px);
-        overflow-y: auto;
-        padding-right: 20px;
-    }
-}
-
-@media (max-width: 1279px) {
-    .tableOfContents {
-        margin-bottom: 32px;
-        padding: 16px;
-        background-color: var(--color-surface);
-    }
-
-    .tocTitle {
-        margin-bottom: 8px;
-    }
+    font-weight: 700;
 }

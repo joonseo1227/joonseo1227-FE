@@ -76,10 +76,6 @@ export default async function BlogPostPage({params}) {
                     </div>
                 </div>
 
-                <div className={styles.mobileTocWrapper}>
-                    <TableOfContents content={post.content}/>
-                </div>
-
                 <div className={styles.contentWrapper}>
                     <div className={styles.blogPostWrapper}>
                         <div className={styles.postContent} data-testid="post-content">
