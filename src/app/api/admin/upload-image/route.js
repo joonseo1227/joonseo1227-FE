@@ -56,17 +56,27 @@ export async function POST(request) {
             return NextResponse.json({error: 'Invalid folder'}, {status: 400});
         }
 
-        // Convert to WebP
-        const webpBuffer = await sharp(Buffer.from(buffer))
-            .webp({quality: 85})
-            .toBuffer();
+        let uploadBuffer, uploadContentType, filename;
 
-        const filename = `${folder}/${Date.now()}.webp`;
+        if (mimeType.split(';')[0].trim() === 'image/gif') {
+            // GIF는 애니메이션을 보존하며 animated WebP로 변환
+            uploadBuffer = await sharp(Buffer.from(buffer), {animated: true})
+                .webp({quality: 85})
+                .toBuffer();
+            uploadContentType = 'image/webp';
+            filename = `${folder}/${Date.now()}.webp`;
+        } else {
+            uploadBuffer = await sharp(Buffer.from(buffer))
+                .webp({quality: 85})
+                .toBuffer();
+            uploadContentType = 'image/webp';
+            filename = `${folder}/${Date.now()}.webp`;
+        }
 
         const db = getAdminClient();
         const {error: uploadError} = await db.storage
             .from('images')
-            .upload(filename, webpBuffer, {contentType: 'image/webp', upsert: false});
+            .upload(filename, uploadBuffer, {contentType: uploadContentType, upsert: false});
         if (uploadError) throw uploadError;
 
         const {data: {publicUrl}} = db.storage.from('images').getPublicUrl(filename);
