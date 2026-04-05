@@ -115,11 +115,9 @@ export default function ThumbnailUpload({value, onChange, folder}) {
                 style={{
                     display: 'flex', gap: 8,
                     padding: 8,
-                    borderRadius: 6,
                     border: isDragging ? '1.5px dashed var(--color-gray-40)' : '1.5px dashed transparent',
-                    background: isDragging ? 'rgba(255,255,255,0.04)' : 'transparent',
+                    background: isDragging ? 'rgba(255,255,255,0.05)' : 'transparent',
                     transition: 'border-color 0.15s, background 0.15s',
-                    marginBottom: isDragging ? 0 : 0,
                 }}
             >
                 <input
@@ -160,21 +158,13 @@ export default function ThumbnailUpload({value, onChange, folder}) {
                     <img
                         src={value}
                         alt="thumbnail preview"
-                        style={{height: 80, objectFit: 'cover', borderRadius: 4, display: 'block'}}
+                        style={{height: 80, objectFit: 'cover', display: 'block'}}
                     />
                     <button
                         type="button"
                         onClick={handleRemove}
                         disabled={removing}
-                        style={{
-                            position: 'absolute', top: -6, right: -6,
-                            width: 20, height: 20, borderRadius: '50%',
-                            background: 'var(--color-gray-70)', border: 'none',
-                            color: 'var(--color-gray-10)', fontSize: 11,
-                            cursor: removing ? 'not-allowed' : 'pointer',
-                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            opacity: removing ? 0.5 : 1,
-                        }}
+                        className={styles.thumbnailRemoveBtn}
                         title="제거"
                     >
                         {removing ? '·' : '✕'}

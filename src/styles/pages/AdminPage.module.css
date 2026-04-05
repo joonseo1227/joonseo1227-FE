@@ -69,7 +69,7 @@
 
 .navLink:hover {
     color: var(--color-gray-10);
-    background-color: rgba(255, 255, 255, 0.04);
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 .navLinkActive {
@@ -97,7 +97,7 @@
 
 .logoutBtn:hover {
     border-color: var(--color-gray-50);
-    color: var(--color-gray-20);
+    color: var(--color-gray-10);
 }
 
 .mainContent {
@@ -164,7 +164,7 @@
 }
 
 .table tr:hover td {
-    background-color: rgba(255, 255, 255, 0.02);
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 .tdTitle {
@@ -226,7 +226,8 @@
 }
 
 .btnPrimary:hover {
-    background-color: var(--color-gray-20);
+    background-color: var(--color-gray-30);
+    color: var(--color-gray-100);
 }
 
 .btnPrimary:disabled {
@@ -241,7 +242,7 @@
 }
 
 .btnSecondary:hover {
-    border-color: var(--color-gray-40);
+    border-color: var(--color-gray-50);
     color: var(--color-gray-10);
 }
 
@@ -399,6 +400,52 @@
     margin-top: 2px;
 }
 
+/* Tech category group + label inside checkbox group */
+.techCategoryGroup {
+    margin-bottom: 10px;
+}
+
+.techCategoryLabel {
+    font-size: 11px;
+    color: var(--color-gray-60);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    font-weight: 600;
+}
+
+/* Thumbnail remove button */
+.thumbnailRemoveBtn {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 20px;
+    height: 20px;
+    border-radius: 0;
+    background-color: var(--color-gray-80);
+    border: 1px solid var(--color-gray-70);
+    color: var(--color-gray-20);
+    font-size: 11px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.thumbnailRemoveBtn:hover {
+    background-color: var(--color-red-50);
+    border-color: var(--color-red-50);
+    color: #fff;
+}
+
+.thumbnailRemoveBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 /* Category checkbox group */
 .checkboxGroup {
     display: flex;
@@ -416,6 +463,11 @@
     cursor: pointer;
     transition: all 0.15s;
     user-select: none;
+}
+
+.checkboxChip:hover {
+    border-color: var(--color-gray-50);
+    color: var(--color-gray-20);
 }
 
 .checkboxChipActive {
@@ -496,6 +548,134 @@
 /* ========================
    Dashboard
    ======================== */
+
+/* Stats Cards Grid */
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.statCard {
+    background-color: var(--color-gray-90);
+    border: 1px solid var(--color-gray-80);
+    padding: 20px 20px 16px;
+    text-decoration: none;
+    display: block;
+    transition: border-color 0.15s, background-color 0.15s;
+    cursor: pointer;
+}
+
+.statCard:hover {
+    border-color: var(--color-gray-50);
+    background-color: var(--color-gray-80);
+}
+
+.statCardStatic {
+    cursor: default;
+}
+
+.statCardStatic:hover {
+    border-color: var(--color-gray-80);
+    background-color: var(--color-gray-90);
+}
+
+.statLabel {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-gray-50);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.statValue {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--color-gray-10);
+    line-height: 1;
+    margin-bottom: 10px;
+    font-family: var(--font-nanumsquareneo), system-ui;
+}
+
+.statSub {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 18px;
+}
+
+.statSubItem {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* Status Bar */
+.statusBarWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.statusBar {
+    display: flex;
+    height: 6px;
+    background-color: var(--color-gray-80);
+    overflow: hidden;
+    gap: 2px;
+}
+
+.statusBarSegmentPublished {
+    background-color: #42be65;
+    transition: flex 0.3s;
+}
+
+.statusBarSegmentUnlisted {
+    background-color: var(--color-red-50);
+    transition: flex 0.3s;
+}
+
+.statusBarSegmentPrivate {
+    background-color: var(--color-gray-60);
+    transition: flex 0.3s;
+}
+
+.statusBarLegend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.legendItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--color-gray-40);
+}
+
+.legendDotPublished,
+.legendDotUnlisted,
+.legendDotPrivate {
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+    border-radius: 0;
+}
+
+.legendDotPublished {
+    background-color: #42be65;
+}
+
+.legendDotUnlisted {
+    background-color: var(--color-red-50);
+}
+
+.legendDotPrivate {
+    background-color: var(--color-gray-60);
+}
+
 .sectionGroup {
     margin-bottom: 40px;
 }
@@ -524,7 +704,7 @@
 }
 
 .sectionMoreLink:hover {
-    color: var(--color-gray-20);
+    color: var(--color-gray-10);
 }
 
 
@@ -604,6 +784,11 @@
     transition: all 0.15s;
     text-transform: uppercase;
     letter-spacing: 0.3px;
+}
+
+.editorTabBtn:hover:not(.editorTabBtnActive) {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--color-gray-20);
 }
 
 .editorTabBtnActive {
@@ -808,8 +993,8 @@
 }
 
 .orphanToggle:hover {
-    background-color: rgba(255, 255, 255, 0.03);
-    color: var(--color-gray-20);
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--color-gray-10);
 }
 
 .orphanIcon {
@@ -852,7 +1037,7 @@
 }
 
 .orphanThumb:hover {
-    border-color: var(--color-gray-60);
+    border-color: var(--color-gray-50);
     opacity: 0.85;
 }
 
@@ -891,7 +1076,7 @@
 }
 
 .orphanDeleteBtn:disabled {
-    opacity: 0.4;
+    opacity: 0.5;
     cursor: not-allowed;
 }
 
@@ -989,6 +1174,10 @@
     .mainContent {
         padding: 32px 32px;
     }
+
+    .statsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 1024px) {
@@ -1001,6 +1190,9 @@
         max-width: calc(100vw - 200px);
     }
 
+    .statsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 768px) {
@@ -1211,7 +1403,7 @@
     }
 
     .drawerNavLink:active {
-        background-color: rgba(255, 255, 255, 0.04);
+        background-color: rgba(255, 255, 255, 0.05);
         color: var(--color-gray-10);
     }
 
@@ -1274,5 +1466,38 @@
         font-size: 24px;
         align-self: flex-start;
         width: 100%;
+    }
+
+    /* Stats grid: 2 columns on mobile */
+    .statsGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 24px;
+    }
+
+    .statCard {
+        padding: 16px 14px 12px;
+    }
+
+    .statValue {
+        font-size: 28px;
+        margin-bottom: 8px;
+    }
+
+    .statLabel {
+        margin-bottom: 8px;
+    }
+
+    .statSubItem {
+        font-size: 11px;
+    }
+
+    /* Status bar legend: wrap nicely */
+    .statusBarLegend {
+        gap: 12px;
+    }
+
+    .legendItem {
+        font-size: 11px;
     }
 }

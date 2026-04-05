@@ -17,6 +17,7 @@ export default function AdminDashboardPage() {
     const router = useRouter();
     const [recentPosts, setRecentPosts] = useState([]);
     const [recentComments, setRecentComments] = useState([]);
+    const [stats, setStats] = useState(null);
     const [loading, setLoading] = useState(true);
     const [deletingPost, setDeletingPost] = useState(null);
     const [deletingComment, setDeletingComment] = useState(null);
@@ -24,7 +25,14 @@ export default function AdminDashboardPage() {
     useEffect(() => {
         const fetchAll = async () => {
             try {
-                const [recentPostsResult, recentCommentsResult] = await Promise.all([
+                const [
+                    recentPostsResult,
+                    recentCommentsResult,
+                    allPostsResult,
+                    commentsCountResult,
+                    projectsResult,
+                    techSkillsResult,
+                ] = await Promise.all([
                     supabase
                         .from('posts')
                         .select('id, title, status, created_at, post_categories(categories(name))')
@@ -35,10 +43,45 @@ export default function AdminDashboardPage() {
                         .select('*, posts(title)')
                         .order('created_at', {ascending: false})
                         .limit(5),
+                    supabase
+                        .from('posts')
+                        .select('id, status'),
+                    supabase
+                        .from('comments')
+                        .select('id', {count: 'exact', head: true}),
+                    supabase
+                        .from('project')
+                        .select('id, category'),
+                    supabase
+                        .from('tech_skills')
+                        .select('id', {count: 'exact', head: true}),
                 ]);
 
                 setRecentPosts(recentPostsResult.data || []);
                 setRecentComments(recentCommentsResult.data || []);
+
+                const allPosts = allPostsResult.data || [];
+                const publishedCount = allPosts.filter(p => p.status === 'published').length;
+                const unlistedCount = allPosts.filter(p => p.status === 'unlisted').length;
+                const privateCount = allPosts.filter(p => p.status === 'private').length;
+
+                const allProjects = projectsResult.data || [];
+                const projectByCategory = allProjects.reduce((acc, p) => {
+                    const cat = p.category || '기타';
+                    acc[cat] = (acc[cat] || 0) + 1;
+                    return acc;
+                }, {});
+
+                setStats({
+                    totalPosts: allPosts.length,
+                    publishedPosts: publishedCount,
+                    unlistedPosts: unlistedCount,
+                    privatePosts: privateCount,
+                    totalComments: commentsCountResult.count || 0,
+                    totalProjects: allProjects.length,
+                    totalSkills: techSkillsResult.count || 0,
+                    projectByCategory,
+                });
             } catch (err) {
                 console.error('대시보드 로딩 실패:', err);
             } finally {
@@ -102,6 +145,116 @@ export default function AdminDashboardPage() {
                 <div className={styles.loading}>로딩 중...</div>
             ) : (
                 <>
+                    {/* ── 통계 카드 ── */}
+                    <div className={styles.statsGrid}>
+                        <Link href="/admin/posts" className={styles.statCard}>
+                            <div className={styles.statLabel}>총 포스트</div>
+                            <div className={styles.statValue}>{stats?.totalPosts ?? 0}</div>
+                            <div className={styles.statSub}>
+                                <span className={styles.statSubItem} style={{color: '#42be65'}}>
+                                    게시됨 {stats?.publishedPosts ?? 0}
+                                </span>
+                                {stats?.unlistedPosts > 0 && (
+                                    <span className={styles.statSubItem} style={{color: 'var(--color-red-50)'}}>
+                                        일부공개 {stats.unlistedPosts}
+                                    </span>
+                                )}
+                                {stats?.privatePosts > 0 && (
+                                    <span className={styles.statSubItem} style={{color: 'var(--color-gray-50)'}}>
+                                        비공개 {stats.privatePosts}
+                                    </span>
+                                )}
+                            </div>
+                        </Link>
+
+                        <Link href="/admin/comments" className={styles.statCard}>
+                            <div className={styles.statLabel}>총 댓글</div>
+                            <div className={styles.statValue}>{stats?.totalComments ?? 0}</div>
+                            <div className={styles.statSub}>
+                                <span className={styles.statSubItem} style={{color: 'var(--color-gray-60)'}}>
+                                    {recentComments.length > 0 ? `최근 ${recentComments.length}개` : '댓글 없음'}
+                                </span>
+                            </div>
+                        </Link>
+
+                        <Link href="/admin/projects" className={styles.statCard}>
+                            <div className={styles.statLabel}>총 프로젝트</div>
+                            <div className={styles.statValue}>{stats?.totalProjects ?? 0}</div>
+                            <div className={styles.statSub}>
+                                {stats?.projectByCategory &&
+                                    Object.entries(stats.projectByCategory).map(([cat, cnt]) => (
+                                        <span key={cat} className={styles.statSubItem}
+                                              style={{color: 'var(--color-gray-50)'}}>
+                                            {cat} {cnt}
+                                        </span>
+                                    ))}
+                            </div>
+                        </Link>
+
+                        <div className={`${styles.statCard} ${styles.statCardStatic}`}>
+                            <div className={styles.statLabel}>기술 스택</div>
+                            <div className={styles.statValue}>{stats?.totalSkills ?? 0}</div>
+                            <div className={styles.statSub}>
+                                <span className={styles.statSubItem} style={{color: 'var(--color-gray-60)'}}>
+                                    등록된 스킬
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* ── 포스트 상태 분포 바 ── */}
+                    {stats && stats.totalPosts > 0 && (
+                        <div className={styles.sectionGroup}>
+                            <div className={styles.dashboardSectionHeader}>
+                                <div className={styles.sectionGroupTitle}>포스트 상태</div>
+                            </div>
+                            <div className={styles.statusBarWrapper}>
+                                <div className={styles.statusBar}>
+                                    {stats.publishedPosts > 0 && (
+                                        <div
+                                            className={styles.statusBarSegmentPublished}
+                                            style={{flex: stats.publishedPosts}}
+                                            title={`게시됨 ${stats.publishedPosts}개`}
+                                        />
+                                    )}
+                                    {stats.unlistedPosts > 0 && (
+                                        <div
+                                            className={styles.statusBarSegmentUnlisted}
+                                            style={{flex: stats.unlistedPosts}}
+                                            title={`일부공개 ${stats.unlistedPosts}개`}
+                                        />
+                                    )}
+                                    {stats.privatePosts > 0 && (
+                                        <div
+                                            className={styles.statusBarSegmentPrivate}
+                                            style={{flex: stats.privatePosts}}
+                                            title={`비공개 ${stats.privatePosts}개`}
+                                        />
+                                    )}
+                                </div>
+                                <div className={styles.statusBarLegend}>
+                                    <span className={styles.legendItem}>
+                                        <span className={styles.legendDotPublished}/>
+                                        게시됨 {stats.publishedPosts}
+                                    </span>
+                                    {stats.unlistedPosts > 0 && (
+                                        <span className={styles.legendItem}>
+                                            <span className={styles.legendDotUnlisted}/>
+                                            일부공개 {stats.unlistedPosts}
+                                        </span>
+                                    )}
+                                    {stats.privatePosts > 0 && (
+                                        <span className={styles.legendItem}>
+                                            <span className={styles.legendDotPrivate}/>
+                                            비공개 {stats.privatePosts}
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* ── 최근 포스트 ── */}
                     <div className={styles.sectionGroup}>
                         <div className={styles.dashboardSectionHeader}>
                             <div className={styles.sectionGroupTitle}>최근 포스트</div>
@@ -172,6 +325,7 @@ export default function AdminDashboardPage() {
                         </div>
                     </div>
 
+                    {/* ── 최근 댓글 ── */}
                     <div className={styles.sectionGroup}>
                         <div className={styles.dashboardSectionHeader}>
                             <div className={styles.sectionGroupTitle}>최근 댓글</div>

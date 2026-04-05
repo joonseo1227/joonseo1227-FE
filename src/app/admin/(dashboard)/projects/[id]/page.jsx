@@ -302,14 +302,8 @@ export default function AdminProjectEditorPage() {
                     <div className={styles.formGroup}>
                         <label className={styles.label}>기술 스택</label>
                         {Object.entries(techByCategory).map(([cat, techs]) => (
-                            <div key={cat} style={{marginBottom: 10}}>
-                                <div style={{
-                                    fontSize: 11,
-                                    color: 'var(--color-gray-60)',
-                                    marginBottom: 6,
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '0.3px'
-                                }}>{cat}</div>
+                            <div key={cat} className={styles.techCategoryGroup}>
+                                <div className={styles.techCategoryLabel}>{cat}</div>
                                 <div className={styles.checkboxGroup}>
                                     {techs.map(t => (
                                         <button key={t.id} type="button" onClick={() => toggleTech(t.id)}

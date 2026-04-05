@@ -39,7 +39,7 @@ export default function AdminCommentsPage() {
     return (
         <>
             <div className={styles.pageHeader}>
-                <h1 className={styles.pageTitle}>댓글 관리</h1>
+                <h1 className={styles.pageTitle}>댓글</h1>
             </div>
 
             {loading ? (
