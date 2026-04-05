@@ -209,6 +209,7 @@ export default function AdminPostEditorPage() {
     const router = useRouter();
     const isNew = params.id === 'new';
     const contentRef = useRef(null);
+    const previewPaneRef = useRef(null);
 
     const [form, setForm] = useState(defaultForm);
     const [categories, setCategories] = useState([]);
@@ -219,6 +220,37 @@ export default function AdminPostEditorPage() {
     const [isDragging, setIsDragging] = useState(false);
     const [activeTab, setActiveTab] = useState('edit');
     const [message, setMessage] = useState(null);
+
+    const handleSyncScroll = () => {
+        const textarea = contentRef.current;
+        const previewPane = previewPaneRef.current;
+        if (!textarea || !previewPane) return;
+
+        const cursorPosition = textarea.selectionStart;
+        const textBeforeCursor = textarea.value.substring(0, cursorPosition);
+        const currentLine = textBeforeCursor.split('\n').length;
+
+        const elementsWithLine = Array.from(previewPane.querySelectorAll('[data-line]'));
+        if (elementsWithLine.length === 0) return;
+
+        let targetElement = null;
+        let maxLine = -1;
+
+        for (const el of elementsWithLine) {
+            const line = parseInt(el.getAttribute('data-line'), 10);
+            if (line <= currentLine && line > maxLine) {
+                maxLine = line;
+                targetElement = el;
+            }
+        }
+
+        if (targetElement) {
+            const paneRect = previewPane.getBoundingClientRect();
+            const elRect = targetElement.getBoundingClientRect();
+            const offset = elRect.top - paneRect.top + previewPane.scrollTop - 20; // 20px padding
+            previewPane.scrollTo({ top: offset, behavior: 'smooth' });
+        }
+    };
 
     useEffect(() => {
         supabase.from('categories').select('*').order('name')
@@ -542,7 +574,14 @@ export default function AdminPostEditorPage() {
                         <div
                             className={`${styles.editorEditPane} ${activeTab === 'preview' ? styles.editorPaneHidden : ''}`}>
                             <textarea ref={contentRef} id="content" name="content"
-                                      value={form.content} onChange={handleChange} onPaste={handleContentPaste}
+                                      value={form.content}
+                                      onChange={(e) => {
+                                          handleChange(e);
+                                          handleSyncScroll();
+                                      }}
+                                      onKeyUp={handleSyncScroll}
+                                      onClick={handleSyncScroll}
+                                      onPaste={handleContentPaste}
                                       onDragOver={handleContentDragOver} onDragLeave={handleContentDragLeave}
                                       onDrop={handleContentDrop}
                                       className={`${styles.textarea} ${styles.textareaSplit} ${styles.textareaCode} ${isDragging ? styles.textareaDragging : ''}`}
@@ -550,6 +589,7 @@ export default function AdminPostEditorPage() {
                                       disabled={pasteLoading}/>
                         </div>
                         <div
+                            ref={previewPaneRef}
                             className={`${styles.editorPreviewPane} ${activeTab === 'edit' ? styles.editorPaneHidden : ''}`}>
                             {form.content
                                 ? <div className={styles.previewBody}><MarkdownContent content={form.content}/></div>
