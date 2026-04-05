@@ -1,21 +1,18 @@
 import {NextResponse} from 'next/server';
-import {cookies} from 'next/headers';
-import {createClient} from '@supabase/supabase-js';
+import {getAdminClient, unauthorized, verifyAdmin} from '@/lib/adminAuth';
 
-function getAdminDb() {
-    return createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL,
-        process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_KEY,
-    );
+const ALLOWED_FOLDER_PREFIXES = ['posts/', 'projects/'];
+
+function isValidFolder(folder) {
+    if (!folder || typeof folder !== 'string') return false;
+    if (!ALLOWED_FOLDER_PREFIXES.some(p => folder.startsWith(p))) return false;
+    if (folder.includes('..') || folder.includes('//')) return false;
+    return true;
 }
 
 // GET /api/admin/orphan-images?folder=posts/my-post-id
 export async function GET(request) {
-    const cookieStore = await cookies();
-    const token = cookieStore.get('admin_token')?.value;
-    if (!token || token !== process.env.ADMIN_PASSWORD) {
-        return NextResponse.json({error: 'Unauthorized'}, {status: 401});
-    }
+    if (!await verifyAdmin()) return unauthorized();
 
     const {searchParams} = new URL(request.url);
     const folder = searchParams.get('folder');
@@ -23,7 +20,11 @@ export async function GET(request) {
         return NextResponse.json({error: 'folder required'}, {status: 400});
     }
 
-    const db = getAdminDb();
+    if (!isValidFolder(folder)) {
+        return NextResponse.json({error: 'Invalid folder'}, {status: 400});
+    }
+
+    const db = getAdminClient();
     const {data, error} = await db.storage.from('images').list(folder, {limit: 500});
     if (error) {
         return NextResponse.json({error: error.message}, {status: 500});

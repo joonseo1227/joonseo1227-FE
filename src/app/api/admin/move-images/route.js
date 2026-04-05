@@ -1,12 +1,13 @@
 import {NextResponse} from 'next/server';
-import {cookies} from 'next/headers';
-import {createClient} from '@supabase/supabase-js';
+import {getAdminClient, unauthorized, verifyAdmin} from '@/lib/adminAuth';
 
-async function getAdminDb() {
-    return createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL,
-        process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_KEY,
-    );
+const ALLOWED_FOLDER_PREFIXES = ['posts/', 'projects/'];
+
+function isValidFolder(folder) {
+    if (!folder || typeof folder !== 'string') return false;
+    if (!ALLOWED_FOLDER_PREFIXES.some(p => folder.startsWith(p))) return false;
+    if (folder.includes('..') || folder.includes('//')) return false;
+    return true;
 }
 
 // Extract storage path from a public URL
@@ -22,37 +23,34 @@ function urlToStoragePath(url, supabaseUrl) {
 // Body: { urls: string[], targetFolder: string }
 // Returns: { urlMap: { [oldUrl]: newUrl } }
 export async function POST(request) {
-    const cookieStore = await cookies();
-    const token = cookieStore.get('admin_token')?.value;
-    if (!token || token !== process.env.ADMIN_PASSWORD) {
-        return NextResponse.json({error: 'Unauthorized'}, {status: 401});
-    }
+    if (!await verifyAdmin()) return unauthorized();
 
     const {urls, targetFolder} = await request.json();
     if (!Array.isArray(urls) || !targetFolder) {
         return NextResponse.json({error: 'urls and targetFolder required'}, {status: 400});
     }
 
+    if (!isValidFolder(targetFolder)) {
+        return NextResponse.json({error: 'Invalid targetFolder'}, {status: 400});
+    }
+
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const db = await getAdminDb();
+    const db = getAdminClient();
     const urlMap = {};
 
     await Promise.all(urls.map(async (oldUrl) => {
         const fromPath = urlToStoragePath(oldUrl, supabaseUrl);
         if (!fromPath) return;
 
-        // e.g. "posts/misc/1234567890.webp" → filename "1234567890.webp"
         const filename = fromPath.split('/').pop();
         const toPath = `${targetFolder}/${filename}`;
 
-        // copy to new location
         const {error: copyError} = await db.storage.from('images').copy(fromPath, toPath);
         if (copyError) {
             console.error('copy error', fromPath, '->', toPath, copyError);
             return;
         }
 
-        // delete original
         const {error: removeError} = await db.storage.from('images').remove([fromPath]);
         if (removeError) {
             console.error('remove error', fromPath, removeError);

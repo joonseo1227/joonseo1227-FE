@@ -1,11 +1,12 @@
 import {cookies} from 'next/headers';
 import {createClient} from '@supabase/supabase-js';
 import {NextResponse} from 'next/server';
+import {verifyAdminToken} from './adminToken';
 
 export async function verifyAdmin() {
     const cookieStore = await cookies();
     const token = cookieStore.get('admin_token')?.value;
-    return token === process.env.ADMIN_PASSWORD;
+    return verifyAdminToken(token, process.env.ADMIN_PASSWORD);
 }
 
 export function getAdminClient() {

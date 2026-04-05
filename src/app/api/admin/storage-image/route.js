@@ -1,22 +1,10 @@
 import {NextResponse} from 'next/server';
-import {cookies} from 'next/headers';
-import {createClient} from '@supabase/supabase-js';
-
-function getAdminDb() {
-    return createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL,
-        process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_KEY,
-    );
-}
+import {getAdminClient, unauthorized, verifyAdmin} from '@/lib/adminAuth';
 
 // DELETE /api/admin/storage-image
 // Body: { path: "posts/my-post-id/123.webp" }
 export async function DELETE(request) {
-    const cookieStore = await cookies();
-    const token = cookieStore.get('admin_token')?.value;
-    if (!token || token !== process.env.ADMIN_PASSWORD) {
-        return NextResponse.json({error: 'Unauthorized'}, {status: 401});
-    }
+    if (!await verifyAdmin()) return unauthorized();
 
     const {path} = await request.json();
     if (!path || typeof path !== 'string') {
@@ -28,7 +16,11 @@ export async function DELETE(request) {
         return NextResponse.json({error: 'Invalid path'}, {status: 400});
     }
 
-    const db = getAdminDb();
+    if (path.includes('..') || path.includes('//')) {
+        return NextResponse.json({error: 'Invalid path'}, {status: 400});
+    }
+
+    const db = getAdminClient();
     const {error} = await db.storage.from('images').remove([path]);
     if (error) {
         return NextResponse.json({error: error.message}, {status: 500});
