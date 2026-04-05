@@ -5,7 +5,7 @@ import styles from '@/styles/pages/AdminPage.module.css';
 
 const normalizeUrl = (url) => url?.split('?')[0] ?? '';
 
-export default function OrphanImages({folder, referencedUrls}) {
+export default function OrphanImages({folder, referencedUrls, onImageDragStart, onImageDragEnd, onInsertImage}) {
     const [open, setOpen] = useState(false);
     const [images, setImages] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -78,7 +78,9 @@ export default function OrphanImages({folder, referencedUrls}) {
                             onDragStart={(e) => {
                                 e.dataTransfer.setData('application/x-orphan-image-url', img.url);
                                 e.dataTransfer.effectAllowed = 'copy';
+                                onImageDragStart?.();
                             }}
+                            onDragEnd={() => onImageDragEnd?.()}
                         >
                             <img
                                 src={img.url}
@@ -87,6 +89,20 @@ export default function OrphanImages({folder, referencedUrls}) {
                                 onClick={() => window.open(img.url, '_blank', 'noopener,noreferrer')}
                                 title="클릭하여 원본 보기"
                             />
+                            {onInsertImage && (
+                                <button
+                                    type="button"
+                                    className={styles.orphanInsertBtn}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        onInsertImage(img.url);
+                                    }}
+                                    title="본문에 삽입"
+                                    aria-label="본문에 삽입"
+                                >
+                                    +
+                                </button>
+                            )}
                             <button
                                 type="button"
                                 className={styles.orphanDeleteBtn}

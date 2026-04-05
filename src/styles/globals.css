@@ -198,3 +198,10 @@ p {
     outline: 2px solid var(--color-text-primary);
     outline-offset: 2px;
 }
+
+/* BlockNote: container (editorContainer) handles horizontal spacing */
+.bn-editor {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    background: transparent !important;
+}

@@ -1080,6 +1080,38 @@
     cursor: not-allowed;
 }
 
+.orphanInsertBtn {
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    width: 20px;
+    height: 20px;
+    border-radius: 0;
+    background-color: var(--color-gray-80);
+    border: 1px solid var(--color-gray-70);
+    color: var(--color-gray-20);
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.orphanInsertBtn:hover {
+    background-color: var(--color-gray-60);
+    border-color: var(--color-gray-60);
+    color: #fff;
+}
+
+@media (pointer: coarse) {
+    .orphanInsertBtn {
+        display: flex;
+    }
+}
+
 .orphanSize {
     display: block;
     text-align: center;
@@ -1499,5 +1531,441 @@
 
     .legendItem {
         font-size: 11px;
+    }
+}
+
+/* ========================
+   Notion-style Full Screen Editor
+   ======================== */
+
+.fullScreenEditorLayout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--color-bg);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.editorToolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    height: 60px;
+    background-color: var(--color-gray-90);
+    border-bottom: 1px solid var(--color-gray-80);
+    flex-shrink: 0;
+}
+
+.toolbarLeft, .toolbarRight {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.toolbarIconBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    color: var(--color-gray-50);
+    cursor: pointer;
+    transition: color 0.15s, background-color 0.15s;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.toolbarIconBtn:hover {
+    color: var(--color-gray-10);
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.toolbarIconBtnActive {
+    color: var(--color-gray-10);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.toolbarIconBtnPrimary {
+    color: var(--color-gray-20);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.toolbarIconBtnPrimary:hover {
+    color: var(--color-gray-10);
+    background-color: rgba(255, 255, 255, 0.16);
+}
+
+.toolbarIconBtnPrimary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.toolbarDivider {
+    width: 1px;
+    height: 18px;
+    background-color: var(--color-gray-80);
+    flex-shrink: 0;
+}
+
+.toolbarStatusBadge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 0;
+    font-size: 11px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: filter 0.15s;
+    user-select: none;
+}
+
+.toolbarStatusBadge:hover {
+    filter: brightness(1.2);
+}
+
+.statusDropdownWrapper {
+    position: relative;
+}
+
+.statusDropdownOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+}
+
+.statusDropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    z-index: 101;
+    background-color: var(--color-gray-90);
+    border: 1px solid var(--color-gray-80);
+    display: flex;
+    flex-direction: column;
+    min-width: 100px;
+}
+
+.statusDropdownItem {
+    padding: 7px 14px;
+    font-size: 11px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: filter 0.15s;
+    opacity: 0.5;
+}
+
+.statusDropdownItem:hover {
+    opacity: 0.85;
+}
+
+.statusDropdownItemActive {
+    opacity: 1;
+}
+
+.toolbarStatusPublished {
+    background-color: rgba(66, 190, 101, 0.15);
+    color: #42be65;
+}
+
+.toolbarStatusUnlisted {
+    background-color: rgba(250, 77, 86, 0.15);
+    color: var(--color-red-50);
+}
+
+.toolbarStatusPrivate {
+    background-color: rgba(111, 111, 111, 0.2);
+    color: var(--color-gray-40);
+}
+
+.toolbarSaveBtn {
+    gap: 6px;
+}
+
+.toolbarMessage {
+    font-size: 12px;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.editorToast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 6px;
+    z-index: 9999;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.editorToastSuccess {
+    background-color: rgba(66, 190, 101, 0.12);
+    color: #42be65;
+    border: 1px solid rgba(66, 190, 101, 0.25);
+}
+
+.editorToastError {
+    background-color: rgba(250, 77, 86, 0.12);
+    color: var(--color-red-50);
+    border: 1px solid rgba(250, 77, 86, 0.25);
+}
+
+.textGreen {
+    color: #42be65;
+}
+
+.textRed {
+    color: var(--color-red-50);
+}
+
+.textGray {
+    color: var(--color-gray-50);
+}
+
+.hideOnMobile {
+    display: inline-flex;
+}
+
+@media (max-width: 480px) {
+    .hideOnMobile {
+        display: none;
+    }
+
+    .editorToolbar {
+        padding: 8px 12px;
+        height: 52px;
+    }
+
+    .toolbarLeft,
+    .toolbarRight {
+        gap: 4px;
+    }
+
+    .toolbarIconBtn {
+        width: 32px;
+        height: 32px;
+    }
+
+    .toolbarStatusBadge {
+        font-size: 10px;
+        padding: 2px 7px;
+    }
+
+    .editorToast {
+        bottom: 16px;
+        font-size: 12px;
+        padding: 7px 14px;
+        max-width: calc(100vw - 32px);
+        white-space: normal;
+        text-align: center;
+    }
+}
+
+.editorMainArea {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0 100px;
+}
+
+.editorContainer {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 54px; /* single source of horizontal spacing */
+}
+
+.editorTitleInput {
+    margin-top: 10vh;
+    margin-bottom: 24px;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    outline: none;
+    line-height: 1.3;
+    font-family: inherit;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    cursor: text;
+    width: 100%;
+    flex-shrink: 0;
+    display: block;
+    white-space: pre-wrap;
+}
+
+.editorTitleInput:empty::before {
+    content: attr(data-placeholder);
+    color: var(--color-gray-60);
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .editorTitleInput {
+        font-size: 32px;
+        margin-top: 5vh;
+        margin-bottom: 16px;
+    }
+
+    .editorContainer {
+        padding: 0 16px;
+    }
+
+    .editorMainArea {
+        padding: 24px 0 80px;
+    }
+
+    .editorToolbar {
+        height: auto;
+        min-height: 52px;
+        padding: 10px 16px;
+        flex-wrap: wrap;
+        gap: 6px;
+        row-gap: 8px;
+    }
+
+    .toolbarRight {
+        gap: 6px;
+    }
+
+    .toolbarStatusBadge {
+        font-size: 12px;
+    }
+}
+
+/* Sidebar overlay for Metadata */
+.metadataSidebarWrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2000;
+    pointer-events: none;
+}
+
+.metadataSidebarOpen {
+    pointer-events: auto;
+}
+
+.metadataSidebarOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.metadataSidebarOpen .metadataSidebarOverlay {
+    opacity: 1;
+}
+
+.metadataSidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 320px;
+    background-color: var(--color-gray-100);
+    border-left: 1px solid var(--color-gray-80);
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.metadataSidebarOpen .metadataSidebar {
+    transform: translateX(0);
+}
+
+.metadataSidebarHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--color-gray-80);
+}
+
+.metadataSidebarTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-gray-10);
+    margin: 0;
+}
+
+.metadataSidebarCloseBtn {
+    background: none;
+    border: none;
+    color: var(--color-gray-40);
+    font-size: 18px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+}
+
+.metadataSidebarCloseBtn:hover {
+    color: var(--color-gray-10);
+}
+
+.metadataSidebarContent {
+    padding: 24px;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+@media (max-width: 480px) {
+    .metadataSidebar {
+        width: 100%;
+    }
+
+    .editorToolbar {
+        padding: 8px 12px;
+        gap: 4px;
+        row-gap: 6px;
+    }
+
+    .toolbarRight {
+        gap: 4px;
+    }
+
+    .metadataSidebarHeader {
+        padding: 12px 16px;
+    }
+
+    .metadataSidebarCloseBtn {
+        padding: 8px;
+        min-width: 36px;
+        min-height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .metadataSidebarContent {
+        padding: 16px;
+        gap: 16px;
     }
 }

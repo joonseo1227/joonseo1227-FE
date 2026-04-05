@@ -8,7 +8,7 @@
     -webkit-backdrop-filter: blur(64px);
     display: flex;
     flex-direction: column;
-    padding-left: 16px;
+    padding: 0 16px;
     height: var(--header-height);
 }
 
@@ -112,15 +112,15 @@
     align-items: center;
     justify-content: center;
     height: 100%;
-    gap: 2rem;
+    gap: clamp(1rem, 4vh, 2rem);
 }
 
 .mobileLink {
     text-decoration: none;
     color: var(--color-base-1);
     font-weight: 600;
-    font-size: 48px;
-    padding: 1rem 2rem;
+    font-size: clamp(32px, 10vw, 48px);
+    padding: clamp(0.5rem, 2vh, 1rem) 2rem;
     display: block;
     transition: color 0.2s ease-out;
     -webkit-tap-highlight-color: transparent;
@@ -145,14 +145,13 @@
     }
 
     .headerWrapper {
-        padding-left: 0;
+        padding: 0;
     }
 
     .logoSection {
         width: 100%;
         justify-content: space-between;
-        padding-right: 0;
-        gap: 8px;
+        gap: 0;
     }
 
     .themeToggleSection {
@@ -161,7 +160,6 @@
 
     .mobileThemeToggle {
         display: flex;
-        margin-left: auto;
     }
 
     /* Hide PC Navigation on Mobile */

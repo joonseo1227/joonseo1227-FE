@@ -17,6 +17,7 @@ function remarkSourceLine() {
                 node.children.forEach(visit);
             }
         }
+
         visit(tree);
     };
 }
