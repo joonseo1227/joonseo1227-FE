@@ -21,7 +21,7 @@ export async function generateStaticParams() {
     const {data: posts} = await supabase
         .from('posts')
         .select('id')
-        .eq('is_published', true);
+        .in('status', ['published', 'unlisted']);
 
     return posts?.map(({id}) => ({id})) || [];
 }

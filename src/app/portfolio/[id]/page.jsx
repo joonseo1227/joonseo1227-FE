@@ -24,7 +24,6 @@ const FadeInView = ({children, delay = 0}) => {
 
 const MagneticButton = ({children, className, href, target, rel}) => {
     const ref = useRef(null);
-    const [isHovered, setIsHovered] = useState(false);
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
@@ -45,7 +44,6 @@ const MagneticButton = ({children, className, href, target, rel}) => {
     };
 
     const handleMouseLeave = () => {
-        setIsHovered(false);
         x.set(0);
         y.set(0);
     };
@@ -58,7 +56,6 @@ const MagneticButton = ({children, className, href, target, rel}) => {
             rel={rel}
             className={className}
             onMouseMove={handleMouseMove}
-            onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={handleMouseLeave}
             style={{x: springX, y: springY}}
             whileHover={{scale: 1.05}}
