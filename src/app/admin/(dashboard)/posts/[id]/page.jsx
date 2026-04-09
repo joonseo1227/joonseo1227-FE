@@ -35,6 +35,7 @@ export default function AdminPostEditorPage() {
     const editorRef = useRef(null);
     const titleRef = useRef(null);
     const [form, setForm] = useState(defaultForm);
+    const [originalId, setOriginalId] = useState(null);
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [loading, setLoading] = useState(!isNew);
@@ -67,6 +68,7 @@ export default function AdminPostEditorPage() {
                     thumbnail_url: data.thumbnail_url || '',
                     status: data.status || 'private',
                 });
+                setOriginalId(data.id || '');
                 const cats = data.post_categories;
                 const catItem = Array.isArray(cats) ? cats[0] : cats;
                 setSelectedCategory(catItem?.category_id ?? null);
@@ -91,6 +93,18 @@ export default function AdminPostEditorPage() {
             }
             return {...prev, [name]: value};
         });
+    };
+
+    // 기존 포스트 슬러그 변경 처리
+    const handleSlugRename = async (oldSlug, newSlug) => {
+        const res = await fetch(`/api/admin/posts/${oldSlug}/rename-slug`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({newSlug}),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+        return data;
     };
 
     // contentEditable title handlers
@@ -125,14 +139,14 @@ export default function AdminPostEditorPage() {
 
     // Upload an image via BlockNote integration
     const handleImageUpload = useCallback(async (file) => {
-        const folder = isNew ? 'posts/misc' : `posts/${params.id}`;
+        const folder = isNew ? 'posts/misc' : `posts/${form.id || params.id}`;
         const formData = new FormData();
         formData.append('file', file);
         formData.append('folder', folder);
         const res = await fetch('/api/admin/upload-image', {method: 'POST', body: formData});
         if (!res.ok) throw new Error('업로드 실패');
         return (await res.json()).url;
-    }, [isNew, params.id]);
+    }, [isNew, params.id, form.id]);
 
     const purgeMiscFolder = async () => {
         try {
@@ -182,6 +196,21 @@ export default function AdminPostEditorPage() {
         setMessage(null);
         try {
             const {_idManuallyEdited, ...postData} = form;
+
+            // 기존 포스트의 슬러그가 변경된 경우: rename-slug 먼저 처리
+            if (!isNew && originalId && postData.id !== originalId) {
+                const {urlMap} = await handleSlugRename(originalId, postData.id);
+                // rename-slug가 스토리지 이동 + DB PK 변경까지 완료
+                // 이후 PUT이 구 URL로 덮어쓰지 않도록 postData에도 URL 반영
+                if (urlMap && Object.keys(urlMap).length > 0) {
+                    for (const [oldUrl, newUrl] of Object.entries(urlMap)) {
+                        if (postData.thumbnail_url === oldUrl) postData.thumbnail_url = newUrl;
+                        if (postData.content) postData.content = postData.content.replaceAll(oldUrl, newUrl);
+                    }
+                    setForm(prev => ({...prev, content: postData.content, thumbnail_url: postData.thumbnail_url}));
+                }
+            }
+
             const body = {post: postData, categoryId: selectedCategory};
             let res;
             if (isNew) {
@@ -191,7 +220,7 @@ export default function AdminPostEditorPage() {
                     body: JSON.stringify(body)
                 });
             } else {
-                res = await fetch(`/api/admin/posts/${params.id}`, {
+                res = await fetch(`/api/admin/posts/${postData.id}`, {
                     method: 'PUT',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(body)
@@ -217,7 +246,12 @@ export default function AdminPostEditorPage() {
             }
 
             setMessage({type: 'success', text: '저장되었습니다.'});
-            if (isNew) router.replace(`/admin/posts/${data.id}`);
+            if (isNew) {
+                router.replace(`/admin/posts/${data.id}`);
+            } else if (!isNew && originalId && postData.id !== originalId) {
+                setOriginalId(postData.id);
+                router.replace(`/admin/posts/${postData.id}`);
+            }
         } catch (err) {
             setMessage({type: 'error', text: `저장 실패: ${err.message}`});
         } finally {
@@ -342,6 +376,7 @@ export default function AdminPostEditorPage() {
             <AdminPostMetadataSidebar
                 isNew={isNew}
                 form={form}
+                originalId={originalId}
                 categories={categories}
                 selectedCategory={selectedCategory}
                 handleChange={handleChange}

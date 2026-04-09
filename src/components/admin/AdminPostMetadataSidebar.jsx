@@ -15,6 +15,7 @@ const STATUS_OPTIONS = [
 export default function AdminPostMetadataSidebar({
                                                      isNew,
                                                      form,
+                                                     originalId,
                                                      categories,
                                                      selectedCategory,
                                                      handleChange,
@@ -27,6 +28,7 @@ export default function AdminPostMetadataSidebar({
                                                      onImageDragStart,
                                                      onImageDragEnd,
                                                  }) {
+    const slugChanged = !isNew && originalId && form.id !== originalId;
     // When NOT dragging an orphan image, the overlay intercepts drops as a fallback.
     const handleOverlayDragOver = (e) => {
         if (e.dataTransfer.types.includes('application/x-orphan-image-url')) {
@@ -74,9 +76,18 @@ export default function AdminPostMetadataSidebar({
                         </label>
                         <input id="id" name="id" type="text" value={form.id} onChange={handleChange}
                                className={styles.input} placeholder="my-post-slug" required
-                               disabled={!isNew}
-                               style={!isNew ? {opacity: 0.5} : {}}
                         />
+                        {slugChanged && (
+                            <p style={{
+                                marginTop: 6,
+                                fontSize: '0.75rem',
+                                color: 'var(--color-warning, #f59e0b)',
+                                lineHeight: 1.4,
+                            }}>
+                                저장 시 슬러그가 <strong>{originalId}</strong> → <strong>{form.id}</strong>로 변경되며,
+                                본문 이미지 경로도 함께 이동됩니다.
+                            </p>
+                        )}
                     </div>
 
                     <div className={styles.formGroup}>
