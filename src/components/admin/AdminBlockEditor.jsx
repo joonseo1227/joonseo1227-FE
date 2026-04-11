@@ -45,6 +45,46 @@ const AdminBlockEditor = forwardRef(function AdminBlockEditor({initialContent, o
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []); // intentionally empty — editor must only be created once
 
+    // On mobile, BlockNote's paste handler may truncate multi-paragraph text because
+    // some mobile browsers use InputEvent (insertFromPaste) instead of ClipboardEvent,
+    // or don't pass newlines correctly to ProseMirror's paste pipeline.
+    // We intercept paste in the capture phase, and if the clipboard text contains
+    // multiple paragraphs we handle insertion ourselves via tryParseMarkdownToBlocks.
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container || !editor) return;
+
+        const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+        if (!isMobile) return;
+
+        const handlePaste = async (e) => {
+            const text = e.clipboardData?.getData('text/plain');
+            // Only intervene when there are actual paragraph breaks
+            if (!text || !text.includes('\n')) return;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            try {
+                const blocks = await editor.tryParseMarkdownToBlocks(text);
+                const {start} = editor.getTextCursorPosition();
+                editor.insertBlocks(blocks, start.id, 'before');
+            } catch {
+                // Fallback: insert as plain paragraph blocks
+                const paragraphs = text
+                    .split(/\n+/)
+                    .filter(Boolean)
+                    .map((p) => ({type: 'paragraph', content: [{type: 'text', text: p}]}));
+                if (!paragraphs.length) return;
+                const {start} = editor.getTextCursorPosition();
+                editor.insertBlocks(paragraphs, start.id, 'before');
+            }
+        };
+
+        container.addEventListener('paste', handlePaste, true);
+        return () => container.removeEventListener('paste', handlePaste, true);
+    }, [editor]);
+
     // Handle drop of orphan images directly onto the editor (when sidebar is closed).
     // Use capture phase so BlockNote's own drag handlers don't interfere.
     useEffect(() => {
