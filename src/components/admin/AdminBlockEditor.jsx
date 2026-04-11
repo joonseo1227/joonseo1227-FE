@@ -1,6 +1,7 @@
 'use client';
 
 import React, {forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState} from 'react';
+import {redo, undo} from 'prosemirror-history';
 import {BlockNoteView} from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 import "@blocknote/react/style.css";
@@ -79,7 +80,7 @@ const AdminBlockEditor = forwardRef(function AdminBlockEditor({initialContent, o
         };
     }, [editor]);
 
-    // Expose insertImage so parent can call it (e.g., from overlay drop handler)
+    // Expose insertImage, undo, redo so parent can call them
     useImperativeHandle(ref, () => ({
         insertImage: (url) => {
             if (!editor) return;
@@ -90,7 +91,17 @@ const AdminBlockEditor = forwardRef(function AdminBlockEditor({initialContent, o
                 lastBlock,
                 'after'
             );
-        }
+        },
+        undo: () => {
+            const view = editor?._tiptapEditor?.view;
+            if (!view) return;
+            undo(view.state, view.dispatch);
+        },
+        redo: () => {
+            const view = editor?._tiptapEditor?.view;
+            if (!view) return;
+            redo(view.state, view.dispatch);
+        },
     }), [editor]);
 
     // Apply specific Theme for BlockNote to sync colors with our layout

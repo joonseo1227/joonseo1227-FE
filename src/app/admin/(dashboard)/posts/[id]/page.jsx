@@ -3,7 +3,7 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {useParams, useRouter} from 'next/navigation';
 import Link from 'next/link';
-import {ArrowLeft, CloudUpload, Launch, Settings} from '@carbon/icons-react';
+import {ArrowLeft, CloudUpload, Launch, Redo, Settings, Undo} from '@carbon/icons-react';
 import supabase from '@/lib/supabase';
 import AdminBlockEditor from '@/components/admin/AdminBlockEditor';
 import AdminPostMetadataSidebar from '@/components/admin/AdminPostMetadataSidebar';
@@ -285,6 +285,15 @@ export default function AdminPostEditorPage() {
                     <Link href="/admin/posts" className={styles.toolbarIconBtn} title="목록으로">
                         <ArrowLeft size={20}/>
                     </Link>
+                    <div className={styles.toolbarDivider}/>
+                    <button type="button" className={styles.toolbarIconBtn} title="실행 취소 (⌘Z)"
+                            onClick={() => editorRef.current?.undo()}>
+                        <Undo size={20}/>
+                    </button>
+                    <button type="button" className={styles.toolbarIconBtn} title="다시 실행 (⌘⇧Z)"
+                            onClick={() => editorRef.current?.redo()}>
+                        <Redo size={20}/>
+                    </button>
                 </div>
                 <div className={styles.toolbarRight}>
                     <div className={styles.statusDropdownWrapper}>
