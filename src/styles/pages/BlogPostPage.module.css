@@ -108,7 +108,11 @@
 
 .postContent img {
     max-width: 100%;
-    margin: 32px 0;
+    max-height: 600px;
+    width: auto;
+    display: block;
+    margin: 32px auto;
+    object-fit: contain;
 }
 
 .postContent pre {
@@ -322,7 +326,8 @@
     }
 
     .postContent img {
-        margin: 24px 0;
+        max-height: 480px;
+        margin: 24px auto;
     }
 }
 
@@ -403,7 +408,8 @@
     }
 
     .postContent img {
-        margin: 20px 0;
+        max-height: 400px;
+        margin: 20px auto;
     }
 }
 
