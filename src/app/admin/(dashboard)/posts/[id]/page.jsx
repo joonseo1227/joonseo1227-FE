@@ -1,9 +1,9 @@
 'use client';
 
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState} from 'react';
 import {useParams, useRouter} from 'next/navigation';
 import Link from 'next/link';
-import {ArrowLeft, CloudUpload, Launch, Redo, Settings, Undo} from '@carbon/icons-react';
+import {ArrowLeft, CloudUpload, Code, Launch, Redo, Settings, Undo} from '@carbon/icons-react';
 import supabase from '@/lib/supabase';
 import AdminBlockEditor from '@/components/admin/AdminBlockEditor';
 import AdminPostMetadataSidebar from '@/components/admin/AdminPostMetadataSidebar';
@@ -34,6 +34,7 @@ export default function AdminPostEditorPage() {
 
     const editorRef = useRef(null);
     const titleRef = useRef(null);
+    const rawTextareaRef = useRef(null);
     const [form, setForm] = useState(defaultForm);
     const [originalId, setOriginalId] = useState(null);
     const [categories, setCategories] = useState([]);
@@ -44,6 +45,16 @@ export default function AdminPostEditorPage() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isStatusDropdownOpen, setIsStatusDropdownOpen] = useState(false);
     const [isDraggingOrphan, setIsDraggingOrphan] = useState(false);
+    const [editorMode, setEditorMode] = useState('visual'); // 'visual' | 'raw'
+    const [rawContent, setRawContent] = useState('');
+
+    useLayoutEffect(() => {
+        if (editorMode === 'raw' && rawTextareaRef.current) {
+            rawTextareaRef.current.textContent = rawContent;
+        }
+        // rawContent는 모드 진입 시 한 번만 주입 — 이후 편집은 DOM에서 직접 읽음
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [editorMode]);
 
     useEffect(() => {
         supabase.from('categories').select('*').order('name')
@@ -195,7 +206,9 @@ export default function AdminPostEditorPage() {
         setSaving(true);
         setMessage(null);
         try {
-            const {_idManuallyEdited, ...postData} = form;
+            const rawText = rawTextareaRef.current?.innerText ?? rawContent;
+            const currentForm = editorMode === 'raw' ? {...form, content: rawText} : form;
+            const {_idManuallyEdited, ...postData} = currentForm;
 
             // 기존 포스트의 슬러그가 변경된 경우: rename-slug 먼저 처리
             if (!isNew && originalId && postData.id !== originalId) {
@@ -287,12 +300,33 @@ export default function AdminPostEditorPage() {
                     </Link>
                     <div className={styles.toolbarDivider}/>
                     <button type="button" className={styles.toolbarIconBtn} title="실행 취소 (⌘Z)"
-                            onClick={() => editorRef.current?.undo()}>
+                            onClick={() => editorRef.current?.undo()}
+                            disabled={editorMode === 'raw'}>
                         <Undo size={20}/>
                     </button>
                     <button type="button" className={styles.toolbarIconBtn} title="다시 실행 (⌘⇧Z)"
-                            onClick={() => editorRef.current?.redo()}>
+                            onClick={() => editorRef.current?.redo()}
+                            disabled={editorMode === 'raw'}>
                         <Redo size={20}/>
+                    </button>
+                    <div className={styles.toolbarDivider}/>
+                    <button
+                        type="button"
+                        className={`${styles.toolbarIconBtn} ${editorMode === 'raw' ? styles.toolbarIconBtnActive : ''}`}
+                        title={editorMode === 'raw' ? '비주얼 에디터로 전환' : 'Raw 마크다운 편집'}
+                        onClick={async () => {
+                            if (editorMode === 'visual') {
+                                setRawContent(form.content);
+                                setEditorMode('raw');
+                            } else {
+                                const content = rawTextareaRef.current?.innerText ?? rawContent;
+                                setForm(prev => ({...prev, content}));
+                                await editorRef.current?.loadMarkdown(content);
+                                setEditorMode('visual');
+                            }
+                        }}
+                    >
+                        <Code size={20}/>
                     </button>
                 </div>
                 <div className={styles.toolbarRight}>
@@ -344,7 +378,7 @@ export default function AdminPostEditorPage() {
                     </button>
                     {!isNew && (
                         <Link href={`/blog/${params.id}`} target="_blank"
-                              className={`${styles.toolbarIconBtn} ${styles.hideOnMobile}`}
+                              className={styles.toolbarIconBtn}
                               title="미리보기">
                             <Launch size={20}/>
                         </Link>
@@ -371,13 +405,23 @@ export default function AdminPostEditorPage() {
                         onKeyDown={handleTitleKeyDown}
                         onPaste={handleTitlePaste}
                     />
-                    <AdminBlockEditor
-                        ref={editorRef}
-                        initialContent={form.content}
-                        onChange={handleContentChange}
-                        onUploadImage={handleImageUpload}
-                        theme="dark" // Dashboard defaults to dark mode natively
-                    />
+                    {editorMode === 'raw' ? (
+                        <div
+                            ref={rawTextareaRef}
+                            contentEditable
+                            suppressContentEditableWarning
+                            spellCheck={false}
+                            className={styles.rawMdTextarea}
+                        />
+                    ) : (
+                        <AdminBlockEditor
+                            ref={editorRef}
+                            initialContent={form.content}
+                            onChange={handleContentChange}
+                            onUploadImage={handleImageUpload}
+                            theme="dark"
+                        />
+                    )}
                 </div>
             </main>
 

@@ -1742,28 +1742,30 @@
 }
 
 @media (max-width: 480px) {
-    .hideOnMobile {
-        display: none;
-    }
-
     .editorToolbar {
-        padding: 8px 12px;
-        height: 52px;
+        padding: 0 10px;
+        height: 48px;
+        flex-wrap: nowrap;
     }
 
     .toolbarLeft,
     .toolbarRight {
-        gap: 4px;
+        gap: 2px;
+    }
+
+    .toolbarDivider {
+        margin: 0 2px;
     }
 
     .toolbarIconBtn {
-        width: 32px;
-        height: 32px;
+        width: 30px;
+        height: 30px;
     }
 
     .toolbarStatusBadge {
         font-size: 10px;
-        padding: 2px 7px;
+        padding: 3px 7px;
+        white-space: nowrap;
     }
 
     .editorToast {
@@ -1789,7 +1791,22 @@
     max-width: 800px;
     display: flex;
     flex-direction: column;
-    padding: 0 54px; /* single source of horizontal spacing */
+    padding: 0 54px;
+    min-height: 100%;
+}
+
+.rawMdTextarea {
+    width: 100%;
+    min-height: 60vh;
+    background: transparent;
+    color: var(--color-text-primary);
+    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    padding: 0 0 100px;
+    outline: none;
+    white-space: pre-wrap;
+    word-break: break-all;
 }
 
 .editorTitleInput {
@@ -1832,12 +1849,9 @@
     }
 
     .editorToolbar {
-        height: auto;
-        min-height: 52px;
-        padding: 10px 16px;
-        flex-wrap: wrap;
-        gap: 6px;
-        row-gap: 8px;
+        height: 56px;
+        padding: 0 16px;
+        flex-wrap: nowrap;
     }
 
     .toolbarRight {
@@ -1941,14 +1955,8 @@
         width: 100%;
     }
 
-    .editorToolbar {
-        padding: 8px 12px;
-        gap: 4px;
-        row-gap: 6px;
-    }
-
     .toolbarRight {
-        gap: 4px;
+        gap: 2px;
     }
 
     .metadataSidebarHeader {

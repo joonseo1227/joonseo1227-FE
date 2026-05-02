@@ -126,7 +126,7 @@ const AdminBlockEditor = forwardRef(function AdminBlockEditor({initialContent, o
         };
     }, [editor]);
 
-    // Expose insertImage, undo, redo so parent can call them
+    // Expose insertImage, undo, redo, loadMarkdown so parent can call them
     useImperativeHandle(ref, () => ({
         insertImage: (url) => {
             if (!editor) return;
@@ -147,6 +147,11 @@ const AdminBlockEditor = forwardRef(function AdminBlockEditor({initialContent, o
             const view = editor?._tiptapEditor?.view;
             if (!view) return;
             redo(view.state, view.dispatch);
+        },
+        loadMarkdown: async (markdown) => {
+            if (!editor) return;
+            const blocks = await editor.tryParseMarkdownToBlocks(markdown);
+            editor.replaceBlocks(editor.document, blocks);
         },
     }), [editor]);
 
