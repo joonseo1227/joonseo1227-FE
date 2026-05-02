@@ -52,28 +52,39 @@ const AdminBlockEditor = forwardRef(function AdminBlockEditor({initialContent, o
         const container = containerRef.current;
         if (!container || !editor) return;
 
-        const handlePaste = async (e) => {
+        const handlePaste = (e) => {
+            const html = e.clipboardData?.getData('text/html');
             const text = e.clipboardData?.getData('text/plain');
-            // Only intervene when there are actual paragraph breaks
-            if (!text || !text.includes('\n')) return;
+
+            if (!html && (!text || !text.includes('\n'))) return;
 
             e.preventDefault();
             e.stopPropagation();
 
-            const {block} = editor.getTextCursorPosition();
-
+            let block;
             try {
-                const blocks = await editor.tryParseMarkdownToBlocks(text);
-                editor.insertBlocks(blocks, block, 'after');
+                block = editor.getTextCursorPosition().block;
             } catch {
-                // Fallback: insert as plain paragraph blocks
-                const paragraphs = text
-                    .split(/\n+/)
-                    .filter(Boolean)
-                    .map((p) => ({type: 'paragraph', content: [{type: 'text', text: p}]}));
-                if (!paragraphs.length) return;
-                editor.insertBlocks(paragraphs, block, 'after');
+                const doc = editor.document;
+                block = doc[doc.length - 1];
             }
+            if (!block) return;
+
+            if (html) {
+                const blocks = editor.tryParseHTMLToBlocks(html);
+                if (blocks.length) {
+                    editor.insertBlocks(blocks, block, 'after');
+                    return;
+                }
+            }
+
+            if (!text) return;
+            const paragraphs = text
+                .split('\n')
+                .filter((line) => line.trim().length > 0)
+                .map((line) => ({type: 'paragraph', content: [{type: 'text', text: line}]}));
+            if (!paragraphs.length) return;
+            editor.insertBlocks(paragraphs, block, 'after');
         };
 
         container.addEventListener('paste', handlePaste, true);
